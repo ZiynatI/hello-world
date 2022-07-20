@@ -15,15 +15,15 @@ public class ClassDemo {
     }
 
     public static void main(String[] args) {
-        Cat zorya = new Cat();
-        zorya.name = "Зоря";
-        zorya.age = 2;
+        Cat zoria = new Cat();
+        zoria.name = "Зоря";
+        zoria.age = 2;
 
         Cat barsik = new Cat();
         barsik.name = "Барсик";
         barsik.age = 4;
 
-        System.out.println(zorya.toString());
+        System.out.println(zoria.toString());
         System.out.println(barsik.toString());
 
         barsik.getOlder(5);

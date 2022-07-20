@@ -42,4 +42,21 @@ public class Task38 {
     //            return new RGB(0, 128, 255);
     //        }
     //    }
+
+    public static boolean validatePin(String pin) {
+        int countDigits = 0;
+        for (int i = 0; i < pin.length(); i++) {
+            if (Character.isDigit(pin.charAt(i))) {
+                countDigits++;
+            }
+            else {
+                return false;
+            }
+        }
+        if (countDigits == 4 || countDigits == 6) {
+            return true;
+        }
+        return false;
+    }
+
 }
