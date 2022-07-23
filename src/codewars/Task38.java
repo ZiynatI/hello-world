@@ -48,8 +48,7 @@ public class Task38 {
         for (int i = 0; i < pin.length(); i++) {
             if (Character.isDigit(pin.charAt(i))) {
                 countDigits++;
-            }
-            else {
+            } else {
                 return false;
             }
         }
@@ -59,4 +58,39 @@ public class Task38 {
         return false;
     }
 
+    public static String reverseWords(String str) {
+        String[] words = str.split(" ");
+        StringBuilder reserved = new StringBuilder();
+        for (int i = words.length - 1; i >= 0; i--) {
+            if (i != words.length - 1) {
+                reserved.append(" ");
+            }
+            reserved.append(words[i]);
+        }
+        return reserved.toString();
+    }
+
+    public static String maskify(String str) {
+
+        StringBuilder maskified = new StringBuilder();
+        for (int i = 0; i < str.length() - 1; i++) {
+            if (i < str.length() - 4) {
+                maskified.append("#");
+            } else {
+                maskified.append(str.charAt(i));
+            }
+        }
+        return maskified.toString();
+    }
+
+
+    public static int rowSumOddNumbers(int n) {
+        int row = 0;
+        int i =2;
+        int thisI=0;
+        while (row!=n){
+
+        }
+        return ;
+    }
 }
