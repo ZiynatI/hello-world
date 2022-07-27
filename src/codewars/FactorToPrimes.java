@@ -14,6 +14,7 @@ public class FactorToPrimes {
     public static Map<Integer, Integer> factorToPrimes(int n) {
         Map<Integer, Integer> factorized = new LinkedHashMap<>();
         int lastPrime = 2;
+        int sqrt = (int) Math.sqrt(n);
         while (n != 1) {
             while (n % lastPrime == 0) {
                 n = n / lastPrime;
@@ -23,7 +24,10 @@ public class FactorToPrimes {
                     factorized.put(lastPrime, 1);
                 }
             }
-            lastPrime++;
+            if (lastPrime>=sqrt){
+                lastPrime=n;
+            }else {
+            lastPrime++;}
         }
         return factorized;
     }

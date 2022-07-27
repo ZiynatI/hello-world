@@ -3,13 +3,14 @@ package codewars;
 public class Task38 {
     public static void main(String[] args) {
         System.out.println(nSquaresFor(18));
+        System.out.println(findNextSquare(0));
     }
+
     public static int nSquaresFor(int n) {
         if (n <= 3)
             return n;
         int res = n;
-        for (int x = 1; x <= n; x++)
-        {
+        for (int x = 1; x <= n; x++) {
             int temp = x * x;
             if (temp > n)
                 break;
@@ -17,6 +18,15 @@ public class Task38 {
                 res = Math.min(res, 1 + nSquaresFor(n - temp));
         }
         return res;
+    }
+
+    public static long findNextSquare(long sq) {
+        double sqrt = Math.sqrt(sq);
+        if (sqrt % 1 != 0) {
+            return -1;
+        }
+        int nextSqrt = (int) sqrt+1;
+        return nextSqrt*nextSqrt;
     }
     //In this kata you parse RGB colors represented by strings. The formats are primarily used in HTML and CSS. Your task is to implement a function which takes a color as a string and returns the parsed color as a map (see Examples).
     //Input:
@@ -101,13 +111,13 @@ public class Task38 {
     }
 
 
-//    public static int rowSumOddNumbers(int n) {
-//        int row = 0;
-//        int i =2;
-//        int thisI=0;
-//        while (row!=n){
-//
-//        }
-//        return ;
-//    }
+    //    public static int rowSumOddNumbers(int n) {
+    //        int row = 0;
+    //        int i =2;
+    //        int thisI=0;
+    //        while (row!=n){
+    //
+    //        }
+    //        return ;
+    //    }
 }
