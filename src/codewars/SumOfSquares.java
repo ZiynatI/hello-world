@@ -17,41 +17,50 @@ public class SumOfSquares {
     //300 random maximally hard test cases: 1e8 < n < 1e9
 
 
-    //Для решения задачи нужно изучить теоремы о суммах квадратов
-
-    //Теорема Ферма — Эйлера (другие названия — рождественская теорема Ферма, теорема о представлении простых чисел в виде суммы двух квадратов) гласит[1]:
-    //
-    //Любое простое число p = 4 n + 1 {\displaystyle p=4n+1} {\displaystyle p=4n+1}, где n {\displaystyle n} n — натуральное число, представимо в виде суммы квадратов двух натуральных чисел.
-    //
-    //Иначе говоря,
-    //p ∈ P , p = 4 n + 1 , n ∈ N ⇒ p = x 2 + y 2 , {\displaystyle p\in \mathbb {P} ,p=4n+1,n\in \mathbb {N} \Rightarrow p=x^{2}+y^{2},} {\displaystyle p\in \mathbb {P} ,p=4n+1,n\in \mathbb {N} \Rightarrow p=x^{2}+y^{2},}
-    //
-    //где p {\displaystyle p} p — простое число.
     public static void main(String[] args) {
-        System.out.println(nSquaresFor(1529));
+        System.out.println(nSquaresFor(7));
     }
 
     public static int nSquaresFor(int n) {
+        double sqrt = Math.sqrt(n);
+        if(sqrt%1==0){
+            return 1;
+        }
+        //Теорема Ферма — Эйлера гласит:Любое простое число p = 4 n + 1, где n — натуральное число,
+        //представимо в виде суммы квадратов двух натуральных чисел.
+        if (n % 4 == 1) {
+            return 2;
+        }
+        //Теорема Лежандра о трёх квадратах утверждает, что натуральное число может быть представлено суммой трёх квадратов целых чисел
+        // n=x^{2}+y^{2}+z^{2} тогда и только тогда, когда n не представимо в виде n=4^{a}(8b+7), где a и b целые.
+        if (!numberWhichIsNotSumOfThreeSquares(n)){
+            int m = n;
+           while (m%4==0){
+               m=m/4;
+           }if(m%8==7){
+               return 3;
+            }
 
-    return 0;
+        }
+        //Теорема Лагранжа о сумме четырёх квадратов утверждает, что
+        //всякое натуральное число можно представить в виде суммы четырёх квадратов целых чисел.
+            return 4;
     }
 
 
-    //    public static int nSquaresFor(int n) {
-    //        int length = n;
-    //        int count = 0;
-    //        int a = (int) Math.sqrt(n);
-    //        for (int i = a; i <n; i--) {
-    //            while (n > 0) {
-    //                n -= i*i;
-    //                count++;
-    //            }
-    //            if (count < length) {
-    //                length = count;
-    //            }
-    //            count = 0;
-    //        }
-    //
-    //        return length;
-    //    }
+    public static boolean numberWhichIsNotSumOfThreeSquares(int n) {
+        //В частности, числами не представимыми суммой трёх квадратов и представимыми в виде n=4^{a}(8b+7) являются элементы данного массива
+        int[] numbers = new int[]{
+                7, 15, 23, 28, 31, 39, 47, 55, 60, 63, 71, 79, 87, 92, 95,
+                103, 111, 112, 119, 124, 127, 135, 143, 151, 156, 159, 167,
+                175, 183, 188, 191, 199, 207, 215, 220, 223, 231, 239, 240,
+                247, 252, 255, 263, 271, 279, 284, 287, 295, 303, 311, 316,
+                319, 327, 335, 343};
+        for (int i = 0; i < numbers.length; i++) {
+            if (n == numbers[i]) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
