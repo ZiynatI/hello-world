@@ -24,10 +24,11 @@ public class FactorToPrimes {
                     factorized.put(lastPrime, 1);
                 }
             }
-            if (lastPrime>=sqrt){
-                lastPrime=n;
-            }else {
-            lastPrime++;}
+            if (lastPrime >= sqrt) {
+                lastPrime = n;
+            } else {
+                lastPrime++;
+            }
         }
         return factorized;
     }
