@@ -28,27 +28,28 @@ public class SumOfSquares {
         if (sqrt % 1 == 0) {
             return 1;
         }
+        //An integer greater than one can be written as a sum of two squares if and only if its prime decomposition contains no factor p^k,
+        //where prime p ≡ 3 ( mod 4 ) and k is odd.
+        int m = n;
+        Map<Integer,Integer> factorized = FactorToPrimes.factorToPrimes(m);
+        boolean twoSquares=true;
+        for (Map.Entry<Integer, Integer> prime : factorized.entrySet()) {
+            if(((prime.getKey()%4==3)&&prime.getValue()%2!=0)){
+                twoSquares=false;
+            }
+        }
+        if (twoSquares){
+            return 2;
+        }
         //Теорема Лежандра о трёх квадратах утверждает, что натуральное число может быть представлено суммой трёх квадратов целых чисел
         // n=x^{2}+y^{2}+z^{2} тогда и только тогда, когда n не представимо в виде n=4^{a}(8b+7), где a и b целые.
+
         int s = n;
         while (s % 4 == 0) {
             s = s / 4;
         }
         if (s % 8 != 7) {
             return 3;
-        }
-        //An integer greater than one can be written as a sum of two squares if and only if its prime decomposition contains no factor p^k,
-        //where prime p ≡ 3 ( mod 4 ) and k is odd.
-        int m = n;
-        Map<Integer, Integer> factorized = FactorToPrimes.factorToPrimes(m);
-        boolean twoSquares = true;
-        for (Map.Entry<Integer, Integer> prime : factorized.entrySet()) {
-            if (((prime.getKey() % 4 == 3) && prime.getValue() % 2 != 0)) {
-                twoSquares = false;
-            }
-        }
-        if (twoSquares) {
-            return 2;
         }
         //Теорема Лагранжа о сумме четырёх квадратов утверждает, что
         //всякое натуральное число можно представить в виде суммы четырёх квадратов целых чисел.
