@@ -2,9 +2,21 @@ package codewars;
 
 public class Task38 {
     public static void main(String[] args) {
-        for(int i =0;i< args.length;i++){
-            System.out.println();
+        System.out.println(nSquaresFor(18));
+    }
+    public static int nSquaresFor(int n) {
+        if (n <= 3)
+            return n;
+        int res = n;
+        for (int x = 1; x <= n; x++)
+        {
+            int temp = x * x;
+            if (temp > n)
+                break;
+            else
+                res = Math.min(res, 1 + nSquaresFor(n - temp));
         }
+        return res;
     }
     //In this kata you parse RGB colors represented by strings. The formats are primarily used in HTML and CSS. Your task is to implement a function which takes a color as a string and returns the parsed color as a map (see Examples).
     //Input:
