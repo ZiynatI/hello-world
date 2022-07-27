@@ -1,5 +1,7 @@
 package codewars;
 
+import java.util.Map;
+
 public class SumOfSquares {
     //The task is simply stated. Given an integer n (3 < n < 109), find the length of the smallest list
     //of perfect squares which add up to n. Come up with the best algorithm you can; you'll need it!
@@ -18,49 +20,38 @@ public class SumOfSquares {
 
 
     public static void main(String[] args) {
-        System.out.println(nSquaresFor(7));
+        System.out.println(nSquaresFor(15));
     }
 
     public static int nSquaresFor(int n) {
         double sqrt = Math.sqrt(n);
-        if(sqrt%1==0){
+        if (sqrt % 1 == 0) {
             return 1;
-        }
-        //Теорема Ферма — Эйлера гласит:Любое простое число p = 4 n + 1, где n — натуральное число,
-        //представимо в виде суммы квадратов двух натуральных чисел.
-        if (n % 4 == 1) {
-            return 2;
         }
         //Теорема Лежандра о трёх квадратах утверждает, что натуральное число может быть представлено суммой трёх квадратов целых чисел
         // n=x^{2}+y^{2}+z^{2} тогда и только тогда, когда n не представимо в виде n=4^{a}(8b+7), где a и b целые.
-        if (!numberWhichIsNotSumOfThreeSquares(n)){
-            int m = n;
-           while (m%4==0){
-               m=m/4;
-           }if(m%8==7){
-               return 3;
+        int s = n;
+        while (s % 4 == 0) {
+            s = s / 4;
+        }
+        if (s % 8 != 7) {
+            return 3;
+        }
+        //An integer greater than one can be written as a sum of two squares if and only if its prime decomposition contains no factor p^k,
+        //where prime p ≡ 3 ( mod 4 ) and k is odd.
+        int m = n;
+        Map<Integer, Integer> factorized = FactorToPrimes.factorToPrimes(m);
+        boolean twoSquares = true;
+        for (Map.Entry<Integer, Integer> prime : factorized.entrySet()) {
+            if (((prime.getKey() % 4 == 3) && prime.getValue() % 2 != 0)) {
+                twoSquares = false;
             }
-
+        }
+        if (twoSquares) {
+            return 2;
         }
         //Теорема Лагранжа о сумме четырёх квадратов утверждает, что
         //всякое натуральное число можно представить в виде суммы четырёх квадратов целых чисел.
-            return 4;
-    }
-
-
-    public static boolean numberWhichIsNotSumOfThreeSquares(int n) {
-        //В частности, числами не представимыми суммой трёх квадратов и представимыми в виде n=4^{a}(8b+7) являются элементы данного массива
-        int[] numbers = new int[]{
-                7, 15, 23, 28, 31, 39, 47, 55, 60, 63, 71, 79, 87, 92, 95,
-                103, 111, 112, 119, 124, 127, 135, 143, 151, 156, 159, 167,
-                175, 183, 188, 191, 199, 207, 215, 220, 223, 231, 239, 240,
-                247, 252, 255, 263, 271, 279, 284, 287, 295, 303, 311, 316,
-                319, 327, 335, 343};
-        for (int i = 0; i < numbers.length; i++) {
-            if (n == numbers[i]) {
-                return true;
-            }
-        }
-        return false;
+        return 4;
     }
 }

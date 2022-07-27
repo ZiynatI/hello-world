@@ -10,7 +10,7 @@ public class FactorToPrimes {
     public static void main(String[] args) {
         System.out.println(factorToPrimes(25));
         System.out.println(factorToPrimes(35));
-        System.out.println(factorToPrimes(2));
+        System.out.println(factorToPrimes(17));
     }
 
     public static Map<Integer, Integer> factorToPrimes(int n) {
