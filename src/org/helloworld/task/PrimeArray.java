@@ -1,9 +1,8 @@
 package org.helloworld.task;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
-public class Task16 {
+public class PrimeArray {
     public static void main(String[] args) {
         /*теперь сложнее веселее)
         сделай функцию, которая находит все простые числа от 1 до N и возвращает их массив
@@ -31,7 +30,7 @@ public class Task16 {
         long startTimeMs = System.currentTimeMillis();
         int k = 0;
         for (int i = 2; i < lastNumber; i++) {
-            if (isPrime(i) == true) {
+            if (isPrime(i)) {
                 primeArray[k] = i;
                 k++;
             }

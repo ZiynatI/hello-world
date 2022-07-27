@@ -16,11 +16,23 @@ public class SumOfSquares {
     //5 maximally hard test cases: 5e8 < n < 1e9
     //300 random maximally hard test cases: 1e8 < n < 1e9
 
+
+    //Для решения задачи нужно изучить теоремы о суммах квадратов
+
+    //Теорема Ферма — Эйлера (другие названия — рождественская теорема Ферма, теорема о представлении простых чисел в виде суммы двух квадратов) гласит[1]:
+    //
+    //Любое простое число p = 4 n + 1 {\displaystyle p=4n+1} {\displaystyle p=4n+1}, где n {\displaystyle n} n — натуральное число, представимо в виде суммы квадратов двух натуральных чисел.
+    //
+    //Иначе говоря,
+    //p ∈ P , p = 4 n + 1 , n ∈ N ⇒ p = x 2 + y 2 , {\displaystyle p\in \mathbb {P} ,p=4n+1,n\in \mathbb {N} \Rightarrow p=x^{2}+y^{2},} {\displaystyle p\in \mathbb {P} ,p=4n+1,n\in \mathbb {N} \Rightarrow p=x^{2}+y^{2},}
+    //
+    //где p {\displaystyle p} p — простое число.
     public static void main(String[] args) {
         System.out.println(nSquaresFor(1529));
     }
 
     public static int nSquaresFor(int n) {
+
     return 0;
     }
 

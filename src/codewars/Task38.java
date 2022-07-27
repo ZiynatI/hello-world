@@ -1,6 +1,11 @@
 package codewars;
 
 public class Task38 {
+    public static void main(String[] args) {
+        for(int i =0;i< args.length;i++){
+            System.out.println();
+        }
+    }
     //In this kata you parse RGB colors represented by strings. The formats are primarily used in HTML and CSS. Your task is to implement a function which takes a color as a string and returns the parsed color as a map (see Examples).
     //Input:
     //
@@ -84,13 +89,13 @@ public class Task38 {
     }
 
 
-    public static int rowSumOddNumbers(int n) {
-        int row = 0;
-        int i =2;
-        int thisI=0;
-        while (row!=n){
-
-        }
-        return ;
-    }
+//    public static int rowSumOddNumbers(int n) {
+//        int row = 0;
+//        int i =2;
+//        int thisI=0;
+//        while (row!=n){
+//
+//        }
+//        return ;
+//    }
 }
