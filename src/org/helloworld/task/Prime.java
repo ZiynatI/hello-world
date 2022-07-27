@@ -2,7 +2,7 @@ package org.helloworld.task;
 
 import java.util.Scanner;
 
-public class Task15 {
+public class Prime {
     public static void main(String[] args) {
         //определить, является ли число N простым
         Scanner s = new Scanner(System.in);
