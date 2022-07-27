@@ -28,8 +28,8 @@ public class SumOfSquares {
         if (sqrt % 1 == 0) {
             return 1;
         }
-        //An integer greater than one can be written as a sum of two squares if and only if its prime decomposition contains no factor p^k,
-        //where prime p ≡ 3 ( mod 4 ) and k is odd.
+        //An integer greater than one can be written as a sum of two squares if and only if its prime
+        //decomposition contains no factor p^k, where prime p ≡ 3 ( mod 4 ) and k is odd.
         int m = n;
         Map<Integer,Integer> factorized = FactorToPrimes.factorToPrimes(m);
         boolean twoSquares=true;
