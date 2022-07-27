@@ -17,7 +17,7 @@ public class FactorToPrimes {
         Map<Integer, Integer> factorized = new LinkedHashMap<>();
         List<Integer> primeList = new LinkedList<>();
         primeList.add(2);
-        int lastPrime = primeList.get(primeList.size() - 1);
+        int lastPrime = 2;
         while (n != 1) {
             if (n % lastPrime == 0) {
                 n = n / lastPrime;
@@ -37,7 +37,6 @@ public class FactorToPrimes {
 
     public static int getNextPrime(int lastPrime, List primeList) {
         int testing = lastPrime + 1;
-
         for (int i = 0; i < primeList.size(); i++) {
             if (testing % (int) primeList.get(i) == 0) {
                 testing++;
@@ -49,5 +48,4 @@ public class FactorToPrimes {
         }
         return testing;
     }
-
 }
