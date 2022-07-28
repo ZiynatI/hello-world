@@ -1,6 +1,6 @@
 package codewars;
 
-public class Task21 {
+public class ValidParentheses {
     public static void main(String[] args) {
         System.out.println(validParentheses("r(D)U(((6f8D)wm(J"));
     }
