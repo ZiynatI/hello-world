@@ -2,6 +2,7 @@ package codewars;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 public class BraceChecker {
     //Write a function that takes a string of braces, and determines if the order of the braces is valid.
@@ -25,19 +26,19 @@ public class BraceChecker {
         bracesMap.put('(', ')');
         bracesMap.put('[', ']');
         bracesMap.put('{', '}');
-        StringBuilder solver = new StringBuilder();
+        Stack<Character> solverStack = new Stack<>();
         for (int i = 0; i < braces.length(); i++) {
-            if(!bracesMap.containsKey(braces.charAt(i))&&solver.length()==0){
+            if (!bracesMap.containsKey(braces.charAt(i)) && solverStack.empty()) {
                 return false;
             }
             if (bracesMap.containsKey(braces.charAt(i))) {
-                solver.append(braces.charAt(i));
-            } else if (braces.charAt(i) == bracesMap.get(solver.charAt(solver.length() - 1))) {
-                solver.deleteCharAt(solver.length() - 1);
+                solverStack.push(braces.charAt(i));
+            } else if (braces.charAt(i) == bracesMap.get(solverStack.peek())) {
+                solverStack.pop();
             } else {
                 return false;
             }
         }
-        return solver.length()==0;
+        return solverStack.empty();
     }
 }
