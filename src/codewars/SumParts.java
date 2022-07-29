@@ -25,16 +25,15 @@ public class SumParts {
     public static void main(String[] args) {
         System.out.println(Arrays.toString(sumParts(new int[]{1, 2, 3, 4, 5, 6})));
     }
+
     public static int[] sumParts(int[] ls) {
         int[] sumOfParts = new int[ls.length + 1];
         int sum = 0;
-        for (int i = 0; i <= ls.length; i++) {
-            for (int j = ls.length-1; j >= i; j--) {
-                sum += ls[j];
-            }
-            sumOfParts[i] = sum;
-            sum = 0;
+        for (int j = ls.length - 1; j >= 0; j--) {
+            sumOfParts[j + 1] = sum;
+            sum += ls[j];
         }
+        sumOfParts[0] = sum;
         return sumOfParts;
     }
 }
