@@ -28,12 +28,13 @@ public class BraceChecker {
         bracesMap.put('{', '}');
         Stack<Character> solverStack = new Stack<>();
         for (int i = 0; i < braces.length(); i++) {
-            if (!bracesMap.containsKey(braces.charAt(i)) && solverStack.empty()) {
+            char thisChar = braces.charAt(i);
+            if (!bracesMap.containsKey(thisChar) && solverStack.empty()) {
                 return false;
             }
-            if (bracesMap.containsKey(braces.charAt(i))) {
-                solverStack.push(braces.charAt(i));
-            } else if (braces.charAt(i) == bracesMap.get(solverStack.peek())) {
+            if (bracesMap.containsKey(thisChar)) {
+                solverStack.push(thisChar);
+            } else if (thisChar == bracesMap.get(solverStack.peek())) {
                 solverStack.pop();
             } else {
                 return false;
