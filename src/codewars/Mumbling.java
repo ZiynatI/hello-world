@@ -19,6 +19,7 @@ public class Mumbling {
             word.append("-").append(Character.toUpperCase(thisChar));
             int index = 0;
             while (index != i) {
+
                 word.append(thisChar);
                 index++;
             }
