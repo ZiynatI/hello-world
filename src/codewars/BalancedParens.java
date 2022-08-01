@@ -22,30 +22,29 @@ public class BalancedParens {
         } else if (n == 1) {
             return List.of(new String[]{"()", "(("});
         } else {
-            Iterator<String> iter = doList(n - 1).iterator();
-            char leftParenthesis = '(';
-            char rightParenthesis = ')';
-            List<String> balanced = new ArrayList<>();
-            while (iter.hasNext()) {
-                String thisString = iter.next();
-                balanced.add(thisString + leftParenthesis + leftParenthesis);
-                balanced.add(thisString + leftParenthesis + rightParenthesis);
-                if (checkString(thisString) >= 2) {
-                    balanced.add(thisString + rightParenthesis + rightParenthesis);
-                }
-                if (checkString(thisString) > 0) {
-                    balanced.add(thisString + rightParenthesis + leftParenthesis);
-                }
-            }
-            return balanced;
+            return addParens(addParens(doList(n - 1)));
         }
+    }
+
+    public static List<String> addParens(List<String> nMinusOneList) {
+        List<String> balancedNotAtAll = new ArrayList<>();
+        char leftParenthesis = '(';
+        char rightParenthesis = ')';
+        for (String thisString : nMinusOneList) {
+            balancedNotAtAll.add(thisString + leftParenthesis);
+            if (checkString(thisString) > 0) {
+                balancedNotAtAll.add(thisString + rightParenthesis);
+            }
+        }
+        return balancedNotAtAll;
     }
 
     public static List<String> balancedParens(int n) {
         List<String> balancedNotAtAll = doList(n);
-        for (int i = balancedNotAtAll.size() - 1; i >= 0; i--) {
-            if (checkString(balancedNotAtAll.get(i)) != 0) {
-                balancedNotAtAll.remove(balancedNotAtAll.get(i));
+        Iterator<String> thisString = balancedNotAtAll.iterator();
+        while (thisString.hasNext()){
+            if(checkString(thisString.next())!=0){
+                thisString.remove();
             }
         }
         return balancedNotAtAll;
@@ -63,51 +62,51 @@ public class BalancedParens {
         return nestingLevel;
     }
 
-    //    public static List<String> balancedParens(int n) {
-    //        if (n == 0) {
-    //            return List.of(new String[]{""});
-    //        }
-    //        List<String> balanced = new ArrayList<>();
-    //        balanced.add("(");
-    //        for (int i = 1; i < n * 2; i++) {
-    //            int index = balanced.size();
-    //            for (int j = 0; j < index; j++) {
-    //                String thisString = balanced.get(j);
-    //                if (isBalanced(thisString, '(') < n) {
-    //                    balanced.add(thisString + "(");
+    //        public static List<String> balancedParens(int n) {
+    //            if (n == 0) {
+    //                return List.of(new String[]{""});
+    //            }
+    //            List<String> balanced = new ArrayList<>();
+    //            balanced.add("(");
+    //            for (int i = 1; i < n * 2; i++) {
+    //                int index = balanced.size();
+    //                for (int j = 0; j < index; j++) {
+    //                    String thisString = balanced.get(j);
+    //                    if (isBalanced(thisString, '(') < n) {
+    //                        balanced.add(thisString + "(");
+    //                    }
+    //                    if (isBalanced(thisString, ')') > 0) {
+    //                        balanced.add(thisString + ")");
+    //                    }
     //                }
-    //                if (isBalanced(thisString, ')') > 0) {
-    //                    balanced.add(thisString + ")");
+    //                for (int j = 0; j < index; j++) {
+    //                    balanced.remove(0);
     //                }
     //            }
-    //            for (int j = 0; j < index; j++) {
-    //                balanced.remove(0);
-    //            }
+    //            return balanced;
     //        }
-    //        return balanced;
-    //    }
     //
     //
-    //    public static int isBalanced(String s, char parenthes) {
-    //        if (parenthes == ')') {
-    //            int balance = 0;
-    //            for (int i = 0; i < s.length(); i++) {
-    //                if (s.charAt(i) == '(') {
-    //                    balance++;
-    //                } else if (s.charAt(i) == ')') {
-    //                    balance--;
+    //        public static int isBalanced(String s, char parenthes) {
+    //            if (parenthes == ')') {
+    //                int balance = 0;
+    //                for (int i = 0; i < s.length(); i++) {
+    //                    if (s.charAt(i) == '(') {
+    //                        balance++;
+    //                    } else if (s.charAt(i) == ')') {
+    //                        balance--;
+    //                    }
     //                }
-    //            }
-    //            return balance;
-    //        } else {
-    //            int opening = 0;
-    //            for (int i = 0; i < s.length(); i++) {
-    //                if (s.charAt(i) == '(') {
-    //                    opening++;
+    //                return balance;
+    //            } else {
+    //                int opening = 0;
+    //                for (int i = 0; i < s.length(); i++) {
+    //                    if (s.charAt(i) == '(') {
+    //                        opening++;
+    //                    }
     //                }
+    //                return opening;
     //            }
-    //            return opening;
     //        }
-    //    }
 }
 
