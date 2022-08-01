@@ -1,7 +1,6 @@
 package codewars;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class BalancedParens {
@@ -11,43 +10,50 @@ public class BalancedParens {
     //balancedParens(1) returns ArrayList<String> with element:  "()"
     //balancedParens(2) returns ArrayList<String> with elements: "()()","(())"
     //balancedParens(3) returns ArrayList<String> with elements: "()()()","(())()","()(())","(()())","((()))"
+    //ну типа в каждый момент времени ты можешь воткнуть либо открывающую, либо закрывающую скобочку
+    //рассмотрим и тот, и другой случай) это два рекурсивных вызова
+    //ну и понятно, что не везде и не всё можно воткнуть
+    //и посмотри как решалась задача на скобочки (однотипные), это поможет
+    //вспомни основы рекурсии
+    //что такое рекурсивный алгоритм, как он должен выглядеть, какие случаи нужно обрабатывать
+    //вообще это аглоритм обхода графа, поиск в глубину (DFS) но ты алгоритмы пока не знаешь)
+    //ДВА рекурсивных вызова, а не один
+    //ты в итоге получаешь список и рекурсивно пытаешься его достроить до нужного
+    //а нужно прокидывать в рекурсию текущую цепочку символов и получать из неё все возможные продолжения
+    //"" - какие могут быть продолжения? "(" и ")", но второе недопустимо т.к. уровня вложенности недостаточно
+    //"(" - какие могут быть продолжения? снова ")" и "(", теперь могут быть оба
+    //максимально упрощённо:
+    //void recurse(String stringSoFar) {
+    //  recurse(stringSoFar + "(");
+    //  recurse(stringSoFar + ")");
+    //}
+    //во-первых, представь, что с увеличением уровня погружения n растёт а не уменьшается - так просто удобнее
+    //во-вторых, заполняй список на самом глубоком уровне (когда у тебя уже есть одна последовательность скобок) а не на промежуточных
+    //промежуточные уровни нужны только затем, чтоб добавлять по одной скобке за уровень
+    //а вся работа делается на глубине (в листьях графа, хотя тебе это пока ни о чём не говорит)
 
     public static void main(String[] args) {
         System.out.println(balancedParens(3));
     }
 
-    public static List<String> doList(int n) {
-        if (n == 0) {
-            return List.of(new String[]{""});
-        } else if (n == 1) {
-            return List.of(new String[]{"()", "(("});
-        } else {
-            return addParens(addParens(doList(n - 1)));
-        }
-    }
-
-    public static List<String> addParens(List<String> nMinusOneList) {
-        List<String> balancedNotAtAll = new ArrayList<>();
-        char leftParenthesis = '(';
-        char rightParenthesis = ')';
-        for (String thisString : nMinusOneList) {
-            balancedNotAtAll.add(thisString + leftParenthesis);
-            if (checkString(thisString) > 0) {
-                balancedNotAtAll.add(thisString + rightParenthesis);
-            }
-        }
-        return balancedNotAtAll;
-    }
-
     public static List<String> balancedParens(int n) {
-        List<String> balancedNotAtAll = doList(n);
-        Iterator<String> thisString = balancedNotAtAll.iterator();
-        while (thisString.hasNext()){
-            if(checkString(thisString.next())!=0){
-                thisString.remove();
+        List<String> acc = new ArrayList<>();
+        recurse("", n * 2, acc);
+        return acc;
+    }
+
+    public static void recurse(String stringSoFar, int max, List<String> acc) {
+        if (stringSoFar.length() == max) {
+            // Maybe add string to a list?
+            if (checkString(stringSoFar) == 0) {
+                acc.add(stringSoFar);
+            }
+        } else {
+            recurse(stringSoFar + "(", max, acc);
+            if (checkString(stringSoFar) > 0) {
+                recurse(stringSoFar + ")", max, acc);
             }
         }
-        return balancedNotAtAll;
     }
 
     public static int checkString(String s) {
@@ -61,52 +67,5 @@ public class BalancedParens {
         }
         return nestingLevel;
     }
-
-    //        public static List<String> balancedParens(int n) {
-    //            if (n == 0) {
-    //                return List.of(new String[]{""});
-    //            }
-    //            List<String> balanced = new ArrayList<>();
-    //            balanced.add("(");
-    //            for (int i = 1; i < n * 2; i++) {
-    //                int index = balanced.size();
-    //                for (int j = 0; j < index; j++) {
-    //                    String thisString = balanced.get(j);
-    //                    if (isBalanced(thisString, '(') < n) {
-    //                        balanced.add(thisString + "(");
-    //                    }
-    //                    if (isBalanced(thisString, ')') > 0) {
-    //                        balanced.add(thisString + ")");
-    //                    }
-    //                }
-    //                for (int j = 0; j < index; j++) {
-    //                    balanced.remove(0);
-    //                }
-    //            }
-    //            return balanced;
-    //        }
-    //
-    //
-    //        public static int isBalanced(String s, char parenthes) {
-    //            if (parenthes == ')') {
-    //                int balance = 0;
-    //                for (int i = 0; i < s.length(); i++) {
-    //                    if (s.charAt(i) == '(') {
-    //                        balance++;
-    //                    } else if (s.charAt(i) == ')') {
-    //                        balance--;
-    //                    }
-    //                }
-    //                return balance;
-    //            } else {
-    //                int opening = 0;
-    //                for (int i = 0; i < s.length(); i++) {
-    //                    if (s.charAt(i) == '(') {
-    //                        opening++;
-    //                    }
-    //                }
-    //                return opening;
-    //            }
-    //        }
 }
 
