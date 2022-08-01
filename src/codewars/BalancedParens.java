@@ -31,20 +31,30 @@ public class BalancedParens {
     //во-вторых, заполняй список на самом глубоком уровне (когда у тебя уже есть одна последовательность скобок) а не на промежуточных
     //промежуточные уровни нужны только затем, чтоб добавлять по одной скобке за уровень
     //а вся работа делается на глубине (в листьях графа, хотя тебе это пока ни о чём не говорит)
-
+    //void recurse(String stringSoFar, int max, List<String> acc) {
+    //  if (stringSoFar.length() == max) {
+    //    // Maybe add string to a list?
+    //  } else {
+    //    recurse(stringSoFar + "(", max, acc);
+    //    recurse(stringSoFar + ")", max, acc);
+    //  }
+    //}
+    //а начинаешь так
+    //List<String> acc = new ArrayList<>();
+    //recurse("", n * 2, acc);
+    //return acc;
+    //acc = accumulator, там аккумулируется (собирается) ответ - это чтоб с кучей списков не работать
     public static void main(String[] args) {
-        System.out.println(balancedParens(3));
+        System.out.println(balancedParens(4));
     }
 
     public static List<String> balancedParens(int n) {
         List<String> acc = new ArrayList<>();
-        recurse("", n * 2, acc);
-        return acc;
+        return recurse("", n * 2, acc);
     }
 
-    public static void recurse(String stringSoFar, int max, List<String> acc) {
+    public static List<String> recurse(String stringSoFar, int max, List<String> acc) {
         if (stringSoFar.length() == max) {
-            // Maybe add string to a list?
             if (checkString(stringSoFar) == 0) {
                 acc.add(stringSoFar);
             }
@@ -54,8 +64,8 @@ public class BalancedParens {
                 recurse(stringSoFar + ")", max, acc);
             }
         }
+        return acc;
     }
-
     public static int checkString(String s) {
         int nestingLevel = 0;
         for (int i = 0; i < s.length(); i++) {
