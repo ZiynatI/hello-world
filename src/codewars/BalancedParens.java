@@ -45,27 +45,29 @@ public class BalancedParens {
     //return acc;
     //acc = accumulator, там аккумулируется (собирается) ответ - это чтоб с кучей списков не работать
     public static void main(String[] args) {
-        System.out.println(balancedParens(4));
+        System.out.println(balancedParens(3));
     }
+
 
     public static List<String> balancedParens(int n) {
-        List<String> acc = new ArrayList<>();
-        return recurse("", n * 2, acc);
+        return recurse("", n * 2);
     }
 
-    public static List<String> recurse(String stringSoFar, int max, List<String> acc) {
+    public static List<String> recurse(String stringSoFar, int max) {
+        List<String> balanced = new ArrayList<>();
         if (stringSoFar.length() == max) {
             if (checkString(stringSoFar) == 0) {
-                acc.add(stringSoFar);
+                balanced.add(stringSoFar);
             }
         } else {
-            recurse(stringSoFar + "(", max, acc);
+            balanced.addAll(recurse(stringSoFar + "(", max));
             if (checkString(stringSoFar) > 0) {
-                recurse(stringSoFar + ")", max, acc);
+                balanced.addAll(recurse(stringSoFar + ")", max));
             }
         }
-        return acc;
+        return balanced;
     }
+
     public static int checkString(String s) {
         int nestingLevel = 0;
         for (int i = 0; i < s.length(); i++) {
@@ -77,5 +79,6 @@ public class BalancedParens {
         }
         return nestingLevel;
     }
+
 }
 
