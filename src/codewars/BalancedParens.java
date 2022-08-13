@@ -50,35 +50,23 @@ public class BalancedParens {
 
 
     public static List<String> balancedParens(int n) {
-        return recurse("", n * 2);
+        int nestingLevel = 0;
+        return recurse("", n * 2, nestingLevel);
     }
 
-    public static List<String> recurse(String stringSoFar, int max) {
+    public static List<String> recurse(String stringSoFar, int max, int nestingLevel) {
         List<String> balanced = new ArrayList<>();
         if (stringSoFar.length() == max) {
-            if (checkString(stringSoFar) == 0) {
+            if (nestingLevel == 0) {
                 balanced.add(stringSoFar);
             }
         } else {
-            balanced.addAll(recurse(stringSoFar + "(", max));
-            if (checkString(stringSoFar) > 0) {
-                balanced.addAll(recurse(stringSoFar + ")", max));
+            balanced.addAll(recurse(stringSoFar + "(", max, nestingLevel + 1));
+            if (nestingLevel > 0) {
+                balanced.addAll(recurse(stringSoFar + ")", max, nestingLevel - 1));
             }
         }
         return balanced;
     }
-
-    public static int checkString(String s) {
-        int nestingLevel = 0;
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == '(') {
-                nestingLevel++;
-            } else {
-                nestingLevel--;
-            }
-        }
-        return nestingLevel;
-    }
-
 }
 
