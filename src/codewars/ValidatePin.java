@@ -1,7 +1,5 @@
 package codewars;
 
-import java.util.regex.Pattern;
-
 public class ValidatePin {
     //ATM machines allow 4 or 6 digit PIN codes and PIN codes cannot contain anything
     // ut exactly 4 digits or exactly 6 digits.
@@ -17,6 +15,6 @@ public class ValidatePin {
 
     public static boolean validatePin(String pin) {
         String regex = "\\d{4}|\\d{6}";
-        return Pattern.matches(regex, pin);
+        return pin.matches(regex);
     }
 }
