@@ -11,29 +11,21 @@ public class SinePlot {
     //                       ***    ***
     //                          ****
     public static void main(String[] args) {
-        System.out.println(Math.sin(Math.toRadians(45)));
-        printStrings(sinePlot());
+        sinePlot(7);
     }
 
-    public static String[] sinePlot() {
-        String[] strings = new String[]{"       ", "       ", "       ", "       ", "       ", "       ", "       ",
-                "       ", "       ", "       ", "       ", "       ", "       "};
+    public static void sinePlot(int n) {
+        String example = "              ";
         int starsIndex = 2;
-        for (int i = 0; i <= 360; i += 30) {
-            double sin = Math.sin(Math.toRadians(i));
-            if (sin > Math.sin(Math.toRadians(i - 1))) {
+        for (int i = 0; i <= n; i++) {
+            double sin = Math.sin(i);
+            if (sin > Math.sin(i - 1)) {
                 starsIndex++;
             } else {
                 starsIndex--;
             }
-            strings[i / 30] = strings[i / 30].substring(0, starsIndex) + "*" + strings[i / 30].substring(starsIndex + 1);
-        }
-        return strings;
-    }
 
-    public static void printStrings(String[] strings) {
-        for (String string : strings) {
-            System.out.println(string + "\n");
+            System.out.println(example.substring(0, starsIndex * 2) + "*" + example.substring(starsIndex * 2 + 1));
         }
     }
 }
