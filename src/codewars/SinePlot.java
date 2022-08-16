@@ -15,7 +15,7 @@ public class SinePlot {
     //                       ***    ***
     //                          ****
     public static void main(String[] args) {
-        printSineSlotHorizontal(findValuesOfSin(10));
+        printSineSlotHorizontal(findValuesOfSin(15));
         printSineSlotVertical(findValuesOfSin(15));
     }
 
