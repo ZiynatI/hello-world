@@ -1,6 +1,7 @@
 package codewars;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class SinePlot {
@@ -14,7 +15,8 @@ public class SinePlot {
     //                       ***    ***
     //                          ****
     public static void main(String[] args) {
-        printSineSlot(findValuesOfSin(10));
+        printSineSlotHorizontal(findValuesOfSin(10));
+        printSineSlotVertical(findValuesOfSin(15));
     }
 
     public static List<Double> findValuesOfSin(int n) {
@@ -25,17 +27,36 @@ public class SinePlot {
         return valuesOfSin;
     }
 
-    public static void printSineSlot(List<Double> valuesOfSin) {
-        for (Double valueOfSin : valuesOfSin) {
-            StringBuilder sb = new StringBuilder();
-            while (sb.length() != ((int) (10 * valueOfSin) + 9)) {
-                sb.append(" ");
-            }
-            sb.append("*");
-            while (sb.length() != 19) {
-                sb.append(" ");
-            }
-            System.out.println(sb);
+    public static void printSineSlotHorizontal(List<Double> valuesOfSin) {
+        StringBuilder[] yLines = new StringBuilder[valuesOfSin.size()];
+        char[] spaceArray = new char[19];
+        Arrays.fill(spaceArray, ' ');
+        for (int i = 0; i < valuesOfSin.size(); i++) {
+            yLines[i] = new StringBuilder();
+            yLines[i].append(spaceArray);
+        }
+
+        for (int i = 0; i < valuesOfSin.size(); i++) {
+            int indexOfCell = (int) ((10 * valuesOfSin.get(i)) + 9);
+            yLines[i].replace(indexOfCell, indexOfCell + 1, "*");
+            System.out.println(yLines[i]);
+        }
+    }
+
+    public static void printSineSlotVertical(List<Double> valuesOfSin) {
+        StringBuilder[] xLines = new StringBuilder[19];
+        char[] spaceArray = new char[valuesOfSin.size()];
+        Arrays.fill(spaceArray, ' ');
+        for (int i = 0; i < 19; i++) {
+            xLines[i] = new StringBuilder();
+            xLines[i].append(spaceArray);
+        }
+        for (int i = 0; i < valuesOfSin.size(); i++) {
+            int indexOfCell = (int) (10 * valuesOfSin.get(i));
+            xLines[9 - indexOfCell].replace(i, i + 1, "*");
+        }
+        for (int i = 0; i < xLines.length; i++) {
+            System.out.println(xLines[i]);
         }
     }
 }
