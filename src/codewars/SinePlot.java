@@ -1,5 +1,7 @@
 package codewars;
 
+import java.util.LinkedList;
+
 public class SinePlot {
     //вот тебе другая любопытная задача, не связанная с этой
     //нарисуй график синуса в консоли)
@@ -11,21 +13,28 @@ public class SinePlot {
     //                       ***    ***
     //                          ****
     public static void main(String[] args) {
-        sinePlot(7);
+        printSineSlot(findValuesOfSin(10));
     }
 
-    public static void sinePlot(int n) {
-        String example = "              ";
-        int starsIndex = 2;
-        for (int i = 0; i <= n; i++) {
-            double sin = Math.sin(i);
-            if (sin > Math.sin(i - 1)) {
-                starsIndex++;
-            } else {
-                starsIndex--;
-            }
+    public static LinkedList<Integer> findValuesOfSin(int n) {
+        LinkedList<Integer> valuesOfSin = new LinkedList<>();
+        for (double i = 0; i < n; i += 0.2) {
+            valuesOfSin.add((int) (10 * Math.sin(i)));
+        }
+        return valuesOfSin;
+    }
 
-            System.out.println(example.substring(0, starsIndex * 2) + "*" + example.substring(starsIndex * 2 + 1));
+    public static void printSineSlot(LinkedList<Integer> valuesOfSin) {
+        for (Integer valueOfSin : valuesOfSin) {
+            StringBuilder sb = new StringBuilder();
+            while (sb.length() != (valueOfSin + 9)) {
+                sb.append(" ");
+            }
+            sb.append("*");
+            while (sb.length() != 19) {
+                sb.append(" ");
+            }
+            System.out.println(sb);
         }
     }
 }
