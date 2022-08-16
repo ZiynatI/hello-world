@@ -1,6 +1,7 @@
 package codewars;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SinePlot {
     //вот тебе другая любопытная задача, не связанная с этой
@@ -16,18 +17,18 @@ public class SinePlot {
         printSineSlot(findValuesOfSin(10));
     }
 
-    public static LinkedList<Integer> findValuesOfSin(int n) {
-        LinkedList<Integer> valuesOfSin = new LinkedList<>();
+    public static List<Double> findValuesOfSin(int n) {
+        List<Double> valuesOfSin = new ArrayList<>();
         for (double i = 0; i < n; i += 0.2) {
-            valuesOfSin.add((int) (10 * Math.sin(i)));
+            valuesOfSin.add(Math.sin(i));
         }
         return valuesOfSin;
     }
 
-    public static void printSineSlot(LinkedList<Integer> valuesOfSin) {
-        for (Integer valueOfSin : valuesOfSin) {
+    public static void printSineSlot(List<Double> valuesOfSin) {
+        for (Double valueOfSin : valuesOfSin) {
             StringBuilder sb = new StringBuilder();
-            while (sb.length() != (valueOfSin + 9)) {
+            while (sb.length() != ((int) (10 * valueOfSin) + 9)) {
                 sb.append(" ");
             }
             sb.append("*");
