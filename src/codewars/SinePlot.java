@@ -1,7 +1,6 @@
 package codewars;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class SinePlot {
@@ -27,36 +26,25 @@ public class SinePlot {
         return valuesOfSin;
     }
 
-    public static void printSineSlotHorizontal(List<Double> valuesOfSin) {
-        StringBuilder[] yLines = new StringBuilder[valuesOfSin.size()];
-        char[] spaceArray = new char[19];
-        Arrays.fill(spaceArray, ' ');
-        for (int i = 0; i < valuesOfSin.size(); i++) {
-            yLines[i] = new StringBuilder();
-            yLines[i].append(spaceArray);
-        }
-
-        for (int i = 0; i < valuesOfSin.size(); i++) {
-            int indexOfCell = (int) ((10 * valuesOfSin.get(i)) + 9);
-            yLines[i].replace(indexOfCell, indexOfCell + 1, "*");
-            System.out.println(yLines[i]);
+    public static void printSineSlotVertical(List<Double> valuesOfSin) {
+        String formatter = String.format("%19s", " ");
+        for (Double valueOfSin : valuesOfSin) {
+            int indexOfCell = (int) ((10 * valueOfSin) + 9);
+            System.out.println(formatter.substring(0, indexOfCell) + "*" + formatter.substring(indexOfCell + 1));
         }
     }
 
-    public static void printSineSlotVertical(List<Double> valuesOfSin) {
-        StringBuilder[] xLines = new StringBuilder[19];
-        char[] spaceArray = new char[valuesOfSin.size()];
-        Arrays.fill(spaceArray, ' ');
+    public static void printSineSlotHorizontal(List<Double> valuesOfSin) {
         for (int i = 0; i < 19; i++) {
-            xLines[i] = new StringBuilder();
-            xLines[i].append(spaceArray);
-        }
-        for (int i = 0; i < valuesOfSin.size(); i++) {
-            int indexOfCell = (int) (10 * valuesOfSin.get(i));
-            xLines[9 - indexOfCell].replace(i, i + 1, "*");
-        }
-        for (int i = 0; i < xLines.length; i++) {
-            System.out.println(xLines[i]);
+            for (int j = 0; j < valuesOfSin.size(); j++) {
+                int valueOfSin = (int) (10 * valuesOfSin.get(j));
+                if(valueOfSin==i-9){
+                    System.out.print(" * ");
+                }else {
+                    System.out.print("   ");
+                }
+            }
+            System.out.println();
         }
     }
 }
