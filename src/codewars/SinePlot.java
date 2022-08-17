@@ -14,8 +14,8 @@ public class SinePlot {
     //                       ***    ***
     //                          ****
     public static void main(String[] args) {
-        printSineSlotHorizontal(findValuesOfSin(15));
         printSineSlotVertical(findValuesOfSin(15));
+        printSineSlotHorizontal(findValuesOfSin(15));
     }
 
     public static List<Double> findValuesOfSin(int n) {
@@ -26,22 +26,26 @@ public class SinePlot {
         return valuesOfSin;
     }
 
-    public static void printSineSlotVertical(List<Double> valuesOfSin) {
-        String formatter = String.format("%19s", " ");
-        for (Double valueOfSin : valuesOfSin) {
-            int indexOfCell = (int) ((10 * valueOfSin) + 9);
-            System.out.println(formatter.substring(0, indexOfCell) + "*" + formatter.substring(indexOfCell + 1));
+    public static void printSineSlotHorizontal(List<Double> valuesOfSin) {
+        for (double y = -1.0; y < 1.0; y += 0.1) {
+            for (Double valueOfSin : valuesOfSin) {
+                if (y <= valueOfSin && valueOfSin < y + 0.1) {
+                    System.out.print("*");
+                } else {
+                    System.out.print(" ");
+                }
+            }
+            System.out.println();
         }
     }
 
-    public static void printSineSlotHorizontal(List<Double> valuesOfSin) {
-        for (int i = 0; i < 19; i++) {
-            for (int j = 0; j < valuesOfSin.size(); j++) {
-                int valueOfSin = (int) (10 * valuesOfSin.get(j));
-                if(valueOfSin==i-9){
-                    System.out.print(" * ");
-                }else {
-                    System.out.print("   ");
+    public static void printSineSlotVertical(List<Double> valuesOfSin) {
+        for (Double valueOfSin : valuesOfSin) {
+            for (double y = -1.0; y < 1.0; y += 0.1) {
+                if (y <= valueOfSin && valueOfSin < y + 0.1) {
+                    System.out.print("*");
+                } else {
+                    System.out.print(" ");
                 }
             }
             System.out.println();
