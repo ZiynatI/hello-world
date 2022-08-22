@@ -1,6 +1,6 @@
 package codewars;
 
-public class Task31 {
+public class TravellingSalesmanProblem {
     public static void main(String[] args) {
         System.out.println(travel("123 Main Street St. Louisville OH 43071,432 Main Long Road St. Louisville OH 43071,786 High Street Pollocksville NY 56432", "NY 5632"));
     }
