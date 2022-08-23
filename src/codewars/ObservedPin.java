@@ -1,9 +1,6 @@
 package codewars;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ObservedPin {
     //Alright, detective, one of our colleagues successfully observed our target person, Robby the robber.
@@ -36,31 +33,66 @@ public class ObservedPin {
         System.out.println(getPINs("369"));
     }
 
-    public static List<String> getPINs(String observed) {
-        Map<Integer, int[]> pinDigits = new HashMap<>();
-        pinDigits.put(0, new int[]{0, 8});
-        pinDigits.put(1, new int[]{1, 2, 4});
-        pinDigits.put(2, new int[]{1, 2, 3, 5});
-        pinDigits.put(3, new int[]{2, 3, 6});
-        pinDigits.put(4, new int[]{1, 4, 5, 7});
-        pinDigits.put(5, new int[]{2, 4, 5, 6, 8});
-        pinDigits.put(6, new int[]{3, 5, 6, 9});
-        pinDigits.put(7, new int[]{4, 7, 8});
-        pinDigits.put(8, new int[]{0, 5, 7, 8, 9});
-        pinDigits.put(9, new int[]{6, 8, 9});
-        List<String> resultNotYet = new ArrayList<>();
-        List<String> result = new ArrayList<>();
-        result.add("");
-        for (int k = 0; k < observed.length(); k++) {
-            int digit = Character.digit(observed.charAt(k), 10);
-            for (int j = 0; j < result.size(); j++) {
-                for (int i = 0; i < pinDigits.get(digit).length; i++) {
-                    resultNotYet.add(result.get(j) + pinDigits.get(digit)[i]);
-                }
-            }
-            result = resultNotYet;
-            resultNotYet = new ArrayList<>();
-        }
-        return result;
+    public static Map<Integer, int[]> findDigitsVariations() {
+        Map<Integer, int[]> pinDigitsVariations = new HashMap<>();
+        pinDigitsVariations.put(0, new int[]{0, 8});
+        pinDigitsVariations.put(1, new int[]{1, 2, 4});
+        pinDigitsVariations.put(2, new int[]{1, 2, 3, 5});
+        pinDigitsVariations.put(3, new int[]{2, 3, 6});
+        pinDigitsVariations.put(4, new int[]{1, 4, 5, 7});
+        pinDigitsVariations.put(5, new int[]{2, 4, 5, 6, 8});
+        pinDigitsVariations.put(6, new int[]{3, 5, 6, 9});
+        pinDigitsVariations.put(7, new int[]{4, 7, 8});
+        pinDigitsVariations.put(8, new int[]{0, 5, 7, 8, 9});
+        pinDigitsVariations.put(9, new int[]{6, 8, 9});
+        return pinDigitsVariations;
     }
+
+    public static List<String> getPINs(String observed) {
+        return recurse("", observed, findDigitsVariations());
+    }
+
+    public static List<String> recurse(String pinPrefix, String observed, Map<Integer, int[]> keyboard) {
+        if (pinPrefix.length() == observed.length()) {
+            return List.of(pinPrefix);
+        } else {
+            int currentDigit = Integer.parseInt("" + observed.charAt(pinPrefix.length()));
+            List<String> pins = new ArrayList<>();
+            for (int possibleDigit : keyboard.get(currentDigit)) {
+                String newPinPrefix = pinPrefix + possibleDigit;
+                List<String> newPins = recurse(newPinPrefix, observed, keyboard);
+                pins.addAll(newPins);
+            }
+            return pins;
+        }
+    }
+
+
+    //    public static List<String> getPINs(String observed) {
+    //        Map<Integer, int[]> pinDigits = new HashMap<>();
+    //        pinDigits.put(0, new int[]{0, 8});
+    //        pinDigits.put(1, new int[]{1, 2, 4});
+    //        pinDigits.put(2, new int[]{1, 2, 3, 5});
+    //        pinDigits.put(3, new int[]{2, 3, 6});
+    //        pinDigits.put(4, new int[]{1, 4, 5, 7});
+    //        pinDigits.put(5, new int[]{2, 4, 5, 6, 8});
+    //        pinDigits.put(6, new int[]{3, 5, 6, 9});
+    //        pinDigits.put(7, new int[]{4, 7, 8});
+    //        pinDigits.put(8, new int[]{0, 5, 7, 8, 9});
+    //        pinDigits.put(9, new int[]{6, 8, 9});
+    //        List<String> resultNotYet = new ArrayList<>();
+    //        List<String> result = new ArrayList<>();
+    //        result.add("");
+    //        for (int k = 0; k < observed.length(); k++) {
+    //            int digit = Character.digit(observed.charAt(k), 10);
+    //            for (int j = 0; j < result.size(); j++) {
+    //                for (int i = 0; i < pinDigits.get(digit).length; i++) {
+    //                    resultNotYet.add(result.get(j) + pinDigits.get(digit)[i]);
+    //                }
+    //            }
+    //            result = resultNotYet;
+    //            resultNotYet = new ArrayList<>();
+    //        }
+    //        return result;
+    //    }
 }

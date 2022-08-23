@@ -1,8 +1,6 @@
 package codewars;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.Objects;
 
 public class WeightSort {
     //My friend John and I are members of the "Fat to Fit Club (FFC)". John is worried because each month
@@ -34,65 +32,42 @@ public class WeightSort {
             return "";
         }
         String[] weight = strng.split(" ");
-        if(weight.length==1){
-            return strng;
-        }
-        int[] weightOfNumber = new int[weight.length];
         for (int i = 0; i < weight.length; i++) {
-            int thisWeight = Integer.parseInt(weight[i]);
-            int numbersWeight = 0;
-            while (thisWeight > 0) {
-                numbersWeight += thisWeight % 10;
-                thisWeight = (thisWeight - thisWeight % 10) / 10;
-            }
-            weightOfNumber[i] = numbersWeight;
+            int num = Integer.parseInt(weight[i]);
 
         }
-         sortNumbers(weightOfNumber, weight);
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < weight.length; i++) {
-            if (i != 0) {
-                result.append(" ");
-            }
-            result.append(weight[i]);
-        }
-        return result.toString();
+        return "";
     }
 
-    public static String[] sortNumbers(int[] weight, String[] numbers) {
-        for (int i = 0; i < numbers.length; i++) {
-            for (int j = numbers.length - 1; j > 0; j--) {
-                if (weight[j - 1] > weight[j]) {
-                    String thisSt = numbers[j - 1];
-                    numbers[j - 1] = numbers[j];
-                    numbers[j] = thisSt;
-                    int a = weight[j - 1];
-                    weight[j - 1] = weight[j];
-                    weight[j] = a;
-                } else if (weight[j - 1] == weight[j]) {
-                    if (!isRightAlphabeticalOrder(numbers[j - 1], numbers[j])) {
-                        String thisSt = numbers[j - 1];
-                        numbers[j - 1] = numbers[j];
-                        numbers[j] = thisSt;
-                    }
-                }
-            }
-        }
-        return numbers;
-    }
+    public static class NumbersWithWeight {
+        public final int value;
+        public final int weightOfValue;
 
-    public static boolean isRightAlphabeticalOrder(String a, String b) {
-        List<String> list = new ArrayList();
-        list.add(a);
-        list.add(b);
-        Collections.sort(list);
-        if (!list.get(0).equals(a)) {
-            return false;
+        public NumbersWithWeight(int value, int weightOfValue) {
+            this.value = value;
+            this.weightOfValue = weightOfValue;
         }
-        return true;
-    }
-    public class NumbersWithWeight{
-        int value;
-        int weightOfValue;
+
+
+        public int getWeightOfValue(int value) {
+            int sum = 0;
+            for (int n = value; n > 0; n /= 10) {
+                sum += n % 10;
+            }
+            return sum;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            NumbersWithWeight that = (NumbersWithWeight) o;
+            return value == that.value && weightOfValue == that.weightOfValue;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(value, weightOfValue);
+        }
     }
 }
