@@ -4,77 +4,79 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HowManyNumbers {
-    //We want to generate all the numbers of three digits where:
-    //    the sum of their digits is equal to 10
-    //    their digits are in increasing order (the numbers may have two or more equal contiguous digits)
-    //The numbers that fulfill these constraints are: [118, 127, 136, 145, 226, 235, 244, 334].
-    //There are 8 numbers in total with 118 being the lowest and 334 being the greatest.
-    //Task:
-    //Implement a function which receives two arguments:
-    //    the sum of digits (sum)
-    //    the number of digits (count)
-    //This function should return three values:
-    //    the total number of values which have count digits that add up to sum and are in increasing order
-    //    the lowest such value
-    //    the greatest such value
-    //Note: if there are no values which satisfy these constants, you should return an empty value
-    //(refer to the examples to see what exactly is expected).
-    //Examples:
-    //// The output type is List<Long>
-    //HowManyNumbers.findAll(10, 3)  =>  [8, 181, 334]
-    //HowManyNumbers.findAll(27, 3)  =>  [1, 999, 999]
-    //HowManyNumbers.findAll(84, 4)  =>  []
-    //Features of the random tests:
-    //    Number of tests: 112
-    //    Sum of digits value between 20 and 65
-    //    Amount of digits between 2 and 17
+    //    We want to generate all the numbers of three digits where:
+    //        the sum of their digits is equal to 10
+    //        their digits are in increasing order (the numbers may have two or more equal contiguous digits)
+    //    The numbers that fulfill these constraints are: [118, 127, 136, 145, 226, 235, 244, 334].
+    //    There are 8 numbers in total with 118 being the lowest and 334 being the greatest.
+    //    Task:
+    //    Implement a function which receives two arguments:
+    //        the sum of digits (sum)
+    //        the number of digits (count)
+    //    This function should return three values:
+    //        the total number of values which have count digits that add up to sum and are in increasing order
+    //        the lowest such value
+    //        the greatest such value
+    //    Note: if there are no values which satisfy these constants, you should return an empty value
+    //    (refer to the examples to see what exactly is expected).
+    //    Examples:
+    //    // The output type is List<Long>
+    //    HowManyNumbers.findAll(10, 3)  =>  [8, 181, 334]
+    //    HowManyNumbers.findAll(27, 3)  =>  [1, 999, 999]
+    //    HowManyNumbers.findAll(84, 4)  =>  []
+    //    Features of the random tests:
+    //        Number of tests: 112
+    //        Sum of digits value between 20 and 65
+    //        Amount of digits between 2 and 17
 
     public static void main(String[] args) {
         System.out.println(findAll(10, 3));
         System.out.println(findLowestValue(35, 6));
-        System.out.println(findGreatestValue(35, 6));
-        System.out.println(redoString("900"));
-
+        System.out.println(redoString("136"));
+        String s = "118";
+        while (s.charAt(0) != '2') {
+            s = redoString(s);
+        }
+        System.out.println(s);
     }
 
     public static List<Long> findAll(final int sumDigits, final int numDigits) {
         String lowestValue = Long.toString(findLowestValue(sumDigits, numDigits));
-        String greatestValue = Long.toString(findGreatestValue(sumDigits, numDigits));
-        List<String> llist = new ArrayList<>();
-        llist.add(lowestValue);
-        recurse(lowestValue.substring(lowestValue.length()-2), lowestValue, greatestValue, lowestValue.length() - 1, llist);
+        List<String> listOfValues = new ArrayList<>();
+        listOfValues.add(lowestValue);
+        recurse(lowestValue.substring(lowestValue.length() - 2), lowestValue, lowestValue.length() - 1, listOfValues);
         List<Long> result = new ArrayList<>();
-        result.add((long) llist.size());
+        result.add((long) listOfValues.size());
         result.add(Long.parseLong(lowestValue));
-        result.add(Long.parseLong(greatestValue));
-        System.out.println(llist);
+        result.add(Long.parseLong(listOfValues.get(listOfValues.size() - 1)));
+        System.out.println(listOfValues);
         return result;
     }
 
-    public static List<String> recurse(String valuePostfix, String lowestValue, String greatestValue, int currentDigit, List<String> llist) {
-      if(valuePostfix.length()==lowestValue.length()&&valuePostfix.equals(redoString(valuePostfix))){
-          return llist;
-      }
+    public static List<String> recurse(String valuePostfix, String lowestValue, int currentDigit, List<String> listOfValues) {
+        if (valuePostfix.length() == lowestValue.length() && valuePostfix.equals(redoString(valuePostfix))) {
+            return listOfValues;
+        }
         if (valuePostfix.equals(redoString(valuePostfix))) {
 
-            recurse(lowestValue.substring(lowestValue.length()-valuePostfix.length()-1), lowestValue, greatestValue, currentDigit-1, llist);
+            recurse(lowestValue.substring(lowestValue.length() - valuePostfix.length() - 1), lowestValue, currentDigit - 1, listOfValues);
 
         } else {
             String newValue = lowestValue.substring(0, currentDigit - 1) + redoString(valuePostfix);
-            llist.add(newValue);
-            recurse(redoString(valuePostfix), lowestValue, greatestValue, currentDigit, llist);
+            listOfValues.add(newValue);
+            recurse(redoString(valuePostfix), lowestValue, currentDigit, listOfValues);
         }
-        return llist;
+        return listOfValues;
     }
 
     public static String redoString(String value) {
         StringBuilder thisValue = new StringBuilder(value);
-        for (int i = thisValue.length() - 2; i >= 0; i--) {
-            int previous = Character.getNumericValue(thisValue.charAt(i + 1));
+        for (int i = 1; i <= thisValue.length() - 1; i++) {
+            int previous = Character.getNumericValue(thisValue.charAt(i - 1));
             int current = Character.getNumericValue(thisValue.charAt(i));
-            if (previous - current > 1) {
-                String sbst = current + 1 + String.valueOf(previous - 1);
-                thisValue.replace(i, i + 2, sbst);
+            if (current - previous > 1) {
+                String sbst = previous + 1 + String.valueOf(current - 1);
+                thisValue.replace(i - 1, i + 1, sbst);
                 break;
             }
         }
@@ -100,21 +102,21 @@ public class HowManyNumbers {
         return lowestValue;
     }
 
-    public static long findGreatestValue(final int sumDigits, final int numDigits) {
-        int sum = sumDigits;
-        long greatestValue = 0;
-        int index = 0;
-        int countDigits = numDigits;
-        while (sum > 0) {
-            double lastDigit = (double) sum / (double) countDigits;
-            double ceiled = Math.ceil(lastDigit);
-            greatestValue = (long) (ceiled * Math.pow(10, index) + greatestValue);
-            sum -= ceiled;
-            countDigits--;
-            index++;
-        }
-        return greatestValue;
-    }
+    //    public static long findGreatestValue(final int sumDigits, final int numDigits) {
+    //        int sum = sumDigits;
+    //        long greatestValue = 0;
+    //        int index = 0;
+    //        int countDigits = numDigits;
+    //        while (sum > 0) {
+    //            double lastDigit = (double) sum / (double) countDigits;
+    //            double ceiled = Math.ceil(lastDigit);
+    //            greatestValue = (long) (ceiled * Math.pow(10, index) + greatestValue);
+    //            sum -= ceiled;
+    //            countDigits--;
+    //            index++;
+    //        }
+    //        return greatestValue;
+    //    }
     //    public static List<Long> findAll2(final int sumDigits, final int numDigits) {
     //        if (numDigits > sumDigits) {
     //            return new ArrayList<>();
