@@ -33,41 +33,40 @@ public class HowManyNumbers {
         System.out.println(findAll(10, 3));
         System.out.println(findLowestValue(35, 6));
         System.out.println(redoString("136"));
-        String s = "118";
-        while (s.charAt(0) != '2') {
-            s = redoString(s);
-        }
-        System.out.println(s);
     }
 
     public static List<Long> findAll(final int sumDigits, final int numDigits) {
         String lowestValue = Long.toString(findLowestValue(sumDigits, numDigits));
         List<String> listOfValues = new ArrayList<>();
         listOfValues.add(lowestValue);
-        recurse(lowestValue.substring(lowestValue.length() - 2), lowestValue, lowestValue.length() - 1, listOfValues);
+
+        recurse(lowestValue.substring(lowestValue.length() - 2), lowestValue, listOfValues);
+
         List<Long> result = new ArrayList<>();
         result.add((long) listOfValues.size());
         result.add(Long.parseLong(lowestValue));
         result.add(Long.parseLong(listOfValues.get(listOfValues.size() - 1)));
+
         System.out.println(listOfValues);
         return result;
     }
 
-    public static List<String> recurse(String valuePostfix, String lowestValue, int currentDigit, List<String> listOfValues) {
-        if (valuePostfix.length() == lowestValue.length() && valuePostfix.equals(redoString(valuePostfix))) {
+    public static List<String> recurse(String postfix, String lowestValue, List<String> listOfValues) {
+        if (postfix.length() == lowestValue.length() && postfix.equals(redoString(postfix))) {
             return listOfValues;
         }
-        if (valuePostfix.equals(redoString(valuePostfix))) {
-
-            recurse(lowestValue.substring(lowestValue.length() - valuePostfix.length() - 1), lowestValue, currentDigit - 1, listOfValues);
-
+        if (postfix.equals(redoString(postfix))) {
+            recurse(lowestValue.substring(lowestValue.length() - postfix.length() - 1),
+                    lowestValue, listOfValues);
         } else {
-            String newValue = lowestValue.substring(0, currentDigit - 1) + redoString(valuePostfix);
+            String newValue = lowestValue.substring(0, lowestValue.length() - postfix.length())
+                    + redoString(postfix);
             listOfValues.add(newValue);
-            recurse(redoString(valuePostfix), lowestValue, currentDigit, listOfValues);
+            recurse(redoString(postfix), lowestValue, listOfValues);
         }
         return listOfValues;
     }
+
 
     public static String redoString(String value) {
         StringBuilder thisValue = new StringBuilder(value);
