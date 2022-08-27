@@ -21,7 +21,7 @@ public class HowManyNumbers {
     //(refer to the examples to see what exactly is expected).
     //Examples:
     //// The output type is List<Long>
-    //HowManyNumbers.findAll(10, 3)  =>  [8, 118, 334]
+    //HowManyNumbers.findAll(10, 3)  =>  [8, 181, 334]
     //HowManyNumbers.findAll(27, 3)  =>  [1, 999, 999]
     //HowManyNumbers.findAll(84, 4)  =>  []
     //Features of the random tests:
@@ -40,27 +40,31 @@ public class HowManyNumbers {
     public static List<Long> findAll(final int sumDigits, final int numDigits) {
         String lowestValue = Long.toString(findLowestValue(sumDigits, numDigits));
         String greatestValue = Long.toString(findGreatestValue(sumDigits, numDigits));
-        // Your code here!!
-        List<String> llist = recurse("", lowestValue, greatestValue, 1);
+        List<String> llist = new ArrayList<>();
+        llist.add(lowestValue);
+        recurse(lowestValue.substring(lowestValue.length()-2), lowestValue, greatestValue, lowestValue.length() - 1, llist);
         List<Long> result = new ArrayList<>();
         result.add((long) llist.size());
         result.add(Long.parseLong(lowestValue));
         result.add(Long.parseLong(greatestValue));
+        System.out.println(llist);
         return result;
     }
 
-    public static List<String> recurse(String value, String lowestValue, String greatestValue, int currentDigit) {
-        if (lowestValue.length() == value.length()) {
-            return List.of(value);
-        } else {
-            List<String> values = new ArrayList<>();
-            while (!redoString(value).equals(values)) {
-                values.addAll(recurse(value.substring(0, currentDigit - 1) + redoString(value.substring(currentDigit)), lowestValue, greatestValue, currentDigit));
-                value = redoString(value);
-            }
-            return values;
-        }
+    public static List<String> recurse(String valuePostfix, String lowestValue, String greatestValue, int currentDigit, List<String> llist) {
+      if(valuePostfix.length()==lowestValue.length()&&valuePostfix.equals(redoString(valuePostfix))){
+          return llist;
+      }
+        if (valuePostfix.equals(redoString(valuePostfix))) {
 
+            recurse(lowestValue.substring(lowestValue.length()-valuePostfix.length()-1), lowestValue, greatestValue, currentDigit-1, llist);
+
+        } else {
+            String newValue = lowestValue.substring(0, currentDigit - 1) + redoString(valuePostfix);
+            llist.add(newValue);
+            recurse(redoString(valuePostfix), lowestValue, greatestValue, currentDigit, llist);
+        }
+        return llist;
     }
 
     public static String redoString(String value) {
