@@ -21,7 +21,7 @@ public class HowManyNumbers {
     //    (refer to the examples to see what exactly is expected).
     //    Examples:
     //    // The output type is List<Long>
-    //    HowManyNumbers.findAll(10, 3)  =>  [8, 181, 334]
+    //    HowManyNumbers.findAll(10, 3)  =>  [8, 118, 334]
     //    HowManyNumbers.findAll(27, 3)  =>  [1, 999, 999]
     //    HowManyNumbers.findAll(84, 4)  =>  []
     //    Features of the random tests:
