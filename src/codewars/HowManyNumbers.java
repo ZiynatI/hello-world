@@ -1,6 +1,7 @@
 package codewars;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class HowManyNumbers {
@@ -31,75 +32,146 @@ public class HowManyNumbers {
 
     public static void main(String[] args) {
         System.out.println(findAll(10, 3));
-        System.out.println(findLowestValue(35, 6));
-        System.out.println(redoString("136"));
+
+        //        System.out.println(findLowestValue(35, 6));
+        //        System.out.println(redoString("136"));
     }
 
     public static List<Long> findAll(final int sumDigits, final int numDigits) {
-        String lowestValue = Long.toString(findLowestValue(sumDigits, numDigits));
-        List<String> listOfValues = new ArrayList<>();
-        listOfValues.add(lowestValue);
+        if (numDigits > sumDigits) {
+            return new ArrayList<>();
+        }
 
-        recurse(lowestValue.substring(lowestValue.length() - 2), lowestValue, listOfValues);
-
+        int[] digits = new int[numDigits];
+        int sum = sumDigits;
+        for (int numDigit = numDigits - 1; numDigit >= 0; numDigit--) {
+            digits[numDigit] = Math.min(sum - numDigit, 9);
+            sum -= Math.min(sum - numDigit, 9);
+        }
+        List<Long> numbers = new ArrayList<>();
+        numbers.add(arrayToLong(digits));
+        int[] subArray = Arrays.copyOfRange(digits, numDigits - 2, numDigits);
+        System.out.println((recurse(numbers, subArray, digits)));
         List<Long> result = new ArrayList<>();
-        result.add((long) listOfValues.size());
-        result.add(Long.parseLong(lowestValue));
-        result.add(Long.parseLong(listOfValues.get(listOfValues.size() - 1)));
-
-        System.out.println(listOfValues);
+        result.add((long) numbers.size());
+        result.add(numbers.get(0));
+        result.add(numbers.get(numbers.size() - 1));
         return result;
     }
 
-    public static List<String> recurse(String postfix, String lowestValue, List<String> listOfValues) {
-        if (postfix.length() == lowestValue.length() && postfix.equals(redoString(postfix))) {
-            return listOfValues;
-        }
-        if (postfix.equals(redoString(postfix))) {
-            recurse(lowestValue.substring(lowestValue.length() - postfix.length() - 1),
-                    lowestValue, listOfValues);
+
+    public static List<Long> recurse(List<Long> numbers, int[] subArray, int[] digits) {
+        if (subArray.length == digits.length && subArray[subArray.length - 1] - subArray[0] <= 1) {
+            return numbers;
         } else {
-            String newValue = lowestValue.substring(0, lowestValue.length() - postfix.length())
-                    + redoString(postfix);
-            listOfValues.add(newValue);
-            recurse(redoString(postfix), lowestValue, listOfValues);
+            if (subArray[subArray.length - 1] - subArray[0] <= 1 && subArray.length != digits.length) {
+                subArray = editArrayForNewLength(Arrays.copyOfRange(digits, digits.length - subArray.length - 1, digits.length));
+                numbers.add(arrayToLong(subArray));
+            } else {
+                numbers.add(arrayToLong(shareOne(subArray)));
+            }
+            recurse(numbers, subArray, digits);
         }
-        return listOfValues;
+        return numbers;
     }
 
+    public static int[] editArrayForNewLength(int[] subArray) {
+        int temp = subArray[0];
+        while (subArray[0] != temp + 1) {
+            for (int digit = subArray.length - 2; digit >= 0; digit--) {
+                if (subArray[digit + 1] - subArray[digit] > 1) {
+                    subArray[digit + 1] -= 1;
+                    subArray[digit] += 1;
+                }
+            }
+        }
+        return subArray;
+    }
 
-    public static String redoString(String value) {
-        StringBuilder thisValue = new StringBuilder(value);
-        for (int i = 1; i <= thisValue.length() - 1; i++) {
-            int previous = Character.getNumericValue(thisValue.charAt(i - 1));
-            int current = Character.getNumericValue(thisValue.charAt(i));
-            if (current - previous > 1) {
-                String sbst = previous + 1 + String.valueOf(current - 1);
-                thisValue.replace(i - 1, i + 1, sbst);
+    public static int[] shareOne(int[] subArray) {
+        for (int digit = subArray.length - 2; digit >= 0; digit--) {
+            if (subArray[digit + 1] - subArray[digit] > 1) {
+                subArray[digit + 1] -= 1;
+                subArray[digit] += 1;
                 break;
             }
         }
-        return thisValue.toString();
+        return subArray;
     }
 
-
-    public static long findLowestValue(final int sumDigits, final int numDigits) {
-        long lowestValue = 0;
-        int minDigit = 1;
-        int maxDigit = 9;
-        int sum = sumDigits;
-        int count = numDigits;
-        while (sum > 0 && count != 0) {
-            if ((count - 1) * minDigit <= sum - minDigit && (count - 1) * maxDigit >= sum - minDigit) {
-                lowestValue = lowestValue * 10 + minDigit;
-                count--;
-                sum -= minDigit;
-            } else {
-                minDigit++;
-            }
+    public static Long arrayToLong(int[] digits) {
+        long number = 0L;
+        for (int digit : digits) {
+            number = number * 10 + digit;
         }
-        return lowestValue;
+        return number;
     }
+
+
+    //    public static List<Long> findAll(final int sumDigits, final int numDigits) {
+    //        String lowestValue = Long.toString(findLowestValue(sumDigits, numDigits));
+    //        List<String> listOfValues = new ArrayList<>();
+    //        listOfValues.add(lowestValue);
+    //
+    //        recurse(lowestValue.substring(lowestValue.length() - 2), lowestValue, listOfValues);
+    //
+    //        List<Long> result = new ArrayList<>();
+    //        result.add((long) listOfValues.size());
+    //        result.add(Long.parseLong(lowestValue));
+    //        result.add(Long.parseLong(listOfValues.get(listOfValues.size() - 1)));
+    //
+    //        System.out.println(listOfValues);
+    //        return result;
+    //    }
+    //    public static List<String> recurse(String postfix, String lowestValue, List<String> listOfValues) {
+    //        if (postfix.length() == lowestValue.length() && postfix.equals(redoString(postfix))) {
+    //            return listOfValues;
+    //        }
+    //        if (postfix.equals(redoString(postfix))) {
+    //            recurse(lowestValue.substring(lowestValue.length() - postfix.length() - 1),
+    //                    lowestValue, listOfValues);
+    //        } else {
+    //            String newValue = lowestValue.substring(0, lowestValue.length() - postfix.length())
+    //                    + redoString(postfix);
+    //            listOfValues.add(newValue);
+    //            recurse(redoString(postfix), lowestValue, listOfValues);
+    //        }
+    //        return listOfValues;
+    //    }
+    //
+    //
+    //    public static String redoString(String value) {
+    //        StringBuilder thisValue = new StringBuilder(value);
+    //        for (int i = 1; i <= thisValue.length() - 1; i++) {
+    //            int previous = Character.getNumericValue(thisValue.charAt(i - 1));
+    //            int current = Character.getNumericValue(thisValue.charAt(i));
+    //            if (current - previous > 1) {
+    //                String sbst = previous + 1 + String.valueOf(current - 1);
+    //                thisValue.replace(i - 1, i + 1, sbst);
+    //                break;
+    //            }
+    //        }
+    //        return thisValue.toString();
+    //    }
+    //
+    //
+    //    public static long findLowestValue(final int sumDigits, final int numDigits) {
+    //        long lowestValue = 0;
+    //        int minDigit = 1;
+    //        int maxDigit = 9;
+    //        int sum = sumDigits;
+    //        int count = numDigits;
+    //        while (sum > 0 && count != 0) {
+    //            if ((count - 1) * minDigit <= sum - minDigit && (count - 1) * maxDigit >= sum - minDigit) {
+    //                lowestValue = lowestValue * 10 + minDigit;
+    //                count--;
+    //                sum -= minDigit;
+    //            } else {
+    //                minDigit++;
+    //            }
+    //        }
+    //        return lowestValue;
+    //    }
 
     //    public static long findGreatestValue(final int sumDigits, final int numDigits) {
     //        int sum = sumDigits;
