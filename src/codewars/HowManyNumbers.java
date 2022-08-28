@@ -32,9 +32,6 @@ public class HowManyNumbers {
 
     public static void main(String[] args) {
         System.out.println(findAll(10, 3));
-
-        //        System.out.println(findLowestValue(35, 6));
-        //        System.out.println(redoString("136"));
     }
 
     public static List<Long> findAll(final int sumDigits, final int numDigits) {
@@ -48,28 +45,27 @@ public class HowManyNumbers {
             digits[numDigit] = Math.min(sum - numDigit, 9);
             sum -= Math.min(sum - numDigit, 9);
         }
+
         List<Long> numbers = new ArrayList<>();
+        numbers.add(1L);
         numbers.add(arrayToLong(digits));
         int[] subArray = Arrays.copyOfRange(digits, numDigits - 2, numDigits);
-        System.out.println((recurse(numbers, subArray, digits)));
-        List<Long> result = new ArrayList<>();
-        result.add((long) numbers.size());
-        result.add(numbers.get(0));
-        result.add(numbers.get(numbers.size() - 1));
-        return result;
+        return recurse(numbers, subArray, digits);
+
     }
 
 
     public static List<Long> recurse(List<Long> numbers, int[] subArray, int[] digits) {
         if (subArray.length == digits.length && subArray[subArray.length - 1] - subArray[0] <= 1) {
+            numbers.add(arrayToLong(subArray));
             return numbers;
         } else {
             if (subArray[subArray.length - 1] - subArray[0] <= 1 && subArray.length != digits.length) {
                 subArray = editArrayForNewLength(Arrays.copyOfRange(digits, digits.length - subArray.length - 1, digits.length));
-                numbers.add(arrayToLong(subArray));
             } else {
-                numbers.add(arrayToLong(shareOne(subArray)));
+                shareOne(subArray);
             }
+            numbers.set(0, numbers.get(0) + 1);
             recurse(numbers, subArray, digits);
         }
         return numbers;
@@ -88,7 +84,7 @@ public class HowManyNumbers {
         return subArray;
     }
 
-    public static int[] shareOne(int[] subArray) {
+    public static void shareOne(int[] subArray) {
         for (int digit = subArray.length - 2; digit >= 0; digit--) {
             if (subArray[digit + 1] - subArray[digit] > 1) {
                 subArray[digit + 1] -= 1;
@@ -96,7 +92,6 @@ public class HowManyNumbers {
                 break;
             }
         }
-        return subArray;
     }
 
     public static Long arrayToLong(int[] digits) {
@@ -106,175 +101,4 @@ public class HowManyNumbers {
         }
         return number;
     }
-
-
-    //    public static List<Long> findAll(final int sumDigits, final int numDigits) {
-    //        String lowestValue = Long.toString(findLowestValue(sumDigits, numDigits));
-    //        List<String> listOfValues = new ArrayList<>();
-    //        listOfValues.add(lowestValue);
-    //
-    //        recurse(lowestValue.substring(lowestValue.length() - 2), lowestValue, listOfValues);
-    //
-    //        List<Long> result = new ArrayList<>();
-    //        result.add((long) listOfValues.size());
-    //        result.add(Long.parseLong(lowestValue));
-    //        result.add(Long.parseLong(listOfValues.get(listOfValues.size() - 1)));
-    //
-    //        System.out.println(listOfValues);
-    //        return result;
-    //    }
-    //    public static List<String> recurse(String postfix, String lowestValue, List<String> listOfValues) {
-    //        if (postfix.length() == lowestValue.length() && postfix.equals(redoString(postfix))) {
-    //            return listOfValues;
-    //        }
-    //        if (postfix.equals(redoString(postfix))) {
-    //            recurse(lowestValue.substring(lowestValue.length() - postfix.length() - 1),
-    //                    lowestValue, listOfValues);
-    //        } else {
-    //            String newValue = lowestValue.substring(0, lowestValue.length() - postfix.length())
-    //                    + redoString(postfix);
-    //            listOfValues.add(newValue);
-    //            recurse(redoString(postfix), lowestValue, listOfValues);
-    //        }
-    //        return listOfValues;
-    //    }
-    //
-    //
-    //    public static String redoString(String value) {
-    //        StringBuilder thisValue = new StringBuilder(value);
-    //        for (int i = 1; i <= thisValue.length() - 1; i++) {
-    //            int previous = Character.getNumericValue(thisValue.charAt(i - 1));
-    //            int current = Character.getNumericValue(thisValue.charAt(i));
-    //            if (current - previous > 1) {
-    //                String sbst = previous + 1 + String.valueOf(current - 1);
-    //                thisValue.replace(i - 1, i + 1, sbst);
-    //                break;
-    //            }
-    //        }
-    //        return thisValue.toString();
-    //    }
-    //
-    //
-    //    public static long findLowestValue(final int sumDigits, final int numDigits) {
-    //        long lowestValue = 0;
-    //        int minDigit = 1;
-    //        int maxDigit = 9;
-    //        int sum = sumDigits;
-    //        int count = numDigits;
-    //        while (sum > 0 && count != 0) {
-    //            if ((count - 1) * minDigit <= sum - minDigit && (count - 1) * maxDigit >= sum - minDigit) {
-    //                lowestValue = lowestValue * 10 + minDigit;
-    //                count--;
-    //                sum -= minDigit;
-    //            } else {
-    //                minDigit++;
-    //            }
-    //        }
-    //        return lowestValue;
-    //    }
-
-    //    public static long findGreatestValue(final int sumDigits, final int numDigits) {
-    //        int sum = sumDigits;
-    //        long greatestValue = 0;
-    //        int index = 0;
-    //        int countDigits = numDigits;
-    //        while (sum > 0) {
-    //            double lastDigit = (double) sum / (double) countDigits;
-    //            double ceiled = Math.ceil(lastDigit);
-    //            greatestValue = (long) (ceiled * Math.pow(10, index) + greatestValue);
-    //            sum -= ceiled;
-    //            countDigits--;
-    //            index++;
-    //        }
-    //        return greatestValue;
-    //    }
-    //    public static List<Long> findAll2(final int sumDigits, final int numDigits) {
-    //        if (numDigits > sumDigits) {
-    //            return new ArrayList<>();
-    //        }
-    //
-    //        int[] digits = new int[numDigits];
-    //        long lowestValue = findLowestValue(sumDigits, numDigits);
-    //        List<Long> numbers = new ArrayList<>();
-    //        numbers.add(lowestValue);
-    //        for (int i = digits.length - 1; i >= 0; i--) {
-    //            digits[i] = (int) (lowestValue % 10);
-    //            lowestValue = (lowestValue - lowestValue % 10) / 10;
-    //        }
-    //        for (int i = 0; i < numDigits; i++) {
-    //            for (int j = 0; j < numDigits; j++) {
-    //                if (j < numDigits - 1) {
-    //                    while (digits[j + 1] - 1 >= digits[j] + 1) {
-    //                        digits[j + 1] -= 1;
-    //                        digits[j] += 1;
-    //                        long nextNum = 0;
-    //                        for (int k = 0; k < numDigits; k++) {
-    //                            nextNum = nextNum * 10 + digits[k];
-    //                        }
-    //                        numbers.add(nextNum);
-    //                        if (j > 0 && digits[j] - digits[j - 1] > 1 && digits[j + 1] - digits[j] > 1) {
-    //
-    //                            //                            if (digits[j - 1] + 1 <= digits[j]) {
-    //
-    //                            numbers.add(checkAnotherTime(digits, j));
-    //
-    //                        }
-    //                    }
-    //                }
-    //
-    //
-    //            }
-    //        }
-    //        return numbers;
-    //    }
-    //
-    //    public static long checkAnotherTime(int[] digits, int j) {
-    //        int[] copyArr = digits.clone();
-    //        copyArr[j - 1] += 1;
-    //        copyArr[j] -= 1;
-    //        long nextNum = 0;
-    //        for (int k = 0; k < copyArr.length; k++) {
-    //            nextNum = nextNum * 10 + copyArr[k];
-    //        }
-    //        return nextNum;
-    //    }
-    //
-    //    public static List<Long> findAll(final int sumDigits, final int numDigits) {
-    //        if (numDigits > sumDigits) {
-    //            return new ArrayList<>();
-    //        }
-    //        long lowestValue = findLowestValue(sumDigits, numDigits);
-    //        List<Long> numbers = new ArrayList<>();
-    //        for (long i = lowestValue; i < (long) Math.pow(10, numDigits); i++) {
-    //            long num = i;
-    //            int sum = 0;
-    //            while (num > 0) {
-    //                sum += num % 10;
-    //                num = (num - num % 10) / 10;
-    //            }
-    //            if (sum == sumDigits && isInIncreasingOrder(i)) {
-    //                numbers.add(i);
-    //            }
-    //        }
-    //        List<Long> result = new ArrayList<>();
-    //        result.add((long) numbers.size());
-    //        result.add(numbers.get(0));
-    //        result.add(numbers.get(numbers.size() - 1));
-    //        return result;
-    //    }
-    //
-    //
-    //    public static boolean isInIncreasingOrder(long number) {
-    //        long num = number;
-    //        int tail = (int) (num % 10);
-    //        num = (num - tail) / 10;
-    //        while (num > 0) {
-    //            if (num % 10 > tail) {
-    //                return false;
-    //            }
-    //            tail = (int) (num % 10);
-    //            num = (num - num % 10) / 10;
-    //        }
-    //        return true;
-    //    }
 }
