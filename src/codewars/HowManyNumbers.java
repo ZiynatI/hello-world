@@ -31,11 +31,13 @@ public class HowManyNumbers {
     //        Amount of digits between 2 and 17
 
     public static void main(String[] args) {
-        System.out.println(findAll(10, 3));
+        //        System.out.println(findAll(10,3));
+
+        System.out.println(findAll(35, 6));
     }
 
     public static List<Long> findAll(final int sumDigits, final int numDigits) {
-        if (numDigits > sumDigits) {
+        if (numDigits * 9 < sumDigits) {
             return new ArrayList<>();
         }
 
@@ -49,7 +51,19 @@ public class HowManyNumbers {
         List<Long> numbers = new ArrayList<>();
         numbers.add(1L);
         numbers.add(arrayToLong(digits));
-        int[] subArray = Arrays.copyOfRange(digits, numDigits - 2, numDigits);
+        int[] subArray = new int[0];
+        if (digits[digits.length - 1] - digits[0] <= 1) {
+            numbers.add(arrayToLong(digits));
+            return numbers;
+        } else {
+            for (int i = digits.length - 2; i >= 0; i--) {
+                if (digits[i] < digits[i + 1]) {
+                    subArray = Arrays.copyOfRange(digits, i, numDigits);
+                    break;
+                }
+            }
+        }
+
         return recurse(numbers, subArray, digits);
 
     }
@@ -61,7 +75,12 @@ public class HowManyNumbers {
             return numbers;
         } else {
             if (subArray[subArray.length - 1] - subArray[0] <= 1 && subArray.length != digits.length) {
-                subArray = editArrayForNewLength(Arrays.copyOfRange(digits, digits.length - subArray.length - 1, digits.length));
+                subArray = Arrays.copyOfRange(digits, digits.length - subArray.length - 1, digits.length);
+                if (subArray[subArray.length - 1] - subArray[0] <= 1) {
+                    recurse(numbers, subArray, digits);
+                } else {
+                    editArrayForNewLength(subArray);
+                }
             } else {
                 shareOne(subArray);
             }
