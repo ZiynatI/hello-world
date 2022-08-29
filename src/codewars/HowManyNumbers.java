@@ -31,9 +31,10 @@ public class HowManyNumbers {
     //        Amount of digits between 2 and 17
 
     public static void main(String[] args) {
-        System.out.println(findAll(10, 3));
+        System.out.println(anotherSolution(10, 3));
+        //        System.out.println(findAll(10, 3));
         //        System.out.println(Arrays.toString(shareOne(new int[]{7, 8, 8, 9})));
-        System.out.println(findAll(35, 6));
+        //        System.out.println(findAll(35, 6));
     }
 
     public static List<Long> findAll(final int sumDigits, final int numDigits) {
@@ -132,6 +133,51 @@ public class HowManyNumbers {
             }
         }
         return subArray;
+    }
+
+
+    //________________________________________________________________________________________________________________________
+    public static List<Long> anotherSolution(final int sumDigits, final int numDigits) {
+        if (numDigits * 9 < sumDigits) {
+            return new ArrayList<>();
+        }
+        int[] digits = new int[numDigits];
+        int sum = sumDigits;
+        for (int numDigit = numDigits - 1; numDigit >= 0; numDigit--) {
+            digits[numDigit] = Math.min(sum - numDigit, 9);
+            sum -= Math.min(sum - numDigit, 9);
+        }
+        List<Long> numbers = new ArrayList<>();
+        numbers.add(1L);
+        numbers.add(arrayToLong(digits));
+        Long firstNumber = arrayToLong(digits);
+        for (Long i = firstNumber + 1; ; i++) {
+            if (isInIncreasingOrder(i, sumDigits)) {
+                numbers.add(i);
+                numbers.set(0, numbers.get(0) + 1);
+            }
+            if (i > 9 * Math.pow(10, numDigits - 1)) {
+                break;
+            }
+        }
+        List<Long> result = new ArrayList<>();
+        result.add(numbers.get(1));
+        result.add(numbers.get(2));
+        result.add(numbers.get(numbers.size() - 1));
+        return result;
+    }
+
+    public static boolean isInIncreasingOrder(Long number, int sumDigits) {
+        int sum = sumDigits;
+        while (number > 0) {
+            long digit = number % 10;
+            number = (number - digit) / 10;
+            sum -= digit;
+            if (number % 10 > digit || sum < 0) {
+                return false;
+            }
+        }
+        return sum == 0;
     }
     //    public static List<Long> findAll(final int sumDigits, final int numDigits) {
     //        if (numDigits * 9 < sumDigits) {
