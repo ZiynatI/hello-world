@@ -31,7 +31,7 @@ public class HowManyNumbers {
     //        Amount of digits between 2 and 17
 
     public static void main(String[] args) {
-        //        System.out.println(findAll(10, 3));
+        System.out.println(findAll(10, 3));
         //        System.out.println(Arrays.toString(shareOne(new int[]{7, 8, 8, 9})));
         System.out.println(findAll(35, 6));
     }
@@ -68,14 +68,20 @@ public class HowManyNumbers {
 
     public static List<Long> recurse(List<Long> numbers, int[] subArray, int[] digits) {
         if (subArray.length == digits.length && subArray[subArray.length - 1] - subArray[0] <= 1) {
-            numbers.set(0, numbers.get(0) + 1);
             numbers.add(arrayToLong(subArray));
             return numbers;
         } else {
             if (subArray[subArray.length - 1] - subArray[0] <= 1 && subArray.length != digits.length) {
                 subArray = editArrayForNewLength(Arrays.copyOfRange(digits, digits.length - subArray.length - 1, digits.length));
             } else {
-                shareOne(subArray);
+                int[] copyOfSubArray = Arrays.copyOfRange(subArray, 0, subArray.length);
+                if (!Arrays.equals(subArray, shareOne(copyOfSubArray))) {
+                    shareOne(subArray);
+                } else {
+                    if (!Arrays.equals(subArray, shareOneAnotherTime(copyOfSubArray))) {
+                        shareOneAnotherTime(subArray);
+                    }
+                }
             }
             numbers.set(0, numbers.get(0) + 1);
             recurse(numbers, subArray, digits);
@@ -83,11 +89,21 @@ public class HowManyNumbers {
         return numbers;
     }
 
-
     public static int[] shareOne(int[] subArray) {
+        for (int digit = subArray.length - 2; digit >= 0; digit--) {
+            if (subArray[digit + 1] - subArray[digit] > 1) {
+                subArray[digit + 1] -= 1;
+                subArray[digit] += 1;
+                break;
+            }
+        }
+        return subArray;
+    }
+
+    public static int[] shareOneAnotherTime(int[] subArray) {
         for (int i = subArray.length - 1; i > 0; i--) {
             for (int j = i - 1; j >= 0; j--) {
-                if (subArray[i] - subArray[j] > 1) {
+                if (subArray[i] - subArray[j] > 1 && subArray[i] - subArray[i - 1] >= 1) {
                     subArray[i] -= 1;
                     subArray[j] += 1;
                     break;
