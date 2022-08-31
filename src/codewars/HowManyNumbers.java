@@ -31,154 +31,188 @@ public class HowManyNumbers {
     //        Amount of digits between 2 and 17
 
     public static void main(String[] args) {
-        System.out.println(anotherSolution(10, 3));
+                System.out.println(anotherSolution(35, 6));
+        System.out.println(findAll(35, 6));
         //        System.out.println(findAll(10, 3));
         //        System.out.println(Arrays.toString(shareOne(new int[]{7, 8, 8, 9})));
         //        System.out.println(findAll(35, 6));
+//        System.out.println(isRightNumber(123, 6));
     }
 
-    public static List<Long> findAll(final int sumDigits, final int numDigits) {
-        if (numDigits * 9 < sumDigits) {
-            return new ArrayList<>();
-        }
-        int[] digits = new int[numDigits];
-        int sum = sumDigits;
-        for (int numDigit = numDigits - 1; numDigit >= 0; numDigit--) {
-            digits[numDigit] = Math.min(sum - numDigit, 9);
-            sum -= Math.min(sum - numDigit, 9);
-        }
-        List<Long> numbers = new ArrayList<>();
-        numbers.add(1L);
-        numbers.add(arrayToLong(digits));
-        int[] subArray = new int[0];
-        if (digits[digits.length - 1] - digits[0] <= 1) {
-            numbers.add(arrayToLong(digits));
-            return numbers;
-        } else {
-            for (int i = digits.length - 2; i >= 0; i--) {
-                if (digits[i] < digits[i + 1]) {
-                    subArray = Arrays.copyOfRange(digits, i, numDigits);
-                    break;
-                }
+//    public static List<Long> findAll(final int sumDigits, final int numDigits) {
+//        Long min = (long) Math.pow(10, numDigits - 1);
+//        Long max = (long) Math.pow(10, numDigits);
+//        List<Long> numbers = new ArrayList<>();
+//
+//        return recurse(min,max,sumDigits,numbers);
+//    }
+//
+//    public static List<Long> recurse(long min, long max, int sumDigit, List<Long> numbers) {
+//        if (min >= max) {
+//            return numbers;
+//        } else if (isRightNumber(min, sumDigit)) {
+//            numbers.add(min);
+//        }
+//        recurse(min + 1, max, sumDigit, numbers);
+//        return numbers;
+//    }
+//
+//    public static boolean isRightNumber(long number, int sumDigits) {
+//        while (number > 0) {
+//            int digit = (int) (number % 10);
+//            sumDigits -= digit;
+//            number = (number - digit) / 10;
+//            if (number % 10 > digit || sumDigits < 0) {
+//                return false;
+//            }
+//        }
+//        return sumDigits == 0;
+//    }
+        public static List<Long> findAll(final int sumDigits, final int numDigits) {
+            if (numDigits * 9 < sumDigits) {
+                return new ArrayList<>();
             }
-        }
-
-        return recurse(numbers, subArray, digits);
-
-    }
-
-    public static List<Long> recurse(List<Long> numbers, int[] subArray, int[] digits) {
-        if (subArray.length == digits.length && subArray[subArray.length - 1] - subArray[0] <= 1) {
-            numbers.add(arrayToLong(subArray));
-            return numbers;
-        } else {
-            if (subArray[subArray.length - 1] - subArray[0] <= 1 && subArray.length != digits.length) {
-                subArray = editArrayForNewLength(Arrays.copyOfRange(digits, digits.length - subArray.length - 1, digits.length));
+            int[] digits = new int[numDigits];
+            int sum = sumDigits;
+            for (int numDigit = numDigits - 1; numDigit >= 0; numDigit--) {
+                digits[numDigit] = Math.min(sum - numDigit, 9);
+                sum -= Math.min(sum - numDigit, 9);
+            }
+            List<Long> numbers = new ArrayList<>();
+            numbers.add(1L);
+            numbers.add(arrayToLong(digits));
+            int[] subArray = new int[0];
+            if (digits[digits.length - 1] - digits[0] <= 1) {
+                numbers.add(arrayToLong(digits));
+                return numbers;
             } else {
-                int[] copyOfSubArray = Arrays.copyOfRange(subArray, 0, subArray.length);
-                if (!Arrays.equals(subArray, shareOne(copyOfSubArray))) {
-                    shareOne(subArray);
-                } else {
-                    if (!Arrays.equals(subArray, shareOneAnotherTime(copyOfSubArray))) {
-                        shareOneAnotherTime(subArray);
+                for (int i = digits.length - 2; i >= 0; i--) {
+                    if (digits[i] < digits[i + 1]) {
+                        subArray = Arrays.copyOfRange(digits, i, numDigits);
+                        break;
                     }
                 }
             }
-            numbers.set(0, numbers.get(0) + 1);
-            recurse(numbers, subArray, digits);
-        }
-        return numbers;
-    }
 
-    public static int[] shareOne(int[] subArray) {
-        for (int digit = subArray.length - 2; digit >= 0; digit--) {
-            if (subArray[digit + 1] - subArray[digit] > 1) {
-                subArray[digit + 1] -= 1;
-                subArray[digit] += 1;
-                break;
-            }
-        }
-        return subArray;
-    }
+            return recurse(numbers, subArray, digits);
 
-    public static int[] shareOneAnotherTime(int[] subArray) {
-        for (int i = subArray.length - 1; i > 0; i--) {
-            for (int j = i - 1; j >= 0; j--) {
-                if (subArray[i] - subArray[j] > 1 && subArray[i] - subArray[i - 1] >= 1) {
-                    subArray[i] -= 1;
-                    subArray[j] += 1;
-                    break;
+        }
+
+        public static List<Long> recurse(List<Long> numbers, int[] subArray, int[] digits) {
+            if (subArray.length == digits.length && subArray[subArray.length - 1] - subArray[0] <= 1) {
+                numbers.add(arrayToLong(subArray));
+                return numbers;
+            } else {
+                if (subArray[subArray.length - 1] - subArray[0] <= 1 && subArray.length != digits.length) {
+                    subArray = editArrayForNewLength(Arrays.copyOfRange(digits, digits.length - subArray.length - 1, digits.length));
+                } else {
+                    int[] copyOfSubArray = Arrays.copyOfRange(subArray, 0, subArray.length);
+                    if (!Arrays.equals(subArray, shareOne(copyOfSubArray))) {
+                        shareOne(subArray);
+                    } else {
+                        if (!Arrays.equals(subArray, shareOneAnotherTime(copyOfSubArray))) {
+                            shareOneAnotherTime(subArray);
+                        }
+                    }
                 }
+                numbers.add(arrayToLong(subArray));
+                numbers.set(0, numbers.get(0) + 1);
+                recurse(numbers, subArray, digits);
             }
+            return numbers;
         }
-        return subArray;
-    }
 
-    public static Long arrayToLong(int[] digits) {
-        long number = 0L;
-        for (int digit : digits) {
-            number = number * 10 + digit;
-        }
-        return number;
-    }
-
-    public static int[] editArrayForNewLength(int[] subArray) {
-        int temp = subArray[0];
-        while (subArray[0] != temp + 1) {
+        public static int[] shareOne(int[] subArray) {
             for (int digit = subArray.length - 2; digit >= 0; digit--) {
                 if (subArray[digit + 1] - subArray[digit] > 1) {
                     subArray[digit + 1] -= 1;
                     subArray[digit] += 1;
+                    break;
                 }
             }
+            return subArray;
         }
-        return subArray;
-    }
 
+        public static int[] shareOneAnotherTime(int[] subArray) {
+            for (int i = subArray.length - 1; i > 0; i--) {
+                for (int j = i - 1; j >= 0; j--) {
+                    if (subArray[i] - subArray[j] > 1 && subArray[i] - subArray[i - 1] >= 1) {
+                        subArray[i] -= 1;
+                        subArray[j] += 1;
+                        break;
+                    }
+                }
+            }
+            return subArray;
+        }
 
-    //________________________________________________________________________________________________________________________
-    public static List<Long> anotherSolution(final int sumDigits, final int numDigits) {
-        if (numDigits * 9 < sumDigits) {
-            return new ArrayList<>();
-        }
-        int[] digits = new int[numDigits];
-        int sum = sumDigits;
-        for (int numDigit = numDigits - 1; numDigit >= 0; numDigit--) {
-            digits[numDigit] = Math.min(sum - numDigit, 9);
-            sum -= Math.min(sum - numDigit, 9);
-        }
-        List<Long> numbers = new ArrayList<>();
-        numbers.add(1L);
-        numbers.add(arrayToLong(digits));
-        Long firstNumber = arrayToLong(digits);
-        for (Long i = firstNumber + 1; ; i++) {
-            if (isInIncreasingOrder(i, sumDigits)) {
-                numbers.add(i);
-                numbers.set(0, numbers.get(0) + 1);
+        public static Long arrayToLong(int[] digits) {
+            long number = 0L;
+            for (int digit : digits) {
+                number = number * 10 + digit;
             }
-            if (i > 9 * Math.pow(10, numDigits - 1)) {
-                break;
-            }
+            return number;
         }
-        List<Long> result = new ArrayList<>();
-        result.add(numbers.get(1));
-        result.add(numbers.get(2));
-        result.add(numbers.get(numbers.size() - 1));
-        return result;
-    }
 
-    public static boolean isInIncreasingOrder(Long number, int sumDigits) {
-        int sum = sumDigits;
-        while (number > 0) {
-            long digit = number % 10;
-            number = (number - digit) / 10;
-            sum -= digit;
-            if (number % 10 > digit || sum < 0) {
-                return false;
+        public static int[] editArrayForNewLength(int[] subArray) {
+            int temp = subArray[0];
+            while (subArray[0] != temp + 1) {
+                for (int digit = 1; digit <= subArray.length-1; digit++) {
+                    if (subArray[digit] - subArray[digit-1] > 1) {
+                        subArray[digit] -= 1;
+                        subArray[digit-1] += 1;
+                        break;
+                    }
+                }
             }
+            return subArray;
         }
-        return sum == 0;
-    }
+    //
+    //
+    //    //________________________________________________________________________________________________________________________
+        public static List<Long> anotherSolution(final int sumDigits, final int numDigits) {
+            if (numDigits * 9 < sumDigits) {
+                return new ArrayList<>();
+            }
+            int[] digits = new int[numDigits];
+            int sum = sumDigits;
+            for (int numDigit = numDigits - 1; numDigit >= 0; numDigit--) {
+                digits[numDigit] = Math.min(sum - numDigit, 9);
+                sum -= Math.min(sum - numDigit, 9);
+            }
+            List<Long> numbers = new ArrayList<>();
+            numbers.add(1L);
+            numbers.add(arrayToLong(digits));
+            Long firstNumber = arrayToLong(digits);
+            for (Long i = firstNumber + 1; ; i++) {
+                if (isInIncreasingOrder(i, sumDigits)) {
+                    numbers.add(i);
+                    numbers.set(0, numbers.get(0) + 1);
+                }
+                if (i > 9 * Math.pow(10, numDigits - 1)) {
+                    break;
+                }
+            }
+            System.out.println(numbers);
+            List<Long> result = new ArrayList<>();
+            result.add(numbers.get(0));
+            result.add(numbers.get(1));
+            result.add(numbers.get(numbers.size() - 1));
+            return result;
+        }
+
+        public static boolean isInIncreasingOrder(Long number, int sumDigits) {
+            int sum = sumDigits;
+            while (number > 0) {
+                long digit = number % 10;
+                number = (number - digit) / 10;
+                sum -= digit;
+                if (number % 10 > digit || sum < 0) {
+                    return false;
+                }
+            }
+            return sum == 0;
+        }
     //    public static List<Long> findAll(final int sumDigits, final int numDigits) {
     //        if (numDigits * 9 < sumDigits) {
     //            return new ArrayList<>();
