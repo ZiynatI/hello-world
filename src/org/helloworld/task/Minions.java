@@ -1,8 +1,5 @@
 package org.helloworld.task;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Minions {
     ///I Love Lance & Janice
     //=====================
@@ -48,17 +45,12 @@ public class Minions {
     }
 
     public static String solution(String input) {
-        Map<Character, Character> letters = new HashMap<>();
-        int j = 122;
-        for (int i = 97; i <= 122; i++) {
-            letters.put((char) i, (char) j);
-            j--;
-        }
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < input.length(); i++) {
             char thisCharacter = input.charAt(i);
-            if (letters.containsKey(thisCharacter)) {
-                output.append(letters.get(thisCharacter));
+            if (thisCharacter <= 'z' && thisCharacter >= 'a') {
+                output.append((char) ('z' - thisCharacter + 'a'));
+
             } else output.append(thisCharacter);
         }
         return output.toString();
