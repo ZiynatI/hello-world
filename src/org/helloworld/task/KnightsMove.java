@@ -90,32 +90,6 @@ class KnightsMove {
         return routes;
     }
 
-    public static int solution(int src, int dest) {
-        List<Integer> routes = routesList(src);
-        int moves = 1;
-        for (int i = 0; i < routes.size(); i++) {
-            if (routes.get(i) == dest) {
-                return moves;
-            }
-        }
-        List<Integer> sources = new ArrayList<>();
-        while (true) {
-            moves++;
-            for (int i = 0; i < routes.size(); i++) {
-                if (routes.get(i) >= 0) {
-                    sources.addAll(routesList(routes.get(i)));
-                }
-                for (int j = 0; j < sources.size(); j++) {
-                    if (sources.get(j) == dest) {
-                        return moves;
-                    }
-                }
-            }
-            routes = List.copyOf(sources);
-            sources.clear();
-        }
-    }
-
 
     public static int rightRightUp(int src) {
         if (src % 8 == 6 || src % 8 == 7 || src < 8) {
@@ -178,6 +152,29 @@ class KnightsMove {
             return -1;
         } else {
             return src + 2 * 8 - 1;
+        }
+    }
+
+    public static int solution(int src, int dest) {
+        List<Integer> possibleLastRoutes = new ArrayList<>();
+        possibleLastRoutes.add(src);
+        int countMoves = 1;
+        List<Integer> possibleNextRoutes = new ArrayList<>();
+        while (true) {
+            for (Integer possibleLastRoute : possibleLastRoutes) {
+                if (possibleLastRoute >= 0) {
+                    for (Integer possibleNextRoute : routesList(possibleLastRoute)) {
+                        if (possibleNextRoute == dest) {
+                            return countMoves;
+                        } else {
+                            possibleNextRoutes.add(possibleNextRoute);
+                        }
+                    }
+                }
+            }
+            countMoves++;
+            possibleLastRoutes = List.copyOf(possibleNextRoutes);
+            possibleNextRoutes.clear();
         }
     }
 
