@@ -155,12 +155,15 @@ class KnightsMove {
         }
     }
 
+
     public static int solution(int src, int dest) {
         List<Integer> possibleLastRoutes = new ArrayList<>();
         possibleLastRoutes.add(src);
-        int countMoves = 1;
         List<Integer> possibleNextRoutes = new ArrayList<>();
+        int countMoves = 0;
+
         while (true) {
+            countMoves++;
             for (Integer possibleLastRoute : possibleLastRoutes) {
                 if (possibleLastRoute >= 0) {
                     for (Integer possibleNextRoute : routesList(possibleLastRoute)) {
@@ -172,10 +175,10 @@ class KnightsMove {
                     }
                 }
             }
-            countMoves++;
             possibleLastRoutes = List.copyOf(possibleNextRoutes);
             possibleNextRoutes.clear();
         }
+
     }
 
 
