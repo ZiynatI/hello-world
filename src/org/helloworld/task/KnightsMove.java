@@ -172,9 +172,7 @@ class KnightsMove {
                         return countMoves;
                     } else {
                         possibleNextRoutes.addAll(routesList(possibleLastRoute));
-
                     }
-
                 }
             }
             countMoves++;
