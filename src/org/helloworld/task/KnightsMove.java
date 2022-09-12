@@ -1,7 +1,9 @@
 package org.helloworld.task;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 class KnightsMove {
 
@@ -159,12 +161,13 @@ class KnightsMove {
     public static int solution(int src, int dest) {
         List<Integer> possibleLastRoutes = routesList(src);
         List<Integer> possibleNextRoutes = new ArrayList<>();
-        List<Integer> dropoutCells = new ArrayList<>();
+        Set<Integer> dropoutCells = new HashSet<>();
+        dropoutCells.add(src);
         int countMoves = 1;
 
         while (true) {
             for (Integer possibleLastRoute : possibleLastRoutes) {
-                if (possibleLastRoute >= 0 && !isDropout(dropoutCells, possibleLastRoute)) {
+                if (possibleLastRoute >= 0 && !dropoutCells.contains(possibleLastRoute)) {
                     if (possibleLastRoute == dest) {
                         return countMoves;
                     } else {
@@ -180,15 +183,6 @@ class KnightsMove {
             possibleNextRoutes.clear();
         }
 
-    }
-
-    public static boolean isDropout(List<Integer> dropoutCells, Integer currentCell) {
-        for (Integer dropoutCell : dropoutCells) {
-            if (dropoutCell.equals(currentCell)) {
-                return true;
-            }
-        }
-        return false;
     }
 
 
