@@ -159,25 +159,38 @@ class KnightsMove {
     public static int solution(int src, int dest) {
         List<Integer> possibleLastRoutes = routesList(src);
         List<Integer> possibleNextRoutes = new ArrayList<>();
+        List<Integer> dropoutCells = new ArrayList<>();
         int countMoves = 1;
 
         while (true) {
             for (Integer possibleLastRoute : possibleLastRoutes) {
-                if (possibleLastRoute >= 0) {
+                if (possibleLastRoute >= 0 && !isDropout(dropoutCells, possibleLastRoute)) {
                     if (possibleLastRoute == dest) {
                         return countMoves;
                     } else {
                         possibleNextRoutes.addAll(routesList(possibleLastRoute));
+
                     }
 
                 }
             }
             countMoves++;
+            dropoutCells.addAll(possibleLastRoutes);
             possibleLastRoutes = List.copyOf(possibleNextRoutes);
             possibleNextRoutes.clear();
         }
 
     }
+
+    public static boolean isDropout(List<Integer> dropoutCells, Integer currentCell) {
+        for (Integer dropoutCell : dropoutCells) {
+            if (dropoutCell.equals(currentCell)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     //    public static int solution(int src, int dest) {
     //        List<Integer> possibleLastRoutes = new ArrayList<>();
