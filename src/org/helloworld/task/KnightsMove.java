@@ -177,8 +177,8 @@ class KnightsMove {
             }
             countMoves++;
             dropoutCells.addAll(possibleLastRoutes);
-            possibleLastRoutes = List.copyOf(possibleNextRoutes);
-            possibleNextRoutes.clear();
+            possibleLastRoutes = possibleNextRoutes;
+            possibleNextRoutes = new ArrayList<>();
         }
 
     }
