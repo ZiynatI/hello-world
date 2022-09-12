@@ -157,29 +157,52 @@ class KnightsMove {
 
 
     public static int solution(int src, int dest) {
-        List<Integer> possibleLastRoutes = new ArrayList<>();
-        possibleLastRoutes.add(src);
+        List<Integer> possibleLastRoutes = routesList(src);
         List<Integer> possibleNextRoutes = new ArrayList<>();
-        int countMoves = 0;
+        int countMoves = 1;
 
         while (true) {
-            countMoves++;
             for (Integer possibleLastRoute : possibleLastRoutes) {
                 if (possibleLastRoute >= 0) {
-                    for (Integer possibleNextRoute : routesList(possibleLastRoute)) {
-                        if (possibleNextRoute == dest) {
-                            return countMoves;
-                        } else {
-                            possibleNextRoutes.add(possibleNextRoute);
-                        }
+                    if (possibleLastRoute == dest) {
+                        return countMoves;
+                    } else {
+                        possibleNextRoutes.addAll(routesList(possibleLastRoute));
                     }
+
                 }
             }
+            countMoves++;
             possibleLastRoutes = List.copyOf(possibleNextRoutes);
             possibleNextRoutes.clear();
         }
 
     }
+
+    //    public static int solution(int src, int dest) {
+    //        List<Integer> possibleLastRoutes = new ArrayList<>();
+    //        possibleLastRoutes.add(src);
+    //        List<Integer> possibleNextRoutes = new ArrayList<>();
+    //        int countMoves = 0;
+    //
+    //        while (true) {
+    //            countMoves++;
+    //            for (Integer possibleLastRoute : possibleLastRoutes) {
+    //                if (possibleLastRoute >= 0) {
+    //                    for (Integer possibleNextRoute : routesList(possibleLastRoute)) {
+    //                        if (possibleNextRoute == dest) {
+    //                            return countMoves;
+    //                        } else {
+    //                            possibleNextRoutes.add(possibleNextRoute);
+    //                        }
+    //                    }
+    //                }
+    //            }
+    //            possibleLastRoutes = List.copyOf(possibleNextRoutes);
+    //            possibleNextRoutes.clear();
+    //        }
+    //
+    //    }
 
 
     //    public static int solution2(int src, int dest) {
