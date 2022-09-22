@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class TimeFormatter {
+    //https://www.codewars.com/kata/52742f58faf5485cae000b9a
     //Your task in order to complete this Kata is to write a function which formats a duration,
     //given as a number of seconds, in a human-friendly way.
     //The function must accept a non-negative integer. If it is zero, it just returns "now".
