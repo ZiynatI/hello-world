@@ -18,23 +18,21 @@ public class RangeExtraction {
 
     public static String rangeExtraction(int[] arr) {
         StringBuilder numbers = new StringBuilder();
-        for (int i = 0; i < arr.length - 1; i++) {
+        for (int i = 0; i < arr.length; i++) {
             numbers.append(arr[i]);
-            if (i < arr.length - 2) {
-                if (arr[i + 1] - arr[i] == 1 && arr[i + 2] - arr[i + 1] == 1) {
-                    while (arr[i + 1] - arr[i] == 1) {
-                        if (i + 1 == arr.length - 1) {
-                            numbers.append("-").append(arr[i + 1]);
-                            break;
-                        }
-                        i++;
+            if (i < arr.length - 2 && arr[i + 1] - arr[i] == 1 && arr[i + 2] - arr[i + 1] == 1) {
+                while (arr[i + 1] - arr[i] == 1) {
+                    if (i + 1 == arr.length - 1) {
+                        numbers.append("-").append(arr[i + 1]);
+                        return numbers.toString();
                     }
-                    if (i + 1 != arr.length - 1) {
-                        numbers.append("-").append(arr[i]);
-                    }
+                    i++;
+                }
+                if (i != arr.length - 1) {
+                    numbers.append("-").append(arr[i]);
                 }
             }
-            if (i + 1 != arr.length - 1) {
+            if (i != arr.length - 1) {
                 numbers.append(",");
             }
         }
