@@ -1,7 +1,5 @@
 package codewars;
 
-import java.util.Objects;
-
 public class WeightSort {
     //My friend John and I are members of the "Fat to Fit Club (FFC)". John is worried because each month
     //a list with the weights of members is published and each month he is the last on the list which means
@@ -24,7 +22,8 @@ public class WeightSort {
 
     public static void main(String[] args) {
         System.out.println(orderWeight("2000 10003 1234000 44444444 9999 11 11 22 123"));
-        System.out.println(orderWeight("59544965313"));
+        System.out.println(orderWeight("103 123 4444 99 2000"));
+        //        System.out.println(orderWeight("59544965313"));
     }
 
     public static String orderWeight(String strng) {
@@ -32,42 +31,61 @@ public class WeightSort {
             return "";
         }
         String[] weight = strng.split(" ");
+        NumbersWithWeight[] nw = new NumbersWithWeight[weight.length];
         for (int i = 0; i < weight.length; i++) {
-            int num = Integer.parseInt(weight[i]);
-
+            nw[i] = new NumbersWithWeight(weight[i]);
         }
-        return "";
+        NumbersWithWeight temp;
+        boolean sorted = false;
+        while (!sorted) {
+            sorted = true;
+            for (int i = 0; i < nw.length - 1; i++) {
+//                if (nw[i] == nw[i + 1]){
+//                    List<String> list = new ArrayList<>();
+//                    list.add(nw[i].weightOfValue);
+//                    list.add(nw[i+1].weightOfValue);
+//                    Collections.sort(list);
+//                    nw[i]=list.get(0);
+//
+//                }
+//               else
+                   if (nw[i].weightOfValue > nw[i + 1].weightOfValue) {
+
+                    temp = nw[i];
+                    nw[i] = nw[i + 1];
+                    nw[i + 1] = temp;
+                    sorted=false;
+                }
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < nw.length; i++) {
+            sb.append(nw[i].value);
+            if (i != nw.length - 1) {
+                sb.append(" ");
+            }
+        }
+
+        return sb.toString();
     }
 
     public static class NumbersWithWeight {
-        public final int value;
-        public final int weightOfValue;
+        public String value;
+        public int weightOfValue;
 
-        public NumbersWithWeight(int value, int weightOfValue) {
+        public NumbersWithWeight(String value) {
             this.value = value;
-            this.weightOfValue = weightOfValue;
+            this.weightOfValue = getWeight();
         }
 
-
-        public int getWeightOfValue(int value) {
-            int sum = 0;
-            for (int n = value; n > 0; n /= 10) {
-                sum += n % 10;
+        public int getWeight() {
+            int weight = 0;
+            int v = Integer.parseInt(value);
+            while (v > 0) {
+                weight = weight + v % 10;
+                v = (v - v % 10) / 10;
             }
-            return sum;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            NumbersWithWeight that = (NumbersWithWeight) o;
-            return value == that.value && weightOfValue == that.weightOfValue;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(value, weightOfValue);
+            return weight;
         }
     }
 }

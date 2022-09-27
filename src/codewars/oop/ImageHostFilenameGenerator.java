@@ -1,5 +1,8 @@
 package codewars.oop;
 
+import java.util.Locale;
+import java.util.Random;
+
 public class ImageHostFilenameGenerator {
     //https://www.codewars.com/kata/586a933fc66d187b6e00031a
     //You are developing an image hosting website.
@@ -12,6 +15,23 @@ public class ImageHostFilenameGenerator {
     //photoManager.nameExists("BBCDEF"); // returns false
     //Note: We consider two names with same letters but different cases to be unique.
     public static String generateName(PhotoManager photoManager) {
-        return "";
+        while (true) {
+            Random random = new Random();
+            char[] word = new char[6];
+            for (int j = 0; j < word.length; j++) {
+                word[j] = (char) ('a' + random.nextInt(26));
+            }
+            String s = new String(word).toUpperCase(Locale.ROOT);
+            if (!photoManager.nameExists(s)) {
+                return s;
+            }
+        }
+    }
+
+    static class PhotoManager {
+
+        public boolean nameExists(String s) {
+            return true;
+        }
     }
 }
