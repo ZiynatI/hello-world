@@ -8,7 +8,7 @@ public class BuyCar {
     //A man has a rather old car being worth $2000. He saw a secondhand car being worth $8000.
     //He wants to keep his old car until he can buy the secondhand one.
     //He thinks he can save $1000 each month but the prices of his old car and of the new one decrease of 1.5
-    //percent per month. Furthermore this percent of loss increases of 0.5 percent at the end of every two months.
+    //percent per month. Furthermore, this percent of loss increases of 0.5 percent at the end of every two months.
     //Our man finds it difficult to make all these calculations.
     //Can you help him?
     //How many months will it take him to save up enough money to buy the car he wants, and how much money will he have left over?
@@ -44,18 +44,19 @@ public class BuyCar {
         if (startPriceOld - startPriceNew >= 0) {
             return new int[]{0, startPriceOld - startPriceNew};
         }
-        double total = (startPriceOld - startPriceNew) * 1.0;
-        double t = total;
-        int months = 1;
-        double savingPerMonth = savingperMonth;
-        while (t < 0) {
+        double total = 0;
+        int months = 0;
+        double oldCar = startPriceOld;
+        double newCar = startPriceNew;
+        while (total <= 0) {
+            months++;
             if (months % 2 == 0) {
                 percentLossByMonth += 0.5;
             }
-            double perc = total * percentLossByMonth * 0.01;
-            t += savingPerMonth - perc;
-            months++;
+            oldCar = oldCar - oldCar * percentLossByMonth / 100;
+            newCar = newCar - newCar * percentLossByMonth / 100;
+            total = months * savingperMonth + oldCar - newCar;
         }
-        return new int[]{months, (int) t};
+        return new int[]{months, (int) total};
     }
 }
