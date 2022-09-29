@@ -1,6 +1,6 @@
 package codewars.oop;
 
-public class LombokBuilder {
+public class LombokBuilder  {
     //https://www.codewars.com/kata/5a04863f06d5b6387c0000a5
     //Having this class:
     //public class People{
@@ -33,6 +33,10 @@ public class LombokBuilder {
 
         public String greet() {
             return greet + " my name is " + name;
+        }
+
+        public int getAge() {
+            return age;
         }
     }
 }
