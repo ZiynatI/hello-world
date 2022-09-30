@@ -45,7 +45,7 @@ public class BuyCar {
             return new int[]{0, startPriceOld - startPriceNew};
         }
         double total = 0;
-        int months = 0;
+        double months = 0;
         double oldCar = startPriceOld;
         double newCar = startPriceNew;
         while (total <= 0) {
@@ -57,6 +57,6 @@ public class BuyCar {
             newCar = newCar - newCar * percentLossByMonth / 100;
             total = months * savingperMonth + oldCar - newCar;
         }
-        return new int[]{months, (int) total};
+        return new int[]{(int)months, (int) total};
     }
 }
