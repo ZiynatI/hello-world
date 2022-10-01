@@ -5,7 +5,7 @@ public interface RockPaperScissorsPlayer {
     String getName();
 
     // Used by playground to notify you that a new match will start.
-    void setNewMatch(String opponentName);
+   void setNewMatch(String opponentName);
 
     // Used by playground to get your game shape (values: "R", "P" or "S").
     String getShape();
