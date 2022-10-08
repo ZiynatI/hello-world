@@ -19,13 +19,14 @@ public class GameEngine {
     public static void main(String[] args) {
         play();
     }
+
     public static void play() {
         System.out.println("Нужен диапазон от нуля до n\nВведите число n");
         Scanner input = new Scanner(System.in);
         Random random = new Random();
         int rightNumber = random.nextInt(input.nextInt() + 1);
+        System.out.println("Угадайте число");
         while (true) {
-            System.out.println("Угадайте число");
             int nextGuessing = input.nextInt();
             if (nextGuessing == rightNumber) {
                 System.out.println("Верно!");
