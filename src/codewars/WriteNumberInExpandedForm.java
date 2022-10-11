@@ -17,7 +17,6 @@ public class WriteNumberInExpandedForm {
     }
 
     public static String recurse(int num, int zeros, String expending) {
-        StringBuilder e = new StringBuilder();
         if (num == 0) {
             return expending;
         } else {
@@ -27,7 +26,6 @@ public class WriteNumberInExpandedForm {
             } else {
                 expending = recurse((num - num % 10) / 10, zeros + 1, " + " + tail * (int) Math.pow(10, zeros)) + expending;
             }
-
         }
         return expending;
     }
