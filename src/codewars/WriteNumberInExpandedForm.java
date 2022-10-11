@@ -9,22 +9,23 @@ public class WriteNumberInExpandedForm {
     //Kata.expandedForm(70304); # Should return "70000 + 300 + 4"
     //NOTE: All numbers will be whole numbers greater than 0.
     public static void main(String[] args) {
-        System.out.println(expandedForm(42));
+        System.out.println(expandedForm(70304));
     }
 
     public static String expandedForm(int num) {
-        return recurse(num, 0, "");
+        return recurse(num, 0, "").substring(3);
     }
 
     public static String recurse(int num, int zeros, String expending) {
+        StringBuilder e = new StringBuilder();
         if (num == 0) {
             return expending;
         } else {
             int tail = num % 10;
             if (tail == 0) {
-                recurse((num - num % 10) / 10, zeros + 1, expending);
+                expending = recurse((num - num % 10) / 10, zeros + 1, "") + expending;
             } else {
-                recurse((num - num % 10) / 10, zeros + 1, expending + "+" + tail * (int) Math.pow(10, zeros));
+                expending = recurse((num - num % 10) / 10, zeros + 1, " + " + tail * (int) Math.pow(10, zeros)) + expending;
             }
 
         }
