@@ -41,16 +41,30 @@ public class CarMileage {
     //    You should only ever output 0, 1, or 2.
     //
     public static void main(String[] args) {
-        System.out.println(isInteresting(11209, new int[]{}));
+        System.out.println(isInteresting(11211, new int[]{}));
     }
+
     public static int isInteresting(int number, int[] awesomePhrases) {
         if (number < 100) {
             return 0;
         }
-        if (isDigitFollowedByAllZeros(number) || everyDigitIsTheSameNumber(number) || isIncrementingOrDecrementing(number) || isPalindrome(number) || isAwesome(number, awesomePhrases)) {
+        if (isDigitFollowedByAllZeros(number) ||
+                everyDigitIsTheSameNumber(number) ||
+                isIncrementingOrDecrementing(number) ||
+                isPalindrome(number) ||
+                isAwesome(number, awesomePhrases)) {
             return 2;
-        } else if ((isDigitFollowedByAllZeros(number - 1) || everyDigitIsTheSameNumber(number - 1) || isIncrementingOrDecrementing(number - 1) || isPalindrome(number - 1) || isAwesome(number - 1, awesomePhrases)) ||
-                isDigitFollowedByAllZeros(number - 2) || everyDigitIsTheSameNumber(number - 2) || isIncrementingOrDecrementing(number - 2) || isPalindrome(number - 2) || isAwesome(number - 2, awesomePhrases)) {
+        } else if ((isDigitFollowedByAllZeros(number + 1) ||
+                everyDigitIsTheSameNumber(number + 1) ||
+                isIncrementingOrDecrementing(number + 1) ||
+                isPalindrome(number + 1) ||
+                isAwesome(number + 1, awesomePhrases)
+        ) ||
+                isDigitFollowedByAllZeros(number + 2) ||
+                everyDigitIsTheSameNumber(number + 2) ||
+                isIncrementingOrDecrementing(number + 2) ||
+                isPalindrome(number + 2) ||
+                isAwesome(number + 2, awesomePhrases)) {
             return 1;
         }
         return 0;
@@ -83,13 +97,29 @@ public class CarMileage {
         int num = number;
         int d = num % 10 - ((num / 10) % 10);
         num = num / 10;
-        while (num > 0) {
+        if (number % 10 == 0 && d < 0) {
+            return isIncrementingWithZero(num);
+        }
+        while (num > 10) {
             if (num % 10 - ((num / 10) % 10) != d) {
                 return false;
             }
             num = (num - num % 10) / 10;
         }
         return true;
+    }
+
+    /*For incrementing sequences, 0 should come after 9, and not before 1, as in 7890*/
+    public static boolean isIncrementingWithZero(int num) {
+        int d = num % 10 - ((num / 10) % 10);
+        while (num > 10) {
+            if (num % 10 - ((num / 10) % 10) != d) {
+                return false;
+            }
+            num = (num - num % 10) / 10;
+        }
+        return true;
+
     }
 
     public static boolean isPalindrome(int number) {
