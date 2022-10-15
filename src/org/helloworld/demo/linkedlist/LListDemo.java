@@ -13,7 +13,7 @@ public class LListDemo {
         System.out.println(fn.apply(123));
         Function<LList<Integer>, Integer> fn2 = LListDemo::sum;
 
-//        Predicate<> pred = x -> (x % 2 == 0);
+//        Predicate<> pred = x -> (x % 2)==0;
     }
 
     public static <T> LList<T> asList(T... elements) {

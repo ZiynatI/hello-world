@@ -26,7 +26,6 @@ public abstract class LList<T> {
     }
 
     public LList<T> filter(Predicate<T> pred) {
-//        pred.test(x) == true
         if (this.isEmpty()) {
             return Nil.nil();
         }

@@ -41,7 +41,7 @@ public class CarMileage {
     //    You should only ever output 0, 1, or 2.
     //
     public static void main(String[] args) {
-        System.out.println(isInteresting(11211, new int[]{}));
+        System.out.println(isInteresting(1120990211, new int[]{}));
     }
 
     public static int isInteresting(int number, int[] awesomePhrases) {
@@ -71,65 +71,41 @@ public class CarMileage {
     }
 
     public static boolean isDigitFollowedByAllZeros(int number) {
-        int num = number;
-        while (num > 10) {
-            if (num % 10 != 0) {
+        String num = String.valueOf(number);
+        for (int i = 1; i < num.length(); i++) {
+            if (num.charAt(i) != 0) {
                 return false;
             }
-            num = num / 10;
         }
         return true;
     }
 
     public static boolean everyDigitIsTheSameNumber(int number) {
-        int num = number;
-        int lastDigit = num % 10;
-        while (num > 0) {
-            if (num % 10 != lastDigit) {
+        String num = String.valueOf(number);
+        for (int i = 1; i < num.length(); i++) {
+            if (num.charAt(i) != num.charAt(0)) {
                 return false;
             }
-            num = (num - num % 10) / 10;
         }
         return true;
     }
 
     public static boolean isIncrementingOrDecrementing(int number) {
-        int num = number;
-        int d = num % 10 - ((num / 10) % 10);
-        num = num / 10;
-        if (number % 10 == 0 && d < 0) {
-            return isIncrementingWithZero(num);
-        }
-        while (num > 10) {
-            if (num % 10 - ((num / 10) % 10) != d) {
-                return false;
-            }
-            num = (num - num % 10) / 10;
-        }
-        return true;
+        String num = String.valueOf(number);
+        String incrementing = "1234567890";
+        String decrementing = "9876543210";
+        return incrementing.contains(num) || decrementing.contains(num);
     }
 
-    /*For incrementing sequences, 0 should come after 9, and not before 1, as in 7890*/
-    public static boolean isIncrementingWithZero(int num) {
-        int d = num % 10 - ((num / 10) % 10);
-        while (num > 10) {
-            if (num % 10 - ((num / 10) % 10) != d) {
-                return false;
-            }
-            num = (num - num % 10) / 10;
-        }
-        return true;
-
-    }
 
     public static boolean isPalindrome(int number) {
-        int num = number;
-        int reverse = 0;
-        while (num > 0) {
-            reverse = reverse * 10 + num % 10;
-            num = (num - num % 10) / 10;
+        String num = String.valueOf(number);
+        for (int i = 0; i < num.length() / 2; i++) {
+            if (num.charAt(i) != num.charAt(num.length() - i - 1)) {
+                return false;
+            }
         }
-        return number == reverse;
+        return true;
     }
 
     public static boolean isAwesome(int number, int[] awesomePhrases) {
