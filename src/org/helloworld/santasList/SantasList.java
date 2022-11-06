@@ -8,7 +8,5 @@ public class SantasList {
     public void addChild(Child child) {
         santasList.add(child);
     }
-public void deleteChild(Child child){
-santasList.delete(child);}
 }
 

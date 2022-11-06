@@ -10,17 +10,17 @@ public class HelloJson {
     public static void main(String[] args) {
         Person p1 = new Person("Ziynat", "Isomurodova",
                 new Address(Arrays.asList("77 Nukus st.", "Apt 11"), "Tashkent", "Uzbekistan"));
-        System.out.println(p1);
+//        System.out.println(p1);
 
         Gson gson = new Gson();
         String json = gson.toJson(p1);
         System.out.println(json);
 
-        Person p2 = gson.fromJson(json, Person.class);
-        System.out.println(p2);
-        System.out.println();
-
-        System.out.println(p1.equals(p2));
+//        Person p2 = gson.fromJson(json, Person.class);
+//        System.out.println(p2);
+//        System.out.println();
+//
+//        System.out.println(p1.equals(p2));
     }
 
     public static class Person {
