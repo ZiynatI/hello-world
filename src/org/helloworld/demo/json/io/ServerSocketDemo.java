@@ -21,8 +21,7 @@ public class ServerSocketDemo {
                     byte[] buffer = new byte[8192];
                     int len;
                     while ((len = inputStream.read(buffer)) > 0) {
-                        // System.out.println(new String(buffer, 0, len, StandardCharsets.UTF_8));
-                        if (inputStream.available() <= 0) {
+                         if (inputStream.available() <= 0) {
                             break;
                         }
                     }
