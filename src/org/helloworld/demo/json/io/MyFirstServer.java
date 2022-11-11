@@ -22,8 +22,14 @@ public class MyFirstServer {
                         break;
                     }
                 }
-                String response = "Привет, это Сервер! Подтверждаю, ваш запрос :" + new String(buffer, 0, length, StandardCharsets.UTF_8);
-                out.write(response.getBytes(StandardCharsets.UTF_8));
+                out.write("HTTP/1.1 200 OK\n".getBytes(StandardCharsets.UTF_8));
+                out.write(("Date: Fri, 11 Nov 2022\n" +
+                        "Etag: \"3147526947+ident\"\n" +
+                        "Content-Length: \n" + "" +
+                        "Vary: Accept-Encoding\n" +
+                        "Content-Type: text/plain" +
+                        "\n\n").getBytes(StandardCharsets.UTF_8));
+                System.out.println("Hello, World!");
             }
         }
     }

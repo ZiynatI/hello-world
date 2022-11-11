@@ -22,7 +22,7 @@ public class SocketDemo {
             os.write("Host: example.com\n\n".getBytes(UTF_8));
 
             boolean dataStarted = false;
-            byte[] buf = new byte[1024];
+            byte[] buf = new byte[2048];
             int len;
             while ((len = is.read(buf)) > 0) {
                 String s = new String(buf, 0, len, UTF_8);
