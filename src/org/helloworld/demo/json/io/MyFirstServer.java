@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class MyFirstServer {
-    public static void main(String args[]) throws IOException {
+    public static void main(String[] args) throws IOException {
         getResponse();
     }
 
