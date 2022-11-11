@@ -9,6 +9,10 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class MyFirstServer {
     public static void main(String args[]) throws IOException {
+        response();
+    }
+
+    public static void response() throws IOException {
         try (ServerSocket serverSocket = new ServerSocket(80)) {
             System.out.println("Сервер запущен!");
             try (Socket socket = serverSocket.accept();
