@@ -1,8 +1,6 @@
 package org.helloworld.demo.json.io;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
@@ -34,6 +32,20 @@ public class MyFirstServer {
                 out.write("HTTP/1.1 200 OK\n".getBytes(StandardCharsets.UTF_8));
                 out.write(response.getBytes(StandardCharsets.UTF_8));
                 out.write(helloWorld);
+
+                try (FileInputStream fin = new FileInputStream("C:\\Users\\user\\Desktop\\html\\index.html")) {
+                    byte[] buffer2 = new byte[2048];
+                    int length2;
+                    while ((length2 = fin.read(buffer2)) > 0) {
+                        out.write(buffer2);
+                        System.out.println(new String(buffer2, 0, length2, StandardCharsets.UTF_8));
+                        if (in.available() <= 0) {
+                            break;
+                        }
+                    }
+                }
+
+
             }
         }
     }
