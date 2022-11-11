@@ -28,9 +28,9 @@ public class MyFirstServer {
                     }
                 }
                 byte[] helloWorld = "Hello, World!".getBytes(UTF_8);
-                String response = "Content-Length: " + helloWorld.length + "Content-Type: text/html" +
-                        "\n\n";
-
+                String response = "Content-Length: " + helloWorld.length + "\n" +
+                        "Content-Type: text/html" + "\n\n";
+                System.out.println(response);
                 out.write("HTTP/1.1 200 OK\n".getBytes(StandardCharsets.UTF_8));
                 out.write(response.getBytes(StandardCharsets.UTF_8));
                 out.write(helloWorld);
