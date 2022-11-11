@@ -13,7 +13,8 @@ public class MyFirstServer {
             System.out.println("Сервер запущен!");
             try (Socket socket = serverSocket.accept();
                  InputStream in = socket.getInputStream();
-                 OutputStream out = socket.getOutputStream()) {
+                 OutputStream out = socket.getOutputStream();
+                 FileInputStream fin = new FileInputStream("C:\\Users\\user\\Desktop\\html\\index.html")) {
                 System.out.println("Связь  установлена!");
                 byte[] buffer = new byte[2048];
                 int length;
@@ -25,25 +26,24 @@ public class MyFirstServer {
                         break;
                     }
                 }
+                byte[] buffer2 = new byte[2048];
+                int length2;
+                StringBuilder sb = new StringBuilder();
+                while ((length2 = fin.read(buffer2)) > 0) {
+                    sb.append(new String(buffer2, 0, length2, StandardCharsets.UTF_8));
+                    if (in.available() <= 0) {
+                        break;
+                    }
+                }
                 byte[] helloWorld = "Hello, World!".getBytes(UTF_8);
-                String response = "Content-Length: " + helloWorld.length + "\n" +
+                String response = "Content-Length: " + helloWorld.length + sb.length() + "\n" +
                         "Content-Type: text/plain" + "\n\n";
                 System.out.println(response);
                 out.write("HTTP/1.1 200 OK\n".getBytes(StandardCharsets.UTF_8));
                 out.write(response.getBytes(StandardCharsets.UTF_8));
                 out.write(helloWorld);
-
-                try (FileInputStream fin = new FileInputStream("C:\\Users\\user\\Desktop\\html\\index.html")) {
-                    byte[] buffer2 = new byte[2048];
-                    int length2;
-                    while ((length2 = fin.read(buffer2)) > 0) {
-                        out.write(buffer2);
-                        System.out.println(new String(buffer2, 0, length2, StandardCharsets.UTF_8));
-                        if (in.available() <= 0) {
-                            break;
-                        }
-                    }
-                }
+                System.out.println(sb);
+                out.write(sb.toString().getBytes(UTF_8));
             }
         }
     }
