@@ -23,11 +23,8 @@ public class MyFirstServer {
                     }
                 }
                 out.write("HTTP/1.1 200 OK\n".getBytes(StandardCharsets.UTF_8));
-                out.write(("Date: Fri, 11 Nov 2022\n" +
-                        "Etag: \"3147526947+ident\"\n" +
-                        "Content-Length: \n" + "" +
-                        "Vary: Accept-Encoding\n" +
-                        "Content-Type: text/plain" +
+                out.write(("Content-Length: 0\n" +
+                        "Content-Type: text/html" +
                         "\n\n").getBytes(StandardCharsets.UTF_8));
                 System.out.println("Hello, World!");
             }
