@@ -18,8 +18,10 @@ public class MyFirstServer {
             try (Socket socket = serverSocket.accept();
                  OutputStream out = socket.getOutputStream()) {
                 System.out.println("Связь  установлена!");
-                String response = "HTTP/1.1 200 OK\n" + "Content-Length: " + copyHtml().length() + "\n" +
-                        "Content-Type: text/plain" + "\n\n" + copyHtml();
+                String response = "HTTP/1.1 200 OK\n" +
+                        "Content-Length: " + copyHtml().length() + "\n" +
+                        "Content-Type: text/plain" + "\n\n" +
+                        copyHtml();
                 out.write(response.getBytes(UTF_8));
                 System.out.println(response);
             }
