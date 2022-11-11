@@ -27,13 +27,13 @@ public class MyFirstServer {
                         break;
                     }
                 }
-                String helloWorld = "Hello, World!";
-                String response = "Content-Length: " + helloWorld.length() + "Content-Type: text/html" +
+                byte[] helloWorld = "Hello, World!".getBytes(UTF_8);
+                String response = "Content-Length: " + helloWorld.length + "Content-Type: text/html" +
                         "\n\n";
 
                 out.write("HTTP/1.1 200 OK\n".getBytes(StandardCharsets.UTF_8));
                 out.write(response.getBytes(StandardCharsets.UTF_8));
-                out.write(helloWorld.getBytes(StandardCharsets.UTF_8));
+                out.write(helloWorld);
             }
         }
     }
