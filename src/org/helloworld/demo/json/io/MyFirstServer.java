@@ -13,8 +13,7 @@ public class MyFirstServer {
             System.out.println("Сервер запущен!");
             try (Socket socket = serverSocket.accept();
                  InputStream in = socket.getInputStream();
-                 OutputStream out = socket.getOutputStream();
-                 FileInputStream fin = new FileInputStream("C:\\Users\\user\\Desktop\\html\\index.html")) {
+                 OutputStream out = socket.getOutputStream()) {
                 System.out.println("Связь  установлена!");
                 byte[] buffer = new byte[2048];
                 int length;
@@ -29,10 +28,12 @@ public class MyFirstServer {
                 byte[] buffer2 = new byte[2048];
                 int length2;
                 StringBuilder sb = new StringBuilder();
-                while ((length2 = fin.read(buffer2)) > 0) {
-                    sb.append(new String(buffer2, 0, length2, StandardCharsets.UTF_8));
-                    if (in.available() <= 0) {
-                        break;
+                try (FileInputStream fin = new FileInputStream("C:\\Users\\user\\Desktop\\html\\index.html")) {
+                    while ((length2 = fin.read(buffer2)) > 0) {
+                        sb.append(new String(buffer2, 0, length2, StandardCharsets.UTF_8));
+                        if (in.available() <= 0) {
+                            break;
+                        }
                     }
                 }
                 byte[] helloWorld = "Hello, World!".getBytes(UTF_8);
