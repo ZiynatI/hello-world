@@ -15,7 +15,7 @@ public class MyFirstServer {
     public static void startServer() throws IOException {
         try (ServerSocket serverSocket = new ServerSocket(80)) {
             System.out.println("Сервер запущен!");
-            try (Socket socket = serverSocket.accept(); OutputStream out = socket.getOutputStream()) {
+            try (Socket socket = serverSocket.accept()) {
                 System.out.println("Сокет запущен!");
                 System.out.println("Связь  установлена!");
                 serveConnection(socket);
@@ -24,18 +24,16 @@ public class MyFirstServer {
     }
 
     public static void serveConnection(Socket socket) throws IOException {
-        try (socket) {
-            try (OutputStream out = socket.getOutputStream()) {
-                File file = new File("C:\\Users\\user\\Desktop\\html\\index.html");
-                byte[] fileToBytes = readFile(file).getBytes(UTF_8);
-                String response = "HTTP/1.1 200 OK\n" +
-                        "Content-Length: " + fileToBytes.length + "\n" +
-                        "Content-Type: text/plain" + "\n\n";
-                out.write(response.getBytes(UTF_8));
-                out.write(fileToBytes);
-                System.out.println(response);
-                System.out.println(readFile(file));
-            }
+        try (OutputStream out = socket.getOutputStream()) {
+            File file = new File("C:\\Users\\user\\Desktop\\html\\index.html");
+            byte[] fileToBytes = readFile(file).getBytes(UTF_8);
+            String response = "HTTP/1.1 200 OK\n" +
+                    "Content-Length: " + fileToBytes.length + "\n" +
+                    "Content-Type: text/plain" + "\n\n";
+            out.write(response.getBytes(UTF_8));
+            out.write(fileToBytes);
+            System.out.println(response);
+            System.out.println(readFile(file));
         }
     }
 
