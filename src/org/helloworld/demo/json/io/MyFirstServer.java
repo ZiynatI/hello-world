@@ -9,26 +9,26 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class MyFirstServer {
     public static void main(String[] args) throws IOException {
-        getResponse();
+        writeOutputStream();
     }
 
-    public static void getResponse() throws IOException {
+    public static void writeOutputStream() throws IOException {
         try (ServerSocket serverSocket = new ServerSocket(80)) {
             System.out.println("Сервер запущен!");
             try (Socket socket = serverSocket.accept();
                  OutputStream out = socket.getOutputStream()) {
                 System.out.println("Связь  установлена!");
                 String response = "HTTP/1.1 200 OK\n" +
-                        "Content-Length: " + copyHtml().length() + "\n" +
+                        "Content-Length: " + htmlToString().length() + "\n" +
                         "Content-Type: text/plain" + "\n\n" +
-                        copyHtml();
+                        htmlToString();
                 out.write(response.getBytes(UTF_8));
                 System.out.println(response);
             }
         }
     }
 
-    public static StringBuilder copyHtml() throws IOException {
+    public static String htmlToString() throws IOException {
         byte[] buffer2 = new byte[2048];
         int length2;
         StringBuilder htmlSb = new StringBuilder();
@@ -40,6 +40,6 @@ public class MyFirstServer {
                 }
             }
         }
-        return htmlSb;
+        return htmlSb.toString();
     }
 }
