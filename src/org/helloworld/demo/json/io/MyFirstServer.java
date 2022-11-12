@@ -9,37 +9,36 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class MyFirstServer {
     public static void main(String[] args) throws IOException {
-        writeOutputStream();
+        getOutputStream();
     }
 
-    public static void writeOutputStream() throws IOException {
+    public static void getOutputStream() throws IOException {
         try (ServerSocket serverSocket = new ServerSocket(80)) {
             System.out.println("Сервер запущен!");
             try (Socket socket = serverSocket.accept();
                  OutputStream out = socket.getOutputStream()) {
                 System.out.println("Связь  установлена!");
-                String response = "HTTP/1.1 200 OK\n" +
-                        "Content-Length: " + htmlToString().length() + "\n" +
-                        "Content-Type: text/plain" + "\n\n" +
-                        htmlToString();
-                out.write(response.getBytes(UTF_8));
-                System.out.println(response);
+                out.write(collectString().getBytes(UTF_8));
+                System.out.println(collectString());
             }
         }
     }
 
-    public static String htmlToString() throws IOException {
-        byte[] buffer2 = new byte[2048];
-        int length2;
+    public static String collectString() throws IOException {
+        byte[] buffer = new byte[2048];
+        int length;
         StringBuilder htmlSb = new StringBuilder();
         try (FileInputStream fin = new FileInputStream("C:\\Users\\user\\Desktop\\html\\index.html")) {
-            while ((length2 = fin.read(buffer2)) > 0) {
-                htmlSb.append(new String(buffer2, 0, length2, StandardCharsets.UTF_8));
+            while ((length = fin.read(buffer)) > 0) {
+                htmlSb.append(new String(buffer, 0, length, StandardCharsets.UTF_8));
                 if (fin.available() <= 0) {
                     break;
                 }
             }
         }
-        return htmlSb.toString();
+        return "HTTP/1.1 200 OK\n" +
+                "Content-Length: " + htmlSb.length() + "\n" +
+                "Content-Type: text/plain" + "\n\n" +
+                htmlSb;
     }
 }
