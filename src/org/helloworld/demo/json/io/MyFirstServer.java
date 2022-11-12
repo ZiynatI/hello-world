@@ -9,25 +9,36 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class MyFirstServer {
     public static void main(String[] args) throws IOException {
-        stringToResponse();
+        serverEngine(startServer());
     }
 
-    public static void stringToResponse() throws IOException {
+    public static Socket startServer() throws IOException {
         try (ServerSocket serverSocket = new ServerSocket(80)) {
             System.out.println("Сервер запущен!");
-            try (Socket socket = serverSocket.accept();
-                 OutputStream out = socket.getOutputStream()) {
+            try {
+                Socket socket = serverSocket.accept();
                 System.out.println("Связь  установлена!");
-                File file = new File("C:\\Users\\user\\Desktop\\html\\index.tml");
-                byte[] fileToBytes = readFile(file).getBytes(UTF_8);
-                String response = "HTTP/1.1 200 OK\n" +
-                        "Content-Length: " + fileToBytes.length + "\n" +
-                        "Content-Type: text/plain" + "\n\n";
-                out.write(response.getBytes(UTF_8));
-                out.write(fileToBytes);
-                System.out.println(response);
+                return socket;
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
+        return null;
+    }
+
+    public static void serverEngine(Socket socket) throws IOException {
+        OutputStream out = socket.getOutputStream();
+        File file = new File("C:\\Users\\user\\Desktop\\html\\index.html");
+        byte[] fileToBytes = readFile(file).getBytes(UTF_8);
+        String response = "HTTP/1.1 200 OK\n" +
+                "Content-Length: " + fileToBytes.length + "\n" +
+                "Content-Type: text/plain" + "\n\n";
+        out.write(response.getBytes(UTF_8));
+        out.write(fileToBytes);
+        System.out.println(response);
+        System.out.println(readFile(file));
+        out.close();
+        socket.close();
     }
 
     public static String readFile(File file) throws IOException {
