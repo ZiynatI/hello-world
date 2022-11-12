@@ -18,21 +18,23 @@ public class MyFirstServer {
             try (Socket socket = serverSocket.accept();
                  OutputStream out = socket.getOutputStream()) {
                 System.out.println("Связь  установлена!");
+                File file = new File("C:\\Users\\user\\Desktop\\html\\index.tml");
+                byte[] fileToBytes = readFile(file).getBytes(UTF_8);
                 String response = "HTTP/1.1 200 OK\n" +
-                        "Content-Length: " + readFile().getBytes(UTF_8).length + "\n" +
-                        "Content-Type: text/plain" + "\n\n" +
-                        readFile();
+                        "Content-Length: " + fileToBytes.length + "\n" +
+                        "Content-Type: text/plain" + "\n\n";
                 out.write(response.getBytes(UTF_8));
+                out.write(fileToBytes);
                 System.out.println(response);
             }
         }
     }
 
-    public static String readFile() throws IOException {
+    public static String readFile(File file) throws IOException {
         byte[] buffer = new byte[2048];
         int length;
         StringBuilder htmlSb = new StringBuilder();
-        try (FileInputStream fin = new FileInputStream("C:\\Users\\user\\Desktop\\html\\index.html")) {
+        try (FileInputStream fin = new FileInputStream(file)) {
             while ((length = fin.read(buffer)) > 0) {
                 htmlSb.append(new String(buffer, 0, length, StandardCharsets.UTF_8));
                 if (fin.available() <= 0) {
