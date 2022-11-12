@@ -9,22 +9,18 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class MyFirstServer {
     public static void main(String[] args) throws IOException {
-        serveConnection(startServer());
+        startServer();
     }
 
-    public static Socket startServer() throws IOException {
+    public static void startServer() throws IOException {
         try (ServerSocket serverSocket = new ServerSocket(80)) {
             System.out.println("Сервер запущен!");
-            try {
-                Socket socket = serverSocket.accept();
+            try (Socket socket = serverSocket.accept(); OutputStream out = socket.getOutputStream()) {
                 System.out.println("Сокет запущен!");
                 System.out.println("Связь  установлена!");
-                return socket;
-            } catch (IOException e) {
-                e.printStackTrace();
+                serveConnection(socket);
             }
         }
-        return null;
     }
 
     public static void serveConnection(Socket socket) throws IOException {
@@ -39,13 +35,10 @@ public class MyFirstServer {
                 out.write(fileToBytes);
                 System.out.println(response);
                 System.out.println(readFile(file));
-                out.close();
-                socket.close();
             }
-        } finally {
-            System.out.println("Сокет закрыт!");
         }
     }
+
 
     public static String readFile(File file) throws IOException {
         byte[] buffer = new byte[2048];
