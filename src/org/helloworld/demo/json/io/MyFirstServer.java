@@ -46,13 +46,13 @@ public class MyFirstServer {
             } else {
                 file = new File(parentFile, request.substring(5, request.indexOf(" ", 6)));
             }
-
+            byte[] fileToByte = readFile(file);
             String response = "HTTP/1.1 200 OK" +
-                    "Content-Length: " + readFile(file).length + "\n" +
+                    "Content-Length: " + fileToByte.length + "\n" +
                     "Content-Type: text/html" + "\n\n";
             out.write(response.getBytes(UTF_8));
             System.out.println(response);
-            out.write(readFile(file));
+            out.write(fileToByte);
         }
     }
 
