@@ -1,18 +1,15 @@
 package org.helloworld.demo.json.io;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
 public class ServerSocketDemo {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws IOException {
         System.out.println("=== Listening...");
-        try (ServerSocket ss = new ServerSocket(80)) {
+        try (ServerSocket ss = new ServerSocket(90)) {
             while (true) {
                 try (Socket socket = ss.accept();
                      InputStream inputStream = socket.getInputStream();

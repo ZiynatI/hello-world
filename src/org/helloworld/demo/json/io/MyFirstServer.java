@@ -29,23 +29,30 @@ public class MyFirstServer {
                     }
                     System.out.println("Связь  установлена!");
 
-                    serveConnection(socket);
+                    serveConnection(socket, new File("C:\\Users\\user\\Desktop\\html\\index.html"));
                 }
             }
         }
     }
 
-    public static void serveConnection(Socket socket) throws IOException {
+    public static void serveConnection(Socket socket, File file) throws IOException {
         try (OutputStream out = socket.getOutputStream()) {
-            File file = new File("C:\\Users\\user\\Desktop\\html\\index.html");
+            byte[] buffer = new byte[8192];
+            int length;
+            StringBuilder fileToSB = new StringBuilder();
+            try (InputStream fis = new FileInputStream(file)) {
+                while ((length = fis.read(buffer)) > 0) {
+                    fileToSB.append(new String(buffer, 0, length, StandardCharsets.UTF_8));
+                }
+            }
+            String htmlResponse = fileToSB.toString();
             byte[] fileToBytes = readFile(file).getBytes(UTF_8);
-            String response = "HTTP/1.1 200 OK\n" +
+            String r = "HTTP/1.1 200 OK\n" +
                     "Content-Length: " + fileToBytes.length + "\n" +
-                    "Content-Type: text/plain" + "\n\n";
+                    "Content-Type: text/plain";
+            String response = r + "\n\n" + htmlResponse + "\n";
             out.write(response.getBytes(UTF_8));
-            out.write(fileToBytes);
             System.out.println(response);
-            System.out.println(readFile(file));
         }
     }
 
