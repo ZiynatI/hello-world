@@ -60,13 +60,13 @@ public class MyFirstServer {
 
     public static String getFileType(File file) {
         String fileName = file.getName();
-        String fileFormat = fileName.substring(fileName.indexOf(".") + 1);
+        String fileFormat = fileName.substring(fileName.lastIndexOf(".") + 1);
         if (fileFormat.equals("html")) {
             return " text/html";
         } else if (fileFormat.equals("jpg")) {
             return "image/jpeg";
         } else {
-            return " text/plain";
+            return "text/plain";
         }
     }
 
