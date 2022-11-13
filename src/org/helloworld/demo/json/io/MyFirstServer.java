@@ -39,10 +39,9 @@ public class MyFirstServer {
         try (OutputStream out = socket.getOutputStream()) {
             System.out.println(readFile());
             byte[] fileToBytes = readFile().getBytes(UTF_8);
-            String r = "HTTP/1.1 200 OK" ;
-//                    +
-//                    "Content-Length: " + fileToBytes.length + "\n" +
-//                    "Content-Type: text/plain"+"\n\n";
+            String r = "HTTP/1.1 200 OK" +
+                    "Content-Length: " + fileToBytes.length + "\n" +
+                    "Content-Type: text/html";
             String response = r + "\n\n" + readFile() + "\n";
             out.write(response.getBytes(UTF_8));
             System.out.println(response);
