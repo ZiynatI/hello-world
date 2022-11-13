@@ -9,6 +9,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 public class MyFirstServer {
     public static void main(String[] args) throws IOException {
         startServer(new File("C:/Users/user/Desktop/html"));
+
     }
 
     public static void startServer(File parentFile) throws IOException {
@@ -46,13 +47,26 @@ public class MyFirstServer {
             } else {
                 file = new File(parentFile, request.substring(5, request.indexOf(" ", 6)));
             }
+
             byte[] fileToByte = readFile(file);
-            String response = "HTTP/1.1 200 OK" +
+            String response = "HTTP/1.1 200 OK\n" +
                     "Content-Length: " + fileToByte.length + "\n" +
-                    "Content-Type: text/html" + "\n\n";
+                    "Content-Type: " + getFileType(file) + "\n\n";
             out.write(response.getBytes(UTF_8));
             System.out.println(response);
             out.write(fileToByte);
+        }
+    }
+
+    public static String getFileType(File file) {
+        String fileName = file.getName();
+        String fileFormat = fileName.substring(fileName.indexOf(".") + 1);
+        if (fileFormat.equals("html")) {
+            return " text/html";
+        } else if (fileFormat.equals("jpg")) {
+            return "image/jpeg";
+        } else {
+            return " text/plain";
         }
     }
 
