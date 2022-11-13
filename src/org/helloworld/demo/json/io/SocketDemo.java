@@ -8,7 +8,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class SocketDemo {
     public static void main(String[] args) throws Exception {
-
+        server();
     }
 
     public static void server() throws IOException {

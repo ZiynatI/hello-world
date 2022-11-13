@@ -15,19 +15,20 @@ public class MyFirstServer {
     public static void startServer() throws IOException {
         try (ServerSocket serverSocket = new ServerSocket(80)) {
             System.out.println("Сервер запущен!");
-            try (Socket socket = serverSocket.accept();
-                 InputStream in = socket.getInputStream()) {
-                System.out.println("Сокет запущен!");
-                byte[] inBuffer = new byte[2048];
-                int length;
-                while ((length = in.read(inBuffer)) > 0) {
-                    System.out.println(new String(inBuffer, 0, length, UTF_8));
-                    if (in.available() <= 0) {
-                        break;
+            while (true) {
+                try (Socket socket = serverSocket.accept();
+                     InputStream in = socket.getInputStream()) {
+                    System.out.println("Сокет запущен!");
+                    byte[] inBuffer = new byte[2048];
+                    int length;
+                    while ((length = in.read(inBuffer)) > 0) {
+                        System.out.println(new String(inBuffer, 0, length, UTF_8));
+                        if (in.available() <= 0) {
+                            break;
+                        }
                     }
-                }
-                System.out.println("Связь  установлена!");
-                while (!socket.isClosed()) {
+                    System.out.println("Связь  установлена!");
+
                     serveConnection(socket);
                 }
             }
