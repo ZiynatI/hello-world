@@ -29,44 +29,35 @@ public class MyFirstServer {
                     }
                     System.out.println("Связь  установлена!");
 
-                    serveConnection(socket, new File("C:\\Users\\user\\Desktop\\html\\index.html"));
+                    serveConnection(socket);
                 }
             }
         }
     }
 
-    public static void serveConnection(Socket socket, File file) throws IOException {
+    public static void serveConnection(Socket socket) throws IOException {
         try (OutputStream out = socket.getOutputStream()) {
-            byte[] buffer = new byte[8192];
-            int length;
-            StringBuilder fileToSB = new StringBuilder();
-            try (InputStream fis = new FileInputStream(file)) {
-                while ((length = fis.read(buffer)) > 0) {
-                    fileToSB.append(new String(buffer, 0, length, StandardCharsets.UTF_8));
-                }
-            }
-            String htmlResponse = fileToSB.toString();
-            byte[] fileToBytes = readFile(file).getBytes(UTF_8);
-            String r = "HTTP/1.1 200 OK\n" +
-                    "Content-Length: " + fileToBytes.length + "\n" +
-                    "Content-Type: text/plain";
-            String response = r + "\n\n" + htmlResponse + "\n";
+            System.out.println(readFile());
+            byte[] fileToBytes = readFile().getBytes(UTF_8);
+            String r = "HTTP/1.1 200 OK" ;
+//                    +
+//                    "Content-Length: " + fileToBytes.length + "\n" +
+//                    "Content-Type: text/plain"+"\n\n";
+            String response = r + "\n\n" + readFile() + "\n";
             out.write(response.getBytes(UTF_8));
             System.out.println(response);
         }
     }
 
 
-    public static String readFile(File file) throws IOException {
+    public static String readFile() throws IOException {
+        File file = new File("C:/Users/user/Desktop/html/index.html");
         byte[] buffer = new byte[2048];
         int length;
         StringBuilder htmlSb = new StringBuilder();
-        try (FileInputStream fin = new FileInputStream(file)) {
+        try (InputStream fin = new FileInputStream(file)) {
             while ((length = fin.read(buffer)) > 0) {
                 htmlSb.append(new String(buffer, 0, length, StandardCharsets.UTF_8));
-                if (fin.available() <= 0) {
-                    break;
-                }
             }
         }
         return htmlSb.toString();
