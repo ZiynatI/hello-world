@@ -8,10 +8,10 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class MyFirstServer {
     public static void main(String[] args) throws IOException {
-        startServer();
+        startServer(new File("C:/Users/user/Desktop/html"));
     }
 
-    public static void startServer() throws IOException {
+    public static void startServer(File parentFile) throws IOException {
         try (ServerSocket serverSocket = new ServerSocket(80)) {
             System.out.println("Сервер запущен!");
             while (true) {
@@ -28,13 +28,12 @@ public class MyFirstServer {
                         }
                     }
                     System.out.println(request);
-                    File parentFile = new File("C:/Users/user/Desktop/html");
                     File file;
                     System.out.println("Связь  установлена!");
                     if (request.charAt(5) == ' ') {
                         file = new File(parentFile, "index.html");
                     } else {
-                        file = new File(parentFile,request.substring(5, request.indexOf(" ", 6)));
+                        file = new File(parentFile, request.substring(5, request.indexOf(" ", 6)));
                     }
                     serveConnection(socket, file);
                 }
