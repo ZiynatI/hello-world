@@ -59,8 +59,7 @@ public class MyFirstServer {
                 System.out.println(response);
                 out.write(fileToByte);
             } catch (FileNotFoundException fnfe) {
-                response = "HTTP/1.1404\n" +
-                        "Not Found";
+                response = "HTTP/1.1 404 Not Found";
                 out.write(response.getBytes(UTF_8));
                 System.out.println("File not found");
             }
