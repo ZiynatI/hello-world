@@ -41,6 +41,7 @@ public class MyFirstServer {
             System.out.println(request);
             System.out.println("Связь  установлена!");
 
+
             File file;
             if (request.charAt(5) == ' ') {
                 file = new File(parentFile, "index.html");
@@ -48,13 +49,21 @@ public class MyFirstServer {
                 file = new File(parentFile, request.substring(5, request.indexOf(" ", 6)));
             }
 
-            byte[] fileToByte = readFile(file);
-            String response = "HTTP/1.1 200 OK\n" +
-                    "Content-Length: " + fileToByte.length + "\n" +
-                    "Content-Type: " + getFileType(file) + "\n\n";
-            out.write(response.getBytes(UTF_8));
-            System.out.println(response);
-            out.write(fileToByte);
+            String response;
+            try {
+                byte[] fileToByte = readFile(file);
+                response = "HTTP/1.1 200 OK\n" +
+                        "Content-Length: " + fileToByte.length + "\n" +
+                        "Content-Type: " + getFileType(file) + "\n\n";
+                out.write(response.getBytes(UTF_8));
+                System.out.println(response);
+                out.write(fileToByte);
+            } catch (FileNotFoundException fnfe) {
+                response = "HTTP/1.1404\n" +
+                        "Not Found";
+                out.write(response.getBytes(UTF_8));
+                System.out.println("File not found");
+            }
         }
     }
 
@@ -62,7 +71,7 @@ public class MyFirstServer {
         String fileName = file.getName();
         String fileFormat = fileName.substring(fileName.lastIndexOf(".") + 1);
         if (fileFormat.equals("html")) {
-            return " text/html";
+            return "text/html";
         } else if (fileFormat.equals("jpg")) {
             return "image/jpeg";
         } else {
