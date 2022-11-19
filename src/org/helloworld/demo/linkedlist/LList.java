@@ -1,5 +1,6 @@
 package org.helloworld.demo.linkedlist;
 
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -25,6 +26,18 @@ public abstract class LList<T> {
         }
     }
 
+    public T reduce(BiFunction<T, T, T> fn) {
+        if (this.isEmpty()) {
+            throw new IllegalStateException("List is empty");
+        } else if (this.getTail().isEmpty()) {
+            return this.getHead();
+        } else {
+            T head = getHead();
+            T reducedTail = getTail().reduce(fn);
+            return fn.apply(head, reducedTail);
+        }
+    }
+
     public LList<T> filter(Predicate<T> pred) {
         if (this.isEmpty()) {
             return Nil.nil();
@@ -37,10 +50,14 @@ public abstract class LList<T> {
         }
     }
 
+//    public T fold(T arg, BiFunction<T, T, T> fn) {
+//        if()
+//        return null;
+//    }
 
-    abstract public String toString();
+    public abstract String toString();
 
-    abstract public boolean equals(Object that);
+    public abstract boolean equals(Object that);
 
-    abstract public int hashCode();
+    public abstract int hashCode();
 }

@@ -1,19 +1,17 @@
 package org.helloworld.demo.linkedlist;
 
-import java.util.function.Function;
-
 public class LListDemo {
 
     public static void main(String[] args) {
-        LList<Integer> list1 = asList(10, 5, 8, 2);
-        Function<Integer, Integer> fn =
-                x -> x + x * 2;
-        System.out.println(list1.getTail());
-        System.out.println(list1.map(fn));
-        System.out.println(fn.apply(123));
-        Function<LList<Integer>, Integer> fn2 = LListDemo::sum;
-
-//        Predicate<> pred = x -> (x % 2)==0;
+        //        LList<Integer> list1 = asList(10, 5, 8, 2);
+        //        Function<Integer, Integer> fn =
+        //                x -> x + x * 2;
+        //        System.out.println(list1.getTail());
+        //        System.out.println(list1.map(fn));
+        //        System.out.println(fn.apply(123));
+        //        Function<LList<Integer>, Integer> fn2 = LListDemo::sum;
+        System.out.println(product(asList(10, 5, 8, 2)));
+        System.out.println(asList(10, 5, 8, 2).reduce((x, y) -> x + y));
     }
 
     public static <T> LList<T> asList(T... elements) {
@@ -28,7 +26,7 @@ public class LListDemo {
         if (list.isEmpty()) {
             return 0;
         } else {
-            return sum(list.getTail()) + list.getHead();
+            return list.reduce((x, y) -> x + y);
         }
     }
 
@@ -36,7 +34,7 @@ public class LListDemo {
         if (list.isEmpty()) {
             return 1;
         } else {
-            return product(list.getTail()) * list.getHead();
+            return list.reduce((x, y) -> x * y);
         }
     }
 
