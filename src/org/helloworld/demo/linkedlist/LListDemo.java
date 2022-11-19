@@ -10,8 +10,9 @@ public class LListDemo {
         //        System.out.println(list1.map(fn));
         //        System.out.println(fn.apply(123));
         //        Function<LList<Integer>, Integer> fn2 = LListDemo::sum;
-        System.out.println(product(asList(10, 5, 8, 2)));
-        System.out.println(asList(10, 5, 8, 2).reduce((x, y) -> x + y));
+//        System.out.println(product(asList(10, 5, 8, 2)));
+//        System.out.println(asList(10, 5, 8, 2).reduce((x, y) -> x + y));
+        System.out.println(asList(10, 5, 8, 2).fold(3,(x, y) -> x + y));
     }
 
     public static <T> LList<T> asList(T... elements) {
