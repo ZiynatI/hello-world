@@ -27,14 +27,15 @@ public abstract class LList<T> {
     }
 
     public T reduce(BiFunction<T, T, T> fn) {
+        return this.getTail().fold(this.getHead(), fn);
+    }
+
+    public T fold(T arg, BiFunction<T, T, T> fn) {
         if (this.isEmpty()) {
-            throw new IllegalStateException("List is empty");
-        } else if (this.getTail().isEmpty()) {
-            return this.getHead();
+            return arg;
         } else {
-            T head = getHead();
-            T reducedTail = getTail().reduce(fn);
-            return fn.apply(head, reducedTail);
+            arg = fn.apply(arg, this.getHead());
+            return this.getTail().fold(arg, fn);
         }
     }
 
@@ -50,22 +51,7 @@ public abstract class LList<T> {
         }
     }
 
-    public T fold(T arg, BiFunction<T, T, T> fn) {
-        if (arg != null) {
-            T head = fn.apply(this.getHead(), arg);
-            return prepend(head, this.getTail()).fold(null, fn);
-        } else {
-            if (this.isEmpty()) {
-                throw new IllegalStateException("List is empty");
-            } else if (this.getTail().isEmpty()) {
-                return this.getHead();
-            } else {
-                T head = fn.apply(this.getHead(), this.getTail().getHead());
-                LList<T> newList = prepend(head, this.getTail().getTail());
-                return newList.fold(null, fn);
-            }
-        }
-    }
+
 
     public abstract String toString();
 
