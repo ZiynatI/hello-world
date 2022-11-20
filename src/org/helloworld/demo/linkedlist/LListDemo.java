@@ -12,7 +12,7 @@ public class LListDemo {
         //        Function<LList<Integer>, Integer> fn2 = LListDemo::sum;
         System.out.println(product(asList(10, 5, 8, 2)));
         System.out.println(asList(10, 5, 8, 2).reduce((x, y) -> x + y));
-        System.out.println(asList(10, 5, 8, 2).fold(null, (x, y) -> x + y));
+        System.out.println(asList(10, 5, 8, 2).fold(0, (x, y) -> x + y));
         System.out.println(sum2(Nil.nil()));
     }
 
@@ -41,7 +41,7 @@ public class LListDemo {
     }
 
     public static int product(LList<Integer> list) {
-        return list.fold(list.getHead(), (x, y) -> x * y);
+        return list.getTail().fold(list.getHead(), (x, y) -> x * y);
     }
 
 }
