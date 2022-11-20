@@ -13,7 +13,7 @@ public class LListDemo {
         System.out.println(product(asList(10, 5, 8, 2)));
         System.out.println(asList(10, 5, 8, 2).reduce((x, y) -> x + y));
         System.out.println(asList(10, 5, 8, 2).fold(0, (x, y) -> x + y));
-        System.out.println(sum2(Nil.nil()));
+        System.out.println(sum(asList(10, 5, 8, 2)));
     }
 
     public static <T> LList<T> asList(T... elements) {
@@ -25,23 +25,11 @@ public class LListDemo {
     }
 
     public static int sum(LList<Integer> list) {
-        if (list.isEmpty()) {
-            return 0;
-        } else {
-            return list.reduce((x, y) -> x + y);
-        }
+        return list.fold(0, (x, y) -> x + y);
     }
 
-    public static int sum2(LList<Integer> list) {
-        if (list.isEmpty()) {
-            return 0;
-        } else {
-            return list.getTail().fold(list.getHead(), (x, y) -> x + y);
-        }
-    }
 
     public static int product(LList<Integer> list) {
-        return list.getTail().fold(list.getHead(), (x, y) -> x * y);
+        return list.fold(1, (x, y) -> x * y);
     }
-
 }
