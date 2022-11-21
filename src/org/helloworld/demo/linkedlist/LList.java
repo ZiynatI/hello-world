@@ -30,7 +30,7 @@ public abstract class LList<T> {
         return this.getTail().fold(this.getHead(), fn);
     }
 
-    public <R> T  fold(R arg, BiFunction<R, T, T> fn) {
+    public <R> R  fold(R arg, BiFunction<R, T, R> fn) {
         if (this.isEmpty()) {
             return arg;
         } else {
