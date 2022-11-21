@@ -30,13 +30,18 @@ public abstract class LList<T> {
         return this.getTail().fold(this.getHead(), fn);
     }
 
-    public <R> R  fold(R arg, BiFunction<R, T, R> fn) {
+    public <R> R fold(R arg, BiFunction<R, T, R> fn) {
         if (this.isEmpty()) {
             return arg;
         } else {
             arg = fn.apply(arg, this.getHead());
             return this.getTail().fold(arg, fn);
         }
+    }
+
+    public LList<T> reverse() {
+        BiFunction<T,T,LList<T>> fn =
+       return this.fold(Nil.nil(),)
     }
 
     public LList<T> filter(Predicate<T> pred) {
@@ -50,7 +55,6 @@ public abstract class LList<T> {
             return getTail().filter(pred);
         }
     }
-
 
 
     public abstract String toString();

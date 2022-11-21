@@ -14,6 +14,8 @@ public class LListDemo {
         System.out.println(asList(10, 5, 8, 2).reduce((x, y) -> x + y));
         System.out.println(asList(10, 5, 8, 2).fold(0, (x, y) -> x + y));
         System.out.println(sum(asList(10, 5, 8, 2)));
+        System.out.println(listToString(asList(10, 5, 8, 2)));
+        System.out.println(asList(10, 5, 8, 2).reverse());
     }
 
     public static <T> LList<T> asList(T... elements) {
@@ -28,6 +30,10 @@ public class LListDemo {
         return list.fold(0, (x, y) -> x + y);
     }
 
+    public static <T> String listToString(LList<T> llist) {
+        StringBuilder result = llist.fold(new StringBuilder("("), (x, y) -> x.append(y.toString()).append(", "));
+        return result.delete(result.length() - 2, result.length()).append(")").toString();
+    }
 
     public static int product(LList<Integer> list) {
         return list.fold(1, (x, y) -> x * y);
