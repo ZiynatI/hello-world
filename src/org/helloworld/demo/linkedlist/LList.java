@@ -1,5 +1,7 @@
 package org.helloworld.demo.linkedlist;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -68,6 +70,23 @@ public abstract class LList<T> {
         }
     }
 
+    //вот теперь держись)
+    //сделай метод groupBy, который, получая функцию, будет разбивать список на несколько в зависимости от значения функции
+    //грубо:
+    //LList(1, 2, 3, 4, 5).groupBy(x -> x % 2) == Map(((0, LList(2, 4)), (1, LList(1, 3, 5)))
+    public Map<T, LList<T>> groupBy(Function<T, T> fn) {
+        Map<T, LList<T>> map = new HashMap<>();
+        while (!this.isEmpty()) {
+            T currentHead = this.getHead();
+            if (map.containsKey(fn.apply(currentHead))) {
+                map.put(fn.apply(currentHead), prepend(currentHead, map.get(fn.apply(currentHead))));
+            } else {
+                map.put(fn.apply(currentHead), prepend(currentHead, Nil.nil()));
+            }
+            this.getTail();
+        }
+        return map;
+    }
 
     public abstract String toString();
 
