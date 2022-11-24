@@ -48,7 +48,7 @@ public abstract class LList<T> {
     }
 
     public String mkString(String separator) {
-        StringBuilder sb = this.fold(new StringBuilder(""), (x, y) -> x.append(y).append(separator));
+        StringBuilder sb = this.fold(new StringBuilder(""), (acc, element) -> acc.append(element).append(separator));
         return sb.delete(sb.length() - separator.length(), sb.length()).toString();
     }
 
