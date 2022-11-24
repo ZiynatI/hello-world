@@ -15,7 +15,10 @@ public class LListDemo {
         System.out.println(asList(10, 5, 8, 2).fold(0, (x, y) -> x + y));
         System.out.println(sum(asList(10, 5, 8, 2)));
         System.out.println(listToString(asList(10, 5, 8, 2)));
-        System.out.println(asList(10, 5, 8, 2).reverse());
+        LList<Integer> testLlist = Nil.nil();
+//        System.out.println(asList(10, 5, 8, 2).reverse(testLlist));
+        System.out.println(asList(10, 5, 8, 2).foldRight(5, (x, y) -> x + y));
+        System.out.println(asList(10, 5, 8, 2).mkString("_"));
     }
 
     public static <T> LList<T> asList(T... elements) {

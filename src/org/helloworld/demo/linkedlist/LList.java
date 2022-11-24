@@ -30,19 +30,39 @@ public abstract class LList<T> {
         return this.getTail().fold(this.getHead(), fn);
     }
 
-    public <R> R fold(R arg, BiFunction<R, T, R> fn) {
+    public <R> R fold(R acc, BiFunction<R, T, R> fn) {
         if (this.isEmpty()) {
-            return arg;
+            return acc;
         } else {
-            arg = fn.apply(arg, this.getHead());
-            return this.getTail().fold(arg, fn);
+            acc = fn.apply(acc, this.getHead());
+            return this.getTail().fold(acc, fn);
         }
     }
 
-    public LList<T> reverse() {
-        BiFunction<T,T,LList<T>> fn =
-       return this.fold(Nil.nil(),)
+    public <R> R foldRight(R acc, BiFunction<T, R, R> fn) {
+        if (this.isEmpty()) {
+            return acc;
+        } else {
+            return fn.apply(this.getHead(), this.getTail().foldRight(acc, fn));
+        }
     }
+
+    public String mkString(String separator) {
+        if (this.isEmpty()) {
+            return "";
+        } else {
+            StringBuilder sb = new StringBuilder(this.getHead());
+            if (!this.getTail().isEmpty()) {
+                sb.append(separator);
+            }
+            sb.append(this.getTail().mkString(separator));
+            return sb.toString();
+        }
+    }
+
+    //    public LList<T> reverse(LList<T> llist) {
+    //
+    //    }
 
     public LList<T> filter(Predicate<T> pred) {
         if (this.isEmpty()) {
