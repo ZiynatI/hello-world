@@ -48,16 +48,8 @@ public abstract class LList<T> {
     }
 
     public String mkString(String separator) {
-        if (this.isEmpty()) {
-            return "";
-        } else {
-            StringBuilder sb = new StringBuilder(this.getHead());
-            if (!this.getTail().isEmpty()) {
-                sb.append(separator);
-            }
-            sb.append(this.getTail().mkString(separator));
-            return sb.toString();
-        }
+        StringBuilder sb = this.fold(new StringBuilder(""), (x, y) -> x.append(y).append(separator));
+        return sb.delete(sb.length() - separator.length(), sb.length()).toString();
     }
 
     //    public LList<T> reverse(LList<T> llist) {
