@@ -55,10 +55,11 @@ public abstract class LList<T> {
     }
 
     public LList<T> reverse() {
+        //        return fold(Nil.nil(), (x, y) -> prepend(y, x));
         if (this.isEmpty()) {
             return Nil.nil();
         } else {
-            return prepend(this.getHead(), this.getTail().reverse());
+            return null;
         }
     }
 
@@ -79,15 +80,11 @@ public abstract class LList<T> {
     //грубо:
     //LList(1, 2, 3, 4, 5).groupBy(x -> x % 2) == Map(((0, LList(2, 4)), (1, LList(1, 3, 5)))
     public <R> Map<R, LList<T>> groupBy(Function<T, R> fn) {
-        if (this.isEmpty()) {
-            return new HashMap<>();
-        } else {
-            Map<R, LList<T>> map = this.getTail().groupBy(fn);
-            T head = this.getHead();
-            R result = fn.apply(head);
-            map.put(result, prepend(head, map.getOrDefault(result, Nil.nil())));
-            return map;
-        }
+        T head = this.getHead();
+        R result = fn.apply(head);
+        Map<R,LList<T>> newMap = new HashMap<>();
+        return this.foldRight(newMap,((key, map) -> map.put(key, prepend(fn.apply(key), map.getOrDefault(fn.apply(key), Nil.nil())))));
+
     }
 
     public abstract String toString();
