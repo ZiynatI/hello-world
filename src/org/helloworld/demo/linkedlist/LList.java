@@ -59,7 +59,7 @@ public abstract class LList<T> {
         if (this.isEmpty()) {
             return Nil.nil();
         } else {
-            return null;
+            return prepend(getTail().reverse().getHead(), this.getTail());
         }
     }
 
@@ -82,8 +82,8 @@ public abstract class LList<T> {
     public <R> Map<R, LList<T>> groupBy(Function<T, R> fn) {
         T head = this.getHead();
         R result = fn.apply(head);
-        Map<R,LList<T>> newMap = new HashMap<>();
-        return this.foldRight(newMap,((key, map) -> map.put(key, prepend(fn.apply(key), map.getOrDefault(fn.apply(key), Nil.nil())))));
+        Map<R, LList<T>> newMap = new HashMap<>();
+        return this.foldRight(newMap, ((key, map) -> map.put(key, prepend(fn.apply(key), map.getOrDefault(fn.apply(key), Nil.nil())))));
 
     }
 
