@@ -54,9 +54,13 @@ public abstract class LList<T> {
         return sb.delete(sb.length() - separator.length(), sb.length()).toString();
     }
 
-    //    public LList<T> reverse(LList<T> llist) {
-    //
-    //    }
+    public LList<T> reverse() {
+        if (this.isEmpty()) {
+            return Nil.nil();
+        } else {
+           return prepend(this.getHead(),this.getTail().reverse());
+        }
+    }
 
     public LList<T> filter(Predicate<T> pred) {
         if (this.isEmpty()) {
@@ -75,16 +79,18 @@ public abstract class LList<T> {
     //грубо:
     //LList(1, 2, 3, 4, 5).groupBy(x -> x % 2) == Map(((0, LList(2, 4)), (1, LList(1, 3, 5)))
     public Map<T, LList<T>> groupBy(Function<T, T> fn) {
-        Map<T, LList<T>> map = new HashMap<>();
-        while (!this.isEmpty()) {
-            T currentHead = this.getHead();
-            if (map.containsKey(fn.apply(currentHead))) {
-                map.put(fn.apply(currentHead), prepend(currentHead, map.get(fn.apply(currentHead))));
-            } else {
-                map.put(fn.apply(currentHead), prepend(currentHead, Nil.nil()));
-            }
-            this.getTail();
+        if (this.isEmpty()) {
+            return new HashMap<>();
         }
+        Map<T, LList<T>> map = new HashMap<>(this.getTail().groupBy(fn));
+        T currentHead = this.getHead();
+        if (map.containsKey(fn.apply(currentHead))) {
+
+            map.put(fn.apply(currentHead), prepend(currentHead, map.get(fn.apply(currentHead))));
+        } else {
+            map.put(fn.apply(currentHead), prepend(currentHead, Nil.nil()));
+        }
+        this.getTail();
         return map;
     }
 
