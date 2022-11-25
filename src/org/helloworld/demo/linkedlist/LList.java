@@ -58,7 +58,7 @@ public abstract class LList<T> {
         if (this.isEmpty()) {
             return Nil.nil();
         } else {
-           return prepend(this.getHead(),this.getTail().reverse());
+            return prepend(this.getHead(), this.getTail().reverse());
         }
     }
 
@@ -78,20 +78,16 @@ public abstract class LList<T> {
     //сделай метод groupBy, который, получая функцию, будет разбивать список на несколько в зависимости от значения функции
     //грубо:
     //LList(1, 2, 3, 4, 5).groupBy(x -> x % 2) == Map(((0, LList(2, 4)), (1, LList(1, 3, 5)))
-    public Map<T, LList<T>> groupBy(Function<T, T> fn) {
+    public <R> Map<R, LList<T>> groupBy(Function<T, R> fn) {
         if (this.isEmpty()) {
             return new HashMap<>();
-        }
-        Map<T, LList<T>> map = new HashMap<>(this.getTail().groupBy(fn));
-        T currentHead = this.getHead();
-        if (map.containsKey(fn.apply(currentHead))) {
-
-            map.put(fn.apply(currentHead), prepend(currentHead, map.get(fn.apply(currentHead))));
         } else {
-            map.put(fn.apply(currentHead), prepend(currentHead, Nil.nil()));
+            Map<R, LList<T>> map = this.getTail().groupBy(fn);
+            T head = this.getHead();
+            R result = fn.apply(head);
+            map.put(result, prepend(head, map.getOrDefault(result, Nil.nil())));
+            return map;
         }
-        this.getTail();
-        return map;
     }
 
     public abstract String toString();

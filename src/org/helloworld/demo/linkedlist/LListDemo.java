@@ -17,7 +17,7 @@ public class LListDemo {
 //        System.out.println(sum(asList(10, 5, 8, 2)));
 //        System.out.println(listToString(asList(10, 5, 8, 2)));
 //        LList<Integer> testLlist = Nil.nil();
-                System.out.println(asList(10, 5, 8, 2).reverse());
+                System.out.println(asList("hi", "hello", "oh").groupBy(x -> x.length()));
 //        System.out.println(asList(10, 5, 8, 2).foldRight(5, (x, y) -> x + y));
 //        System.out.println(asList(10, 5, 8, 2).mkString("_"));
 //        System.out.println(sumOfPositives(asList(1, 3, -5, 6 - 2)));
