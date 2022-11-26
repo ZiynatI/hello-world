@@ -41,20 +41,28 @@ public abstract class LList<T> {
         }
     }
 
+    public LList<T> reverse() {
+        //                return fold(Nil.nil(), (acc, head) -> prepend(head, acc));
+        if (this.isEmpty()) {
+            return Nil.nil();
+        } else {
+            LList<T> acc = prepend(this.getHead(),this.getTail().reverse());
+            return prepend(this.getHead(),this.getTail().reverse());
+        }
+    }
+    public <R> R foldRight(R acc, BiFunction<T, R, R> fn) {
+        if (this.isEmpty()) {
+            return acc;
+        } else {
+            return fn.apply(this.getHead(), this.getTail().foldRight(acc, fn));
+        }
+    }
 
     public String mkString(String separator) {
         StringBuilder sb = this.fold(new StringBuilder(""), (acc, element) -> acc.append(element).append(separator));
         return sb.delete(sb.length() - separator.length(), sb.length()).toString();
     }
 
-    public LList<T> reverse() {
-        //                return fold(Nil.nil(), (acc, head) -> prepend(head, acc));
-        if (this.isEmpty()) {
-            return Nil.nil();
-        } else {
-            return prepend(getTail().reverse().getHead(), this.getTail());
-        }
-    }
 
     public LList<T> filter(Predicate<T> pred) {
         if (this.isEmpty()) {
@@ -62,7 +70,7 @@ public abstract class LList<T> {
         }
         T head2 = this.getHead();
         if (pred.test(head2)) {
-            return prepend(head2, getTail().filter(pred));
+            return  prepend(head2, getTail().filter(pred));
         } else {
             return getTail().filter(pred);
         }
@@ -86,16 +94,15 @@ public abstract class LList<T> {
         //да)
         //а теперь через foldRight
         //чтоб было понятней - foldRight делает почти то же, что ты сама написала, только гораздо меньшим количеством кода
-        return this.foldRight(new HashMap<>(), (head, map) -> map.put(fn.apply(head), prepend(head, map.getOrDefault(fn.apply(head), Nil.nil()))));
+
+        return this.foldRight(new HashMap<R, LList<T>>(), (T head,Map<R, LList<T>> map) ->  {
+            R result = fn.apply(head);
+            map.put(result, prepend(head, map.getOrDefault(result, Nil.nil())));
+            return map;
+        });
     }
 
-    public <R> R foldRight(R acc, BiFunction<T, R, R> fn) {
-        if (this.isEmpty()) {
-            return acc;
-        } else {
-            return fn.apply(this.getHead(), this.getTail().foldRight(acc, fn));
-        }
-    }
+
 
     public abstract String toString();
 

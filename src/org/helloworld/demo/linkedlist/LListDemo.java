@@ -23,7 +23,7 @@ public class LListDemo {
 //        System.out.println(sumOfPositives(asList(1, 3, -5, 6 - 2)));
 //
 //        System.out.println(asList("George Raymond Richard Martin".split(" ")).map(x -> x.substring(0, 1)).mkString(""));
-//        System.out.println(asList(1, 2, 3, 4, 5).groupBy(x -> x % 2));
+        System.out.println(asList(1, 2, 3, 4, 5).groupBy(x -> x % 2));
         System.out.println(asList(1, 2, 3, 4, 5).reverse());
     }
 
