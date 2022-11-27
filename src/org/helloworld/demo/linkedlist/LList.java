@@ -43,19 +43,15 @@ public abstract class LList<T> {
 
     public LList<T> reverse() {
         //                return fold(Nil.nil(), (acc, head) -> prepend(head, acc));
-        if (this.isEmpty()) {
-            return reverse();
-        } else {
-            final LList<T> acc = reverse(acc);
-            return this.getTail().reverse();
-        }
+        return reverse(Nil.nil());
     }
 
-  private  LList<T> reverse(final LList<T> acc) {
-        if(acc.isEmpty()){
-            return Nil.nil();
-        }else {
+    private LList<T> reverse(LList<T> acc) {
+        if (this.isEmpty()) {
             return acc;
+        } else {
+            LList<T> nextAcc = prepend(this.getHead(), acc);
+            return this.getTail().reverse(nextAcc);
         }
     }
 
