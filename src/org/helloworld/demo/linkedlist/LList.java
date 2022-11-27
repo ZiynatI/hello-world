@@ -44,12 +44,21 @@ public abstract class LList<T> {
     public LList<T> reverse() {
         //                return fold(Nil.nil(), (acc, head) -> prepend(head, acc));
         if (this.isEmpty()) {
-            return Nil.nil();
+            return reverse();
         } else {
-            LList<T> acc = prepend(this.getHead(),this.getTail().reverse());
-            return prepend(this.getHead(),this.getTail().reverse());
+            final LList<T> acc = reverse(acc);
+            return this.getTail().reverse();
         }
     }
+
+  private  LList<T> reverse(final LList<T> acc) {
+        if(acc.isEmpty()){
+            return Nil.nil();
+        }else {
+            return acc;
+        }
+    }
+
     public <R> R foldRight(R acc, BiFunction<T, R, R> fn) {
         if (this.isEmpty()) {
             return acc;
@@ -70,7 +79,7 @@ public abstract class LList<T> {
         }
         T head2 = this.getHead();
         if (pred.test(head2)) {
-            return  prepend(head2, getTail().filter(pred));
+            return prepend(head2, getTail().filter(pred));
         } else {
             return getTail().filter(pred);
         }
@@ -95,13 +104,12 @@ public abstract class LList<T> {
         //а теперь через foldRight
         //чтоб было понятней - foldRight делает почти то же, что ты сама написала, только гораздо меньшим количеством кода
 
-        return this.foldRight(new HashMap<R, LList<T>>(), (T head,Map<R, LList<T>> map) ->  {
+        return this.foldRight(new HashMap<R, LList<T>>(), (T head, Map<R, LList<T>> map) -> {
             R result = fn.apply(head);
             map.put(result, prepend(head, map.getOrDefault(result, Nil.nil())));
             return map;
         });
     }
-
 
 
     public abstract String toString();
