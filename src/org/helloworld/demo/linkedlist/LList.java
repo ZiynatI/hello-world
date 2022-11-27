@@ -99,13 +99,12 @@ public abstract class LList<T> {
         //да)
         //а теперь через foldRight
         //чтоб было понятней - foldRight делает почти то же, что ты сама написала, только гораздо меньшим количеством кода
-        Map<R, LList<T>> resultMap = this.foldRight(new HashMap<R, LList<T>>(), (T head, Map<R, LList<T>> map) -> {
+
+        return LList.this.<Map<R, LList<T>>>foldRight(new HashMap<R, LList<T>>(), (T head, Map<R, LList<T>> map) -> {
             R result = fn.apply(head);
-            LList<T> list = prepend(head, map.getOrDefault(result, Nil.nil()));
-            map.put(result, list);
+            map.put(result, LList.<T>prepend(head, map.getOrDefault(result, Nil.<T>nil())));
             return map;
         });
-        return resultMap;
     }
 
 
