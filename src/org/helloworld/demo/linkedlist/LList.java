@@ -81,6 +81,7 @@ public abstract class LList<T> {
         }
     }
 
+
     //вот теперь держись)
     //сделай метод groupBy, который, получая функцию, будет разбивать список на несколько в зависимости от значения функции
     //грубо:
@@ -106,6 +107,22 @@ public abstract class LList<T> {
             return map;
         });
     }
+
+
+    public LList<T> drop(int n) {
+        return (this.isEmpty() || n == 0) ? this : this.getTail().drop(n - 1);
+    }
+
+    //если у нас список из 100 элементов, take(5) оставит 5 первых
+    //на остальные 95 ему плевать
+    public LList<T> take(int n) {
+        if (this.isEmpty() || n == 0) {
+            return Nil.nil();
+        } else {
+            return prepend(this.getHead(), this.getTail().take(n - 1));
+        }
+    }
+
 
 
     public abstract String toString();

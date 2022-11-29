@@ -23,10 +23,11 @@ public class LListDemo {
         //        System.out.println(sumOfPositives(asList(1, 3, -5, 6 - 2)));
         //
         //        System.out.println(asList("George Raymond Richard Martin".split(" ")).map(x -> x.substring(0, 1)).mkString(""));
-        System.out.println(asList(1, 2, 3, 4, 5).groupBy(x -> x % 2));
-        System.out.println(asList(1, 2, 3, 4, 5).reverse());
-        System.out.println(squareEveryDigit(9119));
-        System.out.println(toCamelCase("the-stealth-warrior"));
+//        System.out.println(asList(1, 2, 3, 4, 5).groupBy(x -> x % 2));
+//        System.out.println(asList(1, 2, 3, 4, 5).reverse());
+//        System.out.println(squareEveryDigit(9119));
+//        System.out.println(toCamelCase("the-stealth-warrior"));
+        System.out.println(asList(1,2,3,4,5,6,7,8,9).take(3));
     }
 
     public static <T> LList<T> asList(T... elements) {
