@@ -26,6 +26,7 @@ public class LListDemo {
         System.out.println(asList(1, 2, 3, 4, 5).groupBy(x -> x % 2));
         System.out.println(asList(1, 2, 3, 4, 5).reverse());
         System.out.println(squareEveryDigit(9119));
+        System.out.println(toCamelCase("the-stealth-warrior"));
     }
 
     public static <T> LList<T> asList(T... elements) {
@@ -36,6 +37,21 @@ public class LListDemo {
         return list2;
     }
 
+    public static LList<Character> asList(char[] arr) {
+        LList<Character> list = Nil.nil();
+        for (int i = arr.length - 1; i >= 0; i--) {
+            list = LList.prepend(arr[i], list);
+        }
+        return list;
+    }
+
+    //    public static LList<String> asList(String[] arr) {
+    //        LList<Character> list = Nil.nil();
+    //        for (int i = arr.length - 1; i >= 0; i--) {
+    //            list = LList.prepend(arr[i], list);
+    //        }
+    //        return list;
+    //    }
     public static int sum(LList<Integer> list) {
         return list.fold(0, (x, y) -> x + y);
     }
@@ -55,27 +71,20 @@ public class LListDemo {
 
     public static int squareEveryDigit(int num) {
         String s = Integer.toString(num);
-        char[] chars = s.toCharArray();
-        Integer[] digits = new Integer[chars.length];
-        for (int i = 0; i < chars.length; i++) {
-            digits[i] = Character.getNumericValue(chars[i]);
-        }
-        String result = asList(digits).map(x -> x * x).fold("", (acc, nextNum) -> acc + String.valueOf(nextNum));
-        return Integer.parseInt(result);
+        Character[] charsArray = s.chars()
+                .mapToObj(i -> (char) i)
+                .toArray(Character[]::new);
+        String st = asList(charsArray)
+                .map(x -> Character.getNumericValue(x))
+                .map(x -> x * x)
+                .mkString("");
+        return Integer.parseInt(st);
+    }
 
-        //        int n = num;
-        //        List<Integer> numsList = new ArrayList<>();
-        //        while (n > 0) {
-        //            numsList.add(n % 10);
-        //            n = (n - n % 10) / 10;
-        //        }
-        //        Integer[] nums = new Integer[numsList.size()];
-        //        for (int i = 0; i < numsList.size(); i++) {
-        //            nums[i] = numsList.get(i);
-        //        }
-        //        LList<Integer> list = asList(nums);
-        //        LList<Integer> list2 = list.map(x -> x * x);
-        //        String result = list2.fold("", (acc, nextNum) -> acc + String.valueOf(nextNum));
-        //        return Integer.parseInt(result);
+    public static String toCamelCase(String s) {
+        String[] arr = s.split("(\\-|_)+");
+        LList<String> list = asList(arr);
+        LList<String> list2 = LList.prepend(list.getHead(), list.getTail().map(x->Character.toUpperCase(x.charAt(0))+x.substring(1)));
+        return list2.mkString("");
     }
 }
