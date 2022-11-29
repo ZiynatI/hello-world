@@ -27,7 +27,7 @@ public class LListDemo {
 //        System.out.println(asList(1, 2, 3, 4, 5).reverse());
 //        System.out.println(squareEveryDigit(9119));
 //        System.out.println(toCamelCase("the-stealth-warrior"));
-        System.out.println(asList(1,2,3,4,5,6,7,8,9).take(3));
+        System.out.println(asList(1,2,3,4,5,6,7,8,9).drop(-1));
     }
 
     public static <T> LList<T> asList(T... elements) {

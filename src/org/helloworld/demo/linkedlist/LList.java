@@ -110,7 +110,14 @@ public abstract class LList<T> {
 
 
     public LList<T> drop(int n) {
-        return (this.isEmpty() || n == 0) ? this : this.getTail().drop(n - 1);
+
+        if (this.isEmpty()) {
+            return Nil.nil();
+        } else if (n != 0) {
+           return this.getTail().drop(n - 1);
+        } else {
+            return prepend(this.getHead(), this.getTail().drop(n));
+        }
     }
 
     //если у нас список из 100 элементов, take(5) оставит 5 первых
@@ -122,8 +129,17 @@ public abstract class LList<T> {
             return prepend(this.getHead(), this.getTail().take(n - 1));
         }
     }
+    //теперь takeWhile/dropWhile
+    //они будут брать/выбрасывать элементы, которые соответствуют предикату
 
+    public LList<T> takeWhile(Predicate<T> predicate) {
 
+        return Nil.nil();
+    }
+
+    public LList<T> dropWhile(Predicate<T> predicate) {
+        return Nil.nil();
+    }
 
     public abstract String toString();
 
