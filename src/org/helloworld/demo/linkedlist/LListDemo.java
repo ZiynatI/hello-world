@@ -2,7 +2,7 @@ package org.helloworld.demo.linkedlist;
 
 public class LListDemo {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         //        LList<Integer> list1 = asList(10, 5, 8, 2);
         //        Function<Integer, Integer> fn =
         //                x -> x + x * 2;
@@ -27,7 +27,7 @@ public class LListDemo {
 //        System.out.println(asList(1, 2, 3, 4, 5).reverse());
 //        System.out.println(squareEveryDigit(9119));
 //        System.out.println(toCamelCase("the-stealth-warrior"));
-        System.out.println(asList(1,2,3,4,5,6,7,8,9).drop(-1));
+        System.out.println(asList(1,2,3,4,5,6,7,8,9).drop(0));
     }
 
     public static <T> LList<T> asList(T... elements) {
