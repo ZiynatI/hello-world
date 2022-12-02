@@ -1,8 +1,17 @@
 package org.helloworld.demo.linkedlist;
 
+
+import java.util.Objects;
+
 public class Pair<T, R> {
     public final T left;
     public final R right;
+
+    public static void main(String[] args) {
+        Pair<String, String> p = new Pair<>(null, null);
+        Pair<String, String> b = new Pair<>("null", "null");
+        System.out.println(p.equals(b));
+    }
 
     public Pair(T left, R right) {
         this.left = left;
@@ -11,15 +20,14 @@ public class Pair<T, R> {
 
     @Override
     public String toString() {
-        return "(" + (left == null ? null : left.toString()) + ":" + (right == null ? null : right.toString()) + ")";
+        return "(" + String.valueOf(left) + "," + String.valueOf(this.right) + ")";
     }
 
     @Override
     public boolean equals(Object that) {
         if (that instanceof Pair) {
             Pair<?, ?> that2 = (Pair<?, ?>) that;
-            assert this.left != null && this.right != null && that2.left != null && that2.right != null;
-            return this.left.equals(that2.left) && this.right.equals(that2.right);
+            return Objects.equals(this.left, that2.left) && Objects.equals(this.right, that2.right);
         }
         return false;
     }

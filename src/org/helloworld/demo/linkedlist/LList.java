@@ -51,9 +51,9 @@ public abstract class LList<T> {
     }
 
     //concat(list1, list2) - склеивает списки list1.concat(list2)
-    public LList<T> concat(LList<T> list) {
+    public <R> LList<T> concat(LList<R> list) {
         if (this.isEmpty()) {
-            return list;
+            return (LList<T>) list;
         } else {
             return prepend(this.getHead(), this.getTail().concat(list));
         }

@@ -29,7 +29,7 @@ public class LListDemo {
         //        System.out.println(toCamelCase("the-stealth-warrior"));
         System.out.println(asList(1, 2, 3, 4, 5, 6, 7, 8, 9).drop(2));
         System.out.println(asList(2, 4, 6, 8, 10, 11, 12, 14, 16, 18, 20).dropWhile(x -> x % 2 == 0));
-        System.out.println(asList(1, 2, 3, 4, 5).concat(asList(6, 7, 8, 9)));
+        System.out.println(asList(1, 2, 3, 4, 5).concat(asList(5.0,6.2,7.4)));
         System.out.println(asList(1, 2, 3, 4, 5));
         System.out.println(LList.rangleInclusive(5,1));
     }
