@@ -110,28 +110,16 @@ public abstract class LList<T> {
 
 
     public LList<T> drop(int n) throws Exception {
-        if (n <= 0) {
-            if (n < 0) {
-                throw new Exception("int n can not be less than zero");
-            } else if (n == 0) {
-                return this;
-            }
+        if (n < 0) {
+            throw new Exception("int n can not be less than zero");
+        } else if (n == 0) {
+            return this;
         } else {
-while (n!=0){
-    this=this.drop();
-}
-        }
-        if (this.isEmpty()) {
-            return Nil.nil();
-        } else if (n != 0) {
             return this.getTail().drop(n - 1);
-        } else {
-            return prepend(this.getHead(), this.getTail().drop(n));
         }
     }
-private LList<T> drop(){
-    return prepend(this.getHead(), this.getTail().drop());
-}
+
+
     //если у нас список из 100 элементов, take(5) оставит 5 первых
     //на остальные 95 ему плевать
     public LList<T> take(int n) {

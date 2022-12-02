@@ -27,15 +27,15 @@ public class LListDemo {
 //        System.out.println(asList(1, 2, 3, 4, 5).reverse());
 //        System.out.println(squareEveryDigit(9119));
 //        System.out.println(toCamelCase("the-stealth-warrior"));
-        System.out.println(asList(1,2,3,4,5,6,7,8,9).drop(0));
+        System.out.println(asList(1,2,3,4,5,6,7,8,9).drop(2));
     }
 
     public static <T> LList<T> asList(T... elements) {
-        LList<T> list2 = Nil.nil();
+        LList<T> list = Nil.nil();
         for (int i = elements.length - 1; i >= 0; i--) {
-            list2 = LList.prepend(elements[i], list2);
+            list = LList.prepend(elements[i], list);
         }
-        return list2;
+        return list;
     }
 
     public static LList<Character> asList(char[] arr) {
