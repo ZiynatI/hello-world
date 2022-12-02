@@ -11,14 +11,14 @@ public class Pair<T, R> {
 
     @Override
     public String toString() {
-        return left.toString() + ", " + right.toString();
+        return "(" + left.toString() + ", " + right.toString() + ")";
     }
 
     @Override
     public boolean equals(Object that) {
         if (that instanceof Pair) {
             Pair<?, ?> that2 = (Pair<?, ?>) that;
-            return that2.left.equals(this.left) && that2.right.equals(this.right);
+            return this.left.equals(that2.left) && this.right.equals(that2.right);
         }
         return false;
     }
