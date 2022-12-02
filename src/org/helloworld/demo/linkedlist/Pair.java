@@ -11,7 +11,7 @@ public class Pair<T, R> {
 
     @Override
     public String toString() {
-        return "(" + left.toString() + ", " + right.toString() + ")";
+        return "(" + left.toString() + ":" + right.toString() + ")";
     }
 
     @Override
@@ -27,6 +27,4 @@ public class Pair<T, R> {
     public int hashCode() {
         return this.right.hashCode() * 549 + this.left.hashCode() * 987;
     }
-
-    ;
 }
