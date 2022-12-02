@@ -11,6 +11,20 @@ public abstract class LList<T> {
         return new NonEmptyLList<>(head, tail);
     }
 
+    static <T> LList<T> rangleInclusive(int a, int b) {
+        if (a > b) {
+            throw new IllegalArgumentException("first arg can not be bigger than second");
+        }
+        int counter = 0;
+        while (counter != a) {
+
+        }
+        while (counter != b) {
+
+        }
+        return Nil.nil();
+    }
+
     abstract public T getHead();
 
     abstract public LList<T> getTail();
@@ -38,6 +52,15 @@ public abstract class LList<T> {
         } else {
             acc = fn.apply(acc, this.getHead());
             return this.getTail().fold(acc, fn);
+        }
+    }
+
+    //concat(list1, list2) - склеивает списки list1.concat(list2)
+    public LList<T> concat(LList<T> list) {
+        if (this.isEmpty()) {
+            return list;
+        } else {
+            return prepend(this.getHead(), this.getTail().concat(list));
         }
     }
 
@@ -109,9 +132,9 @@ public abstract class LList<T> {
     }
 
 
-    public LList<T> drop(int n) throws Exception {
+    public LList<T> drop(int n) {
         if (n < 0) {
-            throw new Exception("int n can not be less than zero");
+            throw new IllegalArgumentException("int n can not be less than zero");
         } else if (n == 0) {
             return this;
         } else {
@@ -133,12 +156,19 @@ public abstract class LList<T> {
     //они будут брать/выбрасывать элементы, которые соответствуют предикату
 
     public LList<T> takeWhile(Predicate<T> predicate) {
-
-        return Nil.nil();
+        if (!predicate.test(this.getHead()) || this.isEmpty()) {
+            return Nil.nil();
+        } else {
+            return prepend(this.getHead(), this.getTail().takeWhile(predicate));
+        }
     }
 
     public LList<T> dropWhile(Predicate<T> predicate) {
-        return Nil.nil();
+        if (this.isEmpty() || !predicate.test(this.getHead())) {
+            return this;
+        } else {
+            return this.getTail().dropWhile(predicate);
+        }
     }
 
     public abstract String toString();

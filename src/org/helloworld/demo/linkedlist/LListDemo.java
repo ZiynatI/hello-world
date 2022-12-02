@@ -23,11 +23,13 @@ public class LListDemo {
         //        System.out.println(sumOfPositives(asList(1, 3, -5, 6 - 2)));
         //
         //        System.out.println(asList("George Raymond Richard Martin".split(" ")).map(x -> x.substring(0, 1)).mkString(""));
-//        System.out.println(asList(1, 2, 3, 4, 5).groupBy(x -> x % 2));
-//        System.out.println(asList(1, 2, 3, 4, 5).reverse());
-//        System.out.println(squareEveryDigit(9119));
-//        System.out.println(toCamelCase("the-stealth-warrior"));
-        System.out.println(asList(1,2,3,4,5,6,7,8,9).drop(2));
+        //        System.out.println(asList(1, 2, 3, 4, 5).groupBy(x -> x % 2));
+        //        System.out.println(asList(1, 2, 3, 4, 5).reverse());
+        //        System.out.println(squareEveryDigit(9119));
+        //        System.out.println(toCamelCase("the-stealth-warrior"));
+        System.out.println(asList(1, 2, 3, 4, 5, 6, 7, 8, 9).drop(2));
+        System.out.println(asList(2, 4, 6, 8, 10, 11, 12, 14, 16, 18, 20).dropWhile(x -> x % 2 == 0));
+        System.out.println(asList(1, 2, 3, 4, 5).concat(asList(6, 7, 8, 9)));
     }
 
     public static <T> LList<T> asList(T... elements) {
@@ -85,7 +87,7 @@ public class LListDemo {
     public static String toCamelCase(String s) {
         String[] arr = s.split("(\\-|_)+");
         LList<String> list = asList(arr);
-        LList<String> list2 = LList.prepend(list.getHead(), list.getTail().map(x->Character.toUpperCase(x.charAt(0))+x.substring(1)));
+        LList<String> list2 = LList.prepend(list.getHead(), list.getTail().map(x -> Character.toUpperCase(x.charAt(0)) + x.substring(1)));
         return list2.mkString("");
     }
 }
