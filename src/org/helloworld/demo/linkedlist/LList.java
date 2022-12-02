@@ -11,19 +11,14 @@ public abstract class LList<T> {
         return new NonEmptyLList<>(head, tail);
     }
 
-    static <T> LList<T> rangleInclusive(int a, int b) {
-        if (a > b) {
-            throw new IllegalArgumentException("first arg can not be bigger than second");
+    public static LList<Integer> rangleInclusive(int a, int b) {
+        if (a == b) {
+            return prepend(a, Nil.nil());
+        } else {
+            return prepend(a, rangleInclusive(a > b ? a - 1 : a + 1, b));
         }
-        int counter = 0;
-        while (counter != a) {
-
-        }
-        while (counter != b) {
-
-        }
-        return Nil.nil();
     }
+
 
     abstract public T getHead();
 
