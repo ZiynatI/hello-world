@@ -36,8 +36,10 @@ public abstract class LList<T> {
             return prepend(head2, this.getTail().map(fn));
         }
     }
-//дальше - T maxBy(T -> Comparable), ищет максимальный элемент в списке используя функцию, считающую сравнимое значение каждого элементв
-   public T maxBy(Function<> fn){
+
+    //дальше - T maxBy(T -> Comparable), ищет максимальный элемент в списке используя функцию,
+    //считающую сравнимое значение каждого элемента
+    public T maxBy(Function<> fn) {
 
     }
 
