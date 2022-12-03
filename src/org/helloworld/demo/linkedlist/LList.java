@@ -39,9 +39,10 @@ public abstract class LList<T> {
 
     //дальше - T maxBy(T -> Comparable), ищет максимальный элемент в списке используя функцию,
     //считающую сравнимое значение каждого элемента
-    public T maxBy(Function<> fn) {
-
+    public T maxBy() {
+        return null;
     }
+
 
     public T reduce(BiFunction<T, T, T> fn) {
         return this.getTail().fold(this.getHead(), fn);
