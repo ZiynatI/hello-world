@@ -3,8 +3,8 @@ package org.helloworld.demo.linkedlist;
 
 import java.util.Objects;
 
-public class Pair<T, R> {
-    public final T left;
+public class Pair<L, R> {
+    public final L left;
     public final R right;
 
     public static void main(String[] args) {
@@ -13,10 +13,27 @@ public class Pair<T, R> {
         System.out.println(p.equals(b));
     }
 
-    public Pair(T left, R right) {
+    public Pair(L left, R right) {
         this.left = left;
         this.right = right;
     }
+
+    public L getLeft() {
+        return left;
+    }
+
+    public R getRight() {
+        return right;
+    }
+
+    public <L2> Pair<L2, R> withLeft(L2 left2) {
+        return new Pair<L2, R>(left2, right);
+    }
+
+    public <R2> Pair<L, R2> withRight(R2 right2) {
+        return new Pair<L, R2>(left, right2);
+    }
+
 
     @Override
     public String toString() {

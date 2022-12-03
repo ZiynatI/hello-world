@@ -27,11 +27,12 @@ public class LListDemo {
         //        System.out.println(asList(1, 2, 3, 4, 5).reverse());
         //        System.out.println(squareEveryDigit(9119));
         //        System.out.println(toCamelCase("the-stealth-warrior"));
-        System.out.println(asList(1, 2, 3, 4, 5, 6, 7, 8, 9).drop(2));
-        System.out.println(asList(2, 4, 6, 8, 10, 11, 12, 14, 16, 18, 20).dropWhile(x -> x % 2 == 0));
-        System.out.println(LList.concat(asList(1, 2, 3, 4, 5),asList(5.0,6.2,7.4)));
-        System.out.println(asList(1, 2, 3, 4, 5));
-        System.out.println(LList.rangleInclusive(5,1));
+        //        System.out.println(asList(1, 2, 3, 4, 5, 6, 7, 8, 9).drop(2));
+        //        System.out.println(asList(2, 4, 6, 8, 10, 11, 12, 14, 16, 18, 20).dropWhile(x -> x % 2 == 0));
+        //        System.out.println(LList.concat(asList(1, 2, 3, 4, 5), asList(5.0, 6.2, 7.4)));
+        //        System.out.println(asList(1, 2, 3, 4, 5));
+        //        System.out.println(LList.rangeInclusive(5, 1));
+        System.out.println(repeat("hello", 5));
     }
 
     public static <T> LList<T> asList(T... elements) {
@@ -92,4 +93,10 @@ public class LListDemo {
         LList<String> list2 = LList.prepend(list.getHead(), list.getTail().map(x -> Character.toUpperCase(x.charAt(0)) + x.substring(1)));
         return list2.mkString("");
     }
+
+    public static String repeat(String s, int n) {
+        LList<Integer> intList = LList.rangeInclusive(0, n-1);
+        return intList.map(x -> s).mkString("");
+    }
+
 }

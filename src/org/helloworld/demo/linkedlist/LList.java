@@ -11,11 +11,11 @@ public abstract class LList<T> {
         return new NonEmptyLList<>(head, tail);
     }
 
-    public static LList<Integer> rangleInclusive(int a, int b) {
+    public static LList<Integer> rangeInclusive(int a, int b) {
         if (a == b) {
             return prepend(a, Nil.nil());
         } else {
-            return prepend(a, rangleInclusive(a > b ? a - 1 : a + 1, b));
+            return prepend(a, rangeInclusive(a > b ? a - 1 : a + 1, b));
         }
     }
 
@@ -36,6 +36,10 @@ public abstract class LList<T> {
             return prepend(head2, this.getTail().map(fn));
         }
     }
+//дальше - T maxBy(T -> Comparable), ищет максимальный элемент в списке используя функцию, считающую сравнимое значение каждого элементв
+   public T maxBy(Function<> fn){
+
+    }
 
     public T reduce(BiFunction<T, T, T> fn) {
         return this.getTail().fold(this.getHead(), fn);
@@ -51,17 +55,27 @@ public abstract class LList<T> {
     }
 
     //concat(list1, list2) - склеивает списки list1.concat(list2)
-    public static <T> LList<T> concat(LList<? extends T> list1,LList<? extends T> list2) {
+    public static <T> LList<T> concat(LList<? extends T> list1, LList<? extends T> list2) {
         if (list1.isEmpty()) {
             return (LList<T>) list2;
         } else {
-            return LList.<T>prepend(list1.getHead(), LList.<T>concat(list1.getTail(),list2));
+            return LList.<T>prepend(list1.getHead(), LList.<T>concat(list1.getTail(), list2));
         }
     }
 
     public LList<T> reverse() {
         //                return fold(Nil.nil(), (acc, head) -> prepend(head, acc));
         return reverse(Nil.nil());
+    }
+
+    //и как разберёшься - сделай метод zip(list2), который из двух списков делает один список пар
+    //(лишние элементы одного из списков отбрасываются)
+    public <R> LList<Pair<T, R>> zip(LList<R> list2) {
+        if (this.isEmpty() || list2.isEmpty()) {
+            return Nil.nil();
+        } else {
+            return prepend(new Pair<T, R>(this.getHead(), list2.getHead()), this.getTail().zip(list2.getTail()));
+        }
     }
 
     private LList<T> reverse(LList<T> acc) {
