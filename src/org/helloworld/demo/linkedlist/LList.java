@@ -51,11 +51,11 @@ public abstract class LList<T> {
     }
 
     //concat(list1, list2) - склеивает списки list1.concat(list2)
-    public LList<T> concat(LList<? extends T> list) {
-        if (this.isEmpty()) {
-            return (LList<T>) list;
+    public static <T> LList<T> concat(LList<? extends T> list1,LList<? extends T> list2) {
+        if (list1.isEmpty()) {
+            return (LList<T>) list2;
         } else {
-            return LList.<T>prepend(this.getHead(), this.getTail().<T>concat(list));
+            return LList.<T>prepend(list1.getHead(), LList.<T>concat(list1.getTail(),list2));
         }
     }
 
