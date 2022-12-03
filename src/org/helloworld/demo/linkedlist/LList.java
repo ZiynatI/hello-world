@@ -6,7 +6,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public abstract class LList<T> {
+public abstract class LList<T>  {
     static <T2> LList<T2> prepend(T2 head, LList<T2> tail) {
         return new NonEmptyLList<>(head, tail);
     }
@@ -39,7 +39,14 @@ public abstract class LList<T> {
 
     //дальше - T maxBy(T -> Comparable), ищет максимальный элемент в списке используя функцию,
     //считающую сравнимое значение каждого элемента
-    public T maxBy() {
+    //должно работать так -
+    //например, чтоб найти самое длинное слово, в списке строк ты передаёшь s -> s.length()
+    public <R> T maxBy(Function<R, T> fn) {
+        if(this.isEmpty()){
+            return null;
+        }else {
+            return
+        }
         return null;
     }
 
