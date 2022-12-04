@@ -32,6 +32,7 @@ public class LListDemo {
         //        System.out.println(LList.concat(asList(1, 2, 3, 4, 5), asList(5.0, 6.2, 7.4)));
         //        System.out.println(asList(1, 2, 3, 4, 5));
         //        System.out.println(LList.rangeInclusive(5, 1));
+        System.out.println(asList(1, 2, 3, 4, 5).maxBy(s->s));
         System.out.println(repeat("hello", 5));
     }
 

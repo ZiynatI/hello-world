@@ -6,7 +6,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public abstract class LList<T>  {
+public abstract class LList<T> {
     static <T2> LList<T2> prepend(T2 head, LList<T2> tail) {
         return new NonEmptyLList<>(head, tail);
     }
@@ -41,15 +41,19 @@ public abstract class LList<T>  {
     //считающую сравнимое значение каждого элемента
     //должно работать так -
     //например, чтоб найти самое длинное слово, в списке строк ты передаёшь s -> s.length()
-    public <R> T maxBy(Function<R, T> fn) {
-        if(this.isEmpty()){
-            return null;
-        }else {
-            return
-        }
-        return null;
+    public <R extends Comparable<R>> T maxBy(Function<T, R> fn) {
+        return this.getTail().maxBy(this.getHead(), fn);
     }
 
+    private <R extends Comparable<R>> T maxBy(T max, Function<T, R> fn) {
+        if (this.isEmpty()) {
+            return max;
+        } else {
+            T max2;
+            int c = fn.apply(max).compareTo(fn.apply(this.getHead()));
+            return this.getTail().maxBy(c >= 0 ? max : this.getHead(), fn);
+        }
+    }
 
     public T reduce(BiFunction<T, T, T> fn) {
         return this.getTail().fold(this.getHead(), fn);
@@ -196,3 +200,4 @@ public abstract class LList<T>  {
 
     public abstract int hashCode();
 }
+
