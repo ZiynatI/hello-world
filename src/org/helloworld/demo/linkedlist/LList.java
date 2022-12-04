@@ -42,14 +42,14 @@ public abstract class LList<T> {
     //должно работать так -
     //например, чтоб найти самое длинное слово, в списке строк ты передаёшь s -> s.length()
     public <R extends Comparable<R>> T maxBy(Function<T, R> fn) {
-        return this.getTail().maxBy(this.getHead(), fn);
+        return this.getTail().fold(this.getHead(), (max, nextHead)
+                -> fn.apply(max).compareTo(fn.apply(nextHead)) >= 0 ? max : nextHead);
     }
 
     private <R extends Comparable<R>> T maxBy(T max, Function<T, R> fn) {
         if (this.isEmpty()) {
             return max;
         } else {
-            T max2;
             int c = fn.apply(max).compareTo(fn.apply(this.getHead()));
             return this.getTail().maxBy(c >= 0 ? max : this.getHead(), fn);
         }
