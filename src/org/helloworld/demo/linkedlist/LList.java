@@ -46,15 +46,6 @@ public abstract class LList<T> {
                 -> fn.apply(max).compareTo(fn.apply(nextHead)) >= 0 ? max : nextHead);
     }
 
-    private <R extends Comparable<R>> T maxBy(T max, Function<T, R> fn) {
-        if (this.isEmpty()) {
-            return max;
-        } else {
-            int c = fn.apply(max).compareTo(fn.apply(this.getHead()));
-            return this.getTail().maxBy(c >= 0 ? max : this.getHead(), fn);
-        }
-    }
-
     public T reduce(BiFunction<T, T, T> fn) {
         return this.getTail().fold(this.getHead(), fn);
     }
@@ -82,15 +73,6 @@ public abstract class LList<T> {
         return reverse(Nil.nil());
     }
 
-    //и как разберёшься - сделай метод zip(list2), который из двух списков делает один список пар
-    //(лишние элементы одного из списков отбрасываются)
-    public <R> LList<Pair<T, R>> zip(LList<R> list2) {
-        if (this.isEmpty() || list2.isEmpty()) {
-            return Nil.nil();
-        } else {
-            return prepend(new Pair<T, R>(this.getHead(), list2.getHead()), this.getTail().zip(list2.getTail()));
-        }
-    }
 
     private LList<T> reverse(LList<T> acc) {
         if (this.isEmpty()) {
@@ -98,6 +80,16 @@ public abstract class LList<T> {
         } else {
             LList<T> nextAcc = prepend(this.getHead(), acc);
             return this.getTail().reverse(nextAcc);
+        }
+    }
+
+    //и как разберёшься - сделай метод zip(list2), который из двух списков делает один список пар
+    //(лишние элементы одного из списков отбрасываются)
+    public <R> LList<Pair<T, R>> zip(LList<R> list2) {
+        if (this.isEmpty() || list2.isEmpty()) {
+            return Nil.nil();
+        } else {
+            return prepend(new Pair<T, R>(this.getHead(), list2.getHead()), this.getTail().zip(list2.getTail()));
         }
     }
 

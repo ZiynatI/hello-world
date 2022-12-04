@@ -32,8 +32,9 @@ public class LListDemo {
         //        System.out.println(LList.concat(asList(1, 2, 3, 4, 5), asList(5.0, 6.2, 7.4)));
         //        System.out.println(asList(1, 2, 3, 4, 5));
         //        System.out.println(LList.rangeInclusive(5, 1));
-        System.out.println(asList(1, 2, 3, 4, 5).maxBy(s->s));
-        System.out.println(repeat("hello", 5));
+        //        System.out.println(asList(1, 2, 3, 4, 5).maxBy(s -> s));
+        //        System.out.println(repeat("hello", 5));
+        System.out.println(towerBuilder(5).mkString("\n"));
     }
 
     public static <T> LList<T> asList(T... elements) {
@@ -96,8 +97,23 @@ public class LListDemo {
     }
 
     public static String repeat(String s, int n) {
-        LList<Integer> intList = LList.rangeInclusive(0, n-1);
+        LList<Integer> intList = LList.rangeInclusive(0, n - 1);
         return intList.map(x -> s).mkString("");
     }
 
+    public static LList<String> towerBuilder(int nFloors) {
+        return towerBuilder(repeat("*", nFloors * 2 - 1), nFloors).reverse();
+    }
+
+    private static LList<String> towerBuilder(String s, int nFloors) {
+        if (nFloors == 0) {
+            return Nil.nil();
+        } else {
+            char[] c = s.toCharArray();
+            c[s.indexOf('*')] = ' ';
+            c[s.lastIndexOf('*')] = ' ';
+            String s2 = new String(c);
+            return LList.prepend(s, towerBuilder(s2, nFloors - 1));
+        }
+    }
 }
