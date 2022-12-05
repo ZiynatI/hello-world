@@ -1,5 +1,8 @@
 package org.helloworld.demo.linkedlist;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LListDemo {
 
     public static void main(String[] args) throws Exception {
@@ -34,7 +37,9 @@ public class LListDemo {
         //        System.out.println(LList.rangeInclusive(5, 1));
         //        System.out.println(asList(1, 2, 3, 4, 5).maxBy(s -> s));
         //        System.out.println(repeat("hello", 5));
-        System.out.println(towerBuilder(5).mkString("\n"));
+        //        System.out.println(towerBuilder(6).mkString("\n"));
+        //        System.out.println(asList(1, 2, null, 4, 5));
+        System.out.println(isValid("(){}[]"));
     }
 
     public static <T> LList<T> asList(T... elements) {
@@ -97,23 +102,47 @@ public class LListDemo {
     }
 
     public static String repeat(String s, int n) {
-        LList<Integer> intList = LList.rangeInclusive(0, n - 1);
+        if (n == 0) {
+            return "";
+        }
+        LList<Integer> intList = LList.rangeInclusive(1, n);
         return intList.map(x -> s).mkString("");
     }
 
     public static LList<String> towerBuilder(int nFloors) {
-        return towerBuilder(repeat("*", nFloors * 2 - 1), nFloors).reverse();
+        LList<Integer> list = LList.rangeInclusive(1, nFloors);
+        return list.map(x -> {
+            String spaces = repeat(" ", nFloors - x);
+            return spaces + repeat("*", x * 2 - 1) + spaces;
+        });
     }
 
-    private static LList<String> towerBuilder(String s, int nFloors) {
-        if (nFloors == 0) {
-            return Nil.nil();
-        } else {
-            char[] c = s.toCharArray();
-            c[s.indexOf('*')] = ' ';
-            c[s.lastIndexOf('*')] = ' ';
-            String s2 = new String(c);
-            return LList.prepend(s, towerBuilder(s2, nFloors - 1));
+    public static Map<Character, Character> getBracesMap() {
+        Map<Character, Character> bracesMap = new HashMap<>();
+        bracesMap.put('(', ')');
+        bracesMap.put('[', ']');
+        bracesMap.put('{', '}');
+        return bracesMap;
+    }
+
+    public static boolean isValid(String braces) {
+        LList<Character> charsLlist = asList(braces.toCharArray());
+        for (int i = 0; i < braces.length(); i++) {
+            if (charsLlist.isEmpty()) {
+                return true;
+            }
+            if (getBracesMap().get(charsLlist.getHead()).equals(charsLlist.getTail().getHead())) {
+                charsLlist = charsLlist.getTail().getTail();
+            }
         }
+        return charsLlist.isEmpty();
     }
 }
+
+//if(braces.equals(null)&& charsList.isEmpty()){
+//    return true;
+//}else if(braces==null&& !charsList.isEmpty()){
+//    return false;
+//}else{
+//    return isValid(braces.substring(braces.length()-1),)
+
