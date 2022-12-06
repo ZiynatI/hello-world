@@ -41,6 +41,7 @@ public class LListDemo {
         //        System.out.println(asList(1, 2, null, 4, 5));
         System.out.println(isValid("([{}])"));
         System.out.println(isValid("(){}[]"));
+        System.out.println(isValid("[({})](]"));
     }
 
     public static <T> LList<T> asList(T... elements) {
@@ -130,8 +131,7 @@ public class LListDemo {
         bracesMap.put('[', ']');
         bracesMap.put('{', '}');
         LList<Character> charsList = asList(braces.toCharArray());
-        LList<Character> accList = Nil.nil();
-        charsList.fold(accList, (list, nextBrace) -> {
+        LList<Character> accList = charsList.fold(Nil.nil(), (list, nextBrace) -> {
             if (list.isEmpty()) {
                 return LList.prepend(nextBrace, list);
             } else {
