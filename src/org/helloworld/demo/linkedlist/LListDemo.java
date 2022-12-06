@@ -39,6 +39,7 @@ public class LListDemo {
         //        System.out.println(repeat("hello", 5));
         //        System.out.println(towerBuilder(6).mkString("\n"));
         //        System.out.println(asList(1, 2, null, 4, 5));
+        System.out.println(isValid("([{}])"));
         System.out.println(isValid("(){}[]"));
     }
 
@@ -128,30 +129,20 @@ public class LListDemo {
         bracesMap.put('(', ')');
         bracesMap.put('[', ']');
         bracesMap.put('{', '}');
-        LList<Character> charsLlist = asList(braces.toCharArray());
-        Character head = charsLlist.getHead();
-        charsLlist.getTail().fold(head, (x, y) ->{
-            if(bracesMap.get(x).equals(y)){
-return null;
+        LList<Character> charsList = asList(braces.toCharArray());
+        LList<Character> accList = Nil.nil();
+        charsList.fold(accList, (x, y) -> {
+            if (x.isEmpty()) {
+                return LList.prepend(y, x);
+            } else {
+                if (bracesMap.get(x.getHead()).equals(y)) {
+                    return x.getTail();
+                } else {
+                    return LList.prepend(y, x);
+                }
+
             }
-            return null;
         });
-//        for (int i = 0; i < braces.length(); i++) {
-//            if (charsLlist.isEmpty()) {
-//                return true;
-//            }
-//            if (getBracesMap().get(charsLlist.getHead()).equals(charsLlist.getTail().getHead())) {
-//                charsLlist = charsLlist.getTail().getTail();
-//            }
-//        }
-//        return charsLlist.isEmpty();
-    return false;}
+        return accList.isEmpty();
+    }
 }
-
-//if(braces.equals(null)&& charsList.isEmpty()){
-//    return true;
-//}else if(braces==null&& !charsList.isEmpty()){
-//    return false;
-//}else{
-//    return isValid(braces.substring(braces.length()-1),)
-
