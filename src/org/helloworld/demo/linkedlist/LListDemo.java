@@ -131,14 +131,14 @@ public class LListDemo {
         bracesMap.put('{', '}');
         LList<Character> charsList = asList(braces.toCharArray());
         LList<Character> accList = Nil.nil();
-        charsList.fold(accList, (x, y) -> {
-            if (x.isEmpty()) {
-                return LList.prepend(y, x);
+        charsList.fold(accList, (list, nextBrace) -> {
+            if (list.isEmpty()) {
+                return LList.prepend(nextBrace, list);
             } else {
-                if (bracesMap.get(x.getHead()).equals(y)) {
-                    return x.getTail();
+                if (bracesMap.get(list.getHead()).equals(nextBrace)) {
+                    return list.getTail();
                 } else {
-                    return LList.prepend(y, x);
+                    return LList.prepend(nextBrace, list);
                 }
 
             }
