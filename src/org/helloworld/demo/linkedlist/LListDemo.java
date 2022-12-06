@@ -117,26 +117,35 @@ public class LListDemo {
         });
     }
 
-    public static Map<Character, Character> getBracesMap() {
+    //Write a function that takes a string of braces, and determines if the order of the braces is valid.
+    //It should return true if the string is valid, and false if it's invalid.
+    //This Kata is similar to the Valid Parentheses Kata, but introduces new characters: brackets [], and curly braces {}.
+    //All input strings will be nonempty, and will only consist of parentheses, brackets and curly braces: ()[]{}.
+    //What is considered Valid?
+    //A string of braces is considered valid if all braces are matched with the correct brace.
+    public static boolean isValid(String braces) {
         Map<Character, Character> bracesMap = new HashMap<>();
         bracesMap.put('(', ')');
         bracesMap.put('[', ']');
         bracesMap.put('{', '}');
-        return bracesMap;
-    }
-
-    public static boolean isValid(String braces) {
         LList<Character> charsLlist = asList(braces.toCharArray());
-        for (int i = 0; i < braces.length(); i++) {
-            if (charsLlist.isEmpty()) {
-                return true;
+        Character head = charsLlist.getHead();
+        charsLlist.getTail().fold(head, (x, y) ->{
+            if(bracesMap.get(x).equals(y)){
+return null;
             }
-            if (getBracesMap().get(charsLlist.getHead()).equals(charsLlist.getTail().getHead())) {
-                charsLlist = charsLlist.getTail().getTail();
-            }
-        }
-        return charsLlist.isEmpty();
-    }
+            return null;
+        });
+//        for (int i = 0; i < braces.length(); i++) {
+//            if (charsLlist.isEmpty()) {
+//                return true;
+//            }
+//            if (getBracesMap().get(charsLlist.getHead()).equals(charsLlist.getTail().getHead())) {
+//                charsLlist = charsLlist.getTail().getTail();
+//            }
+//        }
+//        return charsLlist.isEmpty();
+    return false;}
 }
 
 //if(braces.equals(null)&& charsList.isEmpty()){
