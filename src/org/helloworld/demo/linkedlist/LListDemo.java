@@ -153,6 +153,8 @@ public class LListDemo {
     //Kata.expandedForm(42); # Should return "40 + 2"
     //Kata.expandedForm(70304); # Should return "70000 + 300 + 4"
     public static LList<Integer> expandedForm(int num) {
+        String intSt = Integer.toString(num);
+        LList<Integer> zeros = LList.rangeInclusive(0,intSt.length()-1).map(x->Math.pow(10,x));
         LList<Integer> list = asList(Integer.toString(num)
                 .toCharArray()).map(x -> Character.getNumericValue(x))
                 .fold(Nil.nil(), (list2, nextHead) -> nextHead > 0 ? LList.prepend(nextHead, list2.map(x -> x * 10)) : list2.map(x -> x * 10));
