@@ -159,9 +159,7 @@ public class LListDemo {
     }
 
     public static boolean isValid(char[] walk) {
-        Map<Character, Character> directions = new HashMap<>();
-        directions.put('n', 's');
-        directions.put('e', 'w');
+
         LList<Character> walkList = asList(walk).fold(Nil.nil(), (list, direction) -> {
             //    if
             return list;
