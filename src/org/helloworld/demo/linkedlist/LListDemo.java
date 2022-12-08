@@ -41,8 +41,8 @@ public class LListDemo {
         //        System.out.println(asList(1, 2, null, 4, 5));
         System.out.println(isValid("([{}])"));
         System.out.println(isValid("(){}[]"));
-                System.out.println(isValid("({)}"));
-        System.out.println(expandedForm(70304));
+                        System.out.println(isValid("({)}"));
+        //        System.out.println(expandedForm(70304));
     }
 
     public static <T> LList<T> asList(T... elements) {
@@ -135,14 +135,12 @@ public class LListDemo {
         LList<Character> accList = charsList.fold(Nil.nil(), (list, nextBrace) -> {
             if (list.isEmpty()) {
                 return LList.prepend(nextBrace, list);
-            } else {
-                if (bracesMap.get(nextBrace).equals(list.getHead())) {
+            } else if (bracesMap.containsKey(list.getHead())) {
+                if (bracesMap.get(list.getHead()).equals(nextBrace)) {
                     return list.getTail();
-                } else {
-                    return LList.prepend(nextBrace, list);
                 }
-
             }
+            return LList.prepend(nextBrace, list);
         });
         return accList.isEmpty();
     }
@@ -161,14 +159,14 @@ public class LListDemo {
         return list.mkString(" + ");
     }
 
-        public static boolean isValid(char[] walk) {
-        Map<Character,Character> directions =new HashMap<>();
-        directions.put('n','s');
-        directions.put('e','w');
-LList<Character> walkList =asList(walk).fold(Nil.nil(),(list,direction)->{
-//    if
-    return list;
-});
-            return true;
-        }
+    public static boolean isValid(char[] walk) {
+        Map<Character, Character> directions = new HashMap<>();
+        directions.put('n', 's');
+        directions.put('e', 'w');
+        LList<Character> walkList = asList(walk).fold(Nil.nil(), (list, direction) -> {
+            //    if
+            return list;
+        });
+        return true;
+    }
 }
