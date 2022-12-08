@@ -155,9 +155,9 @@ public class LListDemo {
     public static String expandedForm(int num) {
         String intSt = Integer.toString(num);
         LList<String> list = asList(intSt.toCharArray())
-                .zip(LList.rangeInclusive(intSt.length() - 1, 0).map(x -> String.valueOf((int) Math.pow(10, x)).substring(1)))
+                .zip(LList.rangeInclusive(intSt.length() - 1, 0))
                 .filter(x -> x.getLeft() != '0')
-                .map(x -> x.getLeft() + "" + x.getRight());
+                .map(x -> x.getLeft() + repeat("0", x.getRight()));
         return list.mkString(" + ");
     }
 }
