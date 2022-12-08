@@ -41,7 +41,7 @@ public class LListDemo {
         //        System.out.println(asList(1, 2, null, 4, 5));
         System.out.println(isValid("([{}])"));
         System.out.println(isValid("(){}[]"));
-        //              System.out.println(isValid("({)}"));
+        //        System.out.println(isValid("({)}"));
         System.out.println(expandedForm(70304));
     }
 
@@ -136,7 +136,7 @@ public class LListDemo {
             if (list.isEmpty()) {
                 return LList.prepend(nextBrace, list);
             } else {
-                if (bracesMap.get(list.getHead()).equals(nextBrace)) {
+                if (bracesMap.getOrDefault(list.getHead(), null).equals(nextBrace)) {
                     return list.getTail();
                 } else {
                     return LList.prepend(nextBrace, list);
@@ -152,11 +152,12 @@ public class LListDemo {
     //Kata.expandedForm(12); # Should return "10 + 2"
     //Kata.expandedForm(42); # Should return "40 + 2"
     //Kata.expandedForm(70304); # Should return "70000 + 300 + 4"
-    public static LList<Integer> expandedForm(int num) {
+    public static String expandedForm(int num) {
         String intSt = Integer.toString(num);
-        LList<Integer> zeros = LList.rangeInclusive(0, intSt.length() - 1).map(x -> (int) Math.pow(10, x));
-        LList<Integer> list = asList(Integer.toString(num)
-                .toCharArray()).map(x -> Character.getNumericValue(x)).reverse().zip(zeros).map(x -> x.getLeft() * x.getRight()).filter(x -> x != 0);
-        return list.reverse();
+        LList<String> list = asList(intSt.toCharArray())
+                .zip(LList.rangeInclusive(intSt.length() - 1, 0).map(x -> String.valueOf((int) Math.pow(10, x)).substring(1)))
+                .filter(x -> x.getLeft() != '0')
+                .map(x -> x.getLeft() + "" + x.getRight());
+        return list.mkString(" + ");
     }
 }
