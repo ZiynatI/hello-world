@@ -41,7 +41,7 @@ public class LListDemo {
         //        System.out.println(asList(1, 2, null, 4, 5));
         System.out.println(isValid("([{}])"));
         System.out.println(isValid("(){}[]"));
-              System.out.println(isValid("({)}"));
+        //              System.out.println(isValid("({)}"));
         System.out.println(expandedForm(70304));
     }
 
@@ -154,10 +154,9 @@ public class LListDemo {
     //Kata.expandedForm(70304); # Should return "70000 + 300 + 4"
     public static LList<Integer> expandedForm(int num) {
         String intSt = Integer.toString(num);
-        LList<Integer> zeros = LList.rangeInclusive(0,intSt.length()-1).map(x->Math.pow(10,x));
+        LList<Integer> zeros = LList.rangeInclusive(0, intSt.length() - 1).map(x -> (int) Math.pow(10, x));
         LList<Integer> list = asList(Integer.toString(num)
-                .toCharArray()).map(x -> Character.getNumericValue(x))
-                .fold(Nil.nil(), (list2, nextHead) -> nextHead > 0 ? LList.prepend(nextHead, list2.map(x -> x * 10)) : list2.map(x -> x * 10));
+                .toCharArray()).map(x -> Character.getNumericValue(x)).reverse().zip(zeros).map(x -> x.getLeft() * x.getRight()).filter(x -> x != 0);
         return list.reverse();
     }
 }
