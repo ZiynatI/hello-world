@@ -41,7 +41,7 @@ public class LListDemo {
         //        System.out.println(asList(1, 2, null, 4, 5));
         System.out.println(isValid("([{}])"));
         System.out.println(isValid("(){}[]"));
-                        System.out.println(isValid("({)}"));
+        System.out.println(isValid("({)}"));
         //        System.out.println(expandedForm(70304));
     }
 
@@ -135,10 +135,9 @@ public class LListDemo {
         LList<Character> accList = charsList.fold(Nil.nil(), (list, nextBrace) -> {
             if (list.isEmpty()) {
                 return LList.prepend(nextBrace, list);
-            } else if (bracesMap.containsKey(list.getHead())) {
-                if (bracesMap.get(list.getHead()).equals(nextBrace)) {
-                    return list.getTail();
-                }
+            }
+            if (nextBrace.equals(bracesMap.get(list.getHead()))) {
+                return list.getTail();
             }
             return LList.prepend(nextBrace, list);
         });
