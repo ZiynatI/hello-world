@@ -41,7 +41,7 @@ public class LListDemo {
         //        System.out.println(asList(1, 2, null, 4, 5));
         System.out.println(isValid("([{}])"));
         System.out.println(isValid("(){}[]"));
-        //        System.out.println(isValid("({)}"));
+                System.out.println(isValid("({)}"));
         System.out.println(expandedForm(70304));
     }
 
@@ -136,7 +136,7 @@ public class LListDemo {
             if (list.isEmpty()) {
                 return LList.prepend(nextBrace, list);
             } else {
-                if (bracesMap.getOrDefault(list.getHead(), null).equals(nextBrace)) {
+                if (bracesMap.get(nextBrace).equals(list.getHead())) {
                     return list.getTail();
                 } else {
                     return LList.prepend(nextBrace, list);
@@ -160,4 +160,15 @@ public class LListDemo {
                 .map(x -> x.getLeft() + repeat("0", x.getRight()));
         return list.mkString(" + ");
     }
+
+        public static boolean isValid(char[] walk) {
+        Map<Character,Character> directions =new HashMap<>();
+        directions.put('n','s');
+        directions.put('e','w');
+LList<Character> walkList =asList(walk).fold(Nil.nil(),(list,direction)->{
+//    if
+    return list;
+});
+            return true;
+        }
 }
