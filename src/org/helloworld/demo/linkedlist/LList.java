@@ -214,6 +214,14 @@ public abstract class LList<T> {
         }
     }
 
+    public <R> LList<R> flatMap(Function<T, LList<R>> fn) {
+        if (this.isEmpty()) {
+            return Nil.nil();
+        } else {
+            return concat(fn.apply(this.getHead()), this.getTail().flatMap(fn));
+        }
+    }
+
     public abstract String toString();
 
     public abstract boolean equals(Object that);
