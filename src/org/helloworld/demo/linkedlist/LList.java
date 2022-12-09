@@ -206,6 +206,14 @@ public abstract class LList<T> {
         }
     }
 
+    public static <T> LList<T> flatten(LList<LList<T>> list) {
+        if (list.isEmpty()) {
+            return Nil.nil();
+        } else {
+            return concat(list.getHead(), flatten(list.getTail()));
+        }
+    }
+
     public abstract String toString();
 
     public abstract boolean equals(Object that);
