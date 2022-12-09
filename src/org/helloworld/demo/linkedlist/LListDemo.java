@@ -43,6 +43,7 @@ public class LListDemo {
         //        System.out.println(isValid("(){}[]"));
         //        System.out.println(isValid("({)}"));
         System.out.println(isValid(new char[]{'n', 'n', 'n', 's', 'n', 's', 'n', 's', 'n', 's'}));
+        System.out.println(isValid(new char[]{'n', 's', 'n', 's', 'n', 's', 'n', 's', 'n', 's'}));
     }
 
     public static <T> LList<T> asList(T... elements) {
@@ -164,15 +165,15 @@ public class LListDemo {
                 .fold(start, (pair, direction) -> {
                     switch (direction) {
                         case 'n':
-                            pair.withLeft(pair.left + 1);
+                            return pair.withLeft(pair.left + 1);
                         case 's':
-                            pair.withLeft(pair.left - 1);
+                            return pair.withLeft(pair.left - 1);
                         case 'e':
-                            pair.withRight(pair.right + 1);
+                            return pair.withRight(pair.right + 1);
                         case 'w':
-                            pair.withRight(pair.right - 1);
+                            return pair.withRight(pair.right - 1);
                     }
                     return pair;
-                }).equals(new Pair<>(0, 0));
+                }).equals(start);
     }
 }
