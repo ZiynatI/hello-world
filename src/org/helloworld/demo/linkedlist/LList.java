@@ -186,6 +186,24 @@ public abstract class LList<T> {
         }
     }
 
+    public boolean anyMuch(Predicate predicate) {
+        if (this.isEmpty()) {
+            return false;
+        } else if (predicate.test(this.getHead())) {
+            return true;
+        } else {
+            return this.getTail().anyMuch(predicate);
+        }
+    }
+
+    public boolean allMuch(Predicate predicate) {
+        if (this.isEmpty()) {
+            return true;
+        } else {
+            return this.getTail().allMuch(predicate);
+        }
+    }
+
     public abstract String toString();
 
     public abstract boolean equals(Object that);

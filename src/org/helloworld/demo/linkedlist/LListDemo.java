@@ -1,7 +1,9 @@
 package org.helloworld.demo.linkedlist;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class LListDemo {
 
@@ -44,6 +46,10 @@ public class LListDemo {
         //        System.out.println(isValid("({)}"));
         System.out.println(isValid(new char[]{'n', 'n', 'n', 's', 'n', 's', 'n', 's', 'n', 's'}));
         System.out.println(isValid(new char[]{'n', 's', 'n', 's', 'n', 's', 'n', 's', 'n', 's'}));
+        System.out.println(Arrays.asList(1, 3, 5, 8)
+                .stream()
+                .map(x -> x.toString())
+                .collect(Collectors.joining(" + ")));
     }
 
     public static <T> LList<T> asList(T... elements) {
