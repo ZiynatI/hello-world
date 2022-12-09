@@ -39,10 +39,10 @@ public class LListDemo {
         //        System.out.println(repeat("hello", 5));
         //        System.out.println(towerBuilder(6).mkString("\n"));
         //        System.out.println(asList(1, 2, null, 4, 5));
-        System.out.println(isValid("([{}])"));
-        System.out.println(isValid("(){}[]"));
-        System.out.println(isValid("({)}"));
-        //        System.out.println(expandedForm(70304));
+        //        System.out.println(isValid("([{}])"));
+        //        System.out.println(isValid("(){}[]"));
+        //        System.out.println(isValid("({)}"));
+        System.out.println(isValid(new char[]{'n', 'n', 'n', 's', 'n', 's', 'n', 's', 'n', 's'}));
     }
 
     public static <T> LList<T> asList(T... elements) {
@@ -150,20 +150,29 @@ public class LListDemo {
     //Kata.expandedForm(42); # Should return "40 + 2"
     //Kata.expandedForm(70304); # Should return "70000 + 300 + 4"
     public static String expandedForm(int num) {
-        String intSt = Integer.toString(num);
-        LList<String> list = asList(intSt.toCharArray())
+        String intSt = String.valueOf(num);
+        return asList(Integer.toString(num).toCharArray())
                 .zip(LList.rangeInclusive(intSt.length() - 1, 0))
                 .filter(x -> x.getLeft() != '0')
-                .map(x -> x.getLeft() + repeat("0", x.getRight()));
-        return list.mkString(" + ");
+                .map(x -> x.getLeft() + repeat("0", x.getRight()))
+                .mkString(" + ");
     }
 
-    public static boolean isValid(char[] walk) {
-
-        LList<Character> walkList = asList(walk).fold(Nil.nil(), (list, direction) -> {
-            //    if
-            return list;
-        });
-        return true;
+    public static boolean isValid(char[] route) {
+        Pair<Integer, Integer> start = new Pair<>(0, 0);
+        return asList(route)
+                .fold(start, (pair, direction) -> {
+                    switch (direction) {
+                        case 'n':
+                            pair.withLeft(pair.left + 1);
+                        case 's':
+                            pair.withLeft(pair.left - 1);
+                        case 'e':
+                            pair.withRight(pair.right + 1);
+                        case 'w':
+                            pair.withRight(pair.right - 1);
+                    }
+                    return pair;
+                }).equals(new Pair<>(0, 0));
     }
 }
