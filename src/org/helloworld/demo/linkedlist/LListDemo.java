@@ -1,9 +1,7 @@
 package org.helloworld.demo.linkedlist;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class LListDemo {
 
@@ -44,12 +42,13 @@ public class LListDemo {
         //        System.out.println(isValid("([{}])"));
         //        System.out.println(isValid("(){}[]"));
         //        System.out.println(isValid("({)}"));
-        System.out.println(isValid(new char[]{'n', 'n', 'n', 's', 'n', 's', 'n', 's', 'n', 's'}));
-        System.out.println(isValid(new char[]{'n', 's', 'n', 's', 'n', 's', 'n', 's', 'n', 's'}));
-        System.out.println(Arrays.asList(1, 3, 5, 8)
-                .stream()
-                .map(x -> x.toString())
-                .collect(Collectors.joining(" + ")));
+//        System.out.println(isValid(new char[]{'n', 'n', 'n', 's', 'n', 's', 'n', 's', 'n', 's'}));
+//        System.out.println(isValid(new char[]{'n', 's', 'n', 's', 'n', 's', 'n', 's', 'n', 's'}));
+//        System.out.println(Arrays.asList(1, 3, 5, 8)
+//                .stream()
+//                .map(x -> x.toString())
+//                .collect(Collectors.joining(" + ")));
+        System.out.println(asList(1, 2, 3, 4, 5, 6, 7, 8, 9).allMatch(x->x instanceof Number));
     }
 
     public static <T> LList<T> asList(T... elements) {

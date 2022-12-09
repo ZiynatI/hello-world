@@ -186,21 +186,23 @@ public abstract class LList<T> {
         }
     }
 
-    public boolean anyMuch(Predicate predicate) {
+    public boolean anyMatch(Predicate<T> predicate) {
         if (this.isEmpty()) {
             return false;
         } else if (predicate.test(this.getHead())) {
             return true;
         } else {
-            return this.getTail().anyMuch(predicate);
+            return this.getTail().anyMatch(predicate);
         }
     }
 
-    public boolean allMuch(Predicate predicate) {
+    public boolean allMatch(Predicate<T> predicate) {
         if (this.isEmpty()) {
             return true;
+        } else if (!predicate.test(this.getHead())) {
+            return false;
         } else {
-            return this.getTail().allMuch(predicate);
+            return this.getTail().allMatch(predicate);
         }
     }
 
