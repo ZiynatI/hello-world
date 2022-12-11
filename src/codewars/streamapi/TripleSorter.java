@@ -36,22 +36,10 @@ public class TripleSorter {
     //sort(students) should return "Jane Doe,Jane Dane,David Goodman,Mark Rose"
 
     public static String sort(List<Student> students) {
-        String s = students.stream().sorted((x1, x2) -> {
-            if (x1.getGpa() < x2.getGpa()) {
-                return 1;
-            } else if (x1.getGpa() == x2.getGpa()) {
-                if (x1.getFullName().charAt(x1.getFullName().indexOf(' ') + 1) > x2.getFullName().charAt(x2.getFullName().indexOf(' ') + 1)) {
-                    return 1;
-                } else if (x1.getFullName().charAt(x1.getFullName().indexOf(' ') + 1) < x2.getFullName().charAt(x2.getFullName().indexOf(' ') + 1)) {
-                    return -1;
-                } else if (x1.getFullName().charAt(x1.getFullName().indexOf(' ') + 1) == x2.getFullName().charAt(x2.getFullName().indexOf(' ') + 1)) {
-                    return Integer.compare(x1.getAge(), x2.getAge());
-                }
-            } else {
-                return -1;
-            }
-            return 0;
-        }).map(x -> x.toString()).collect(Collectors.joining(", "));
+        String s = students.stream().sorted((x1, x2) -> Integer.compare(x2.getGpa(), x1.getGpa()))
+                .sorted((x1, x2) -> Character.compare(x1.getFullName().charAt(x1.getFullName().indexOf(' ') + 1), x2.getFullName().charAt(x2.getFullName().indexOf(' ') + 1)))
+                .sorted((x1, x2) -> Integer.compare(x1.getAge(), x2.getAge()))
+                .map(x -> x.toString()).collect(Collectors.joining(", "));
         return s;
     }
 
