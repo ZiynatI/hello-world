@@ -36,9 +36,17 @@ public class TripleSorter {
     //sort(students) should return "Jane Doe,Jane Dane,David Goodman,Mark Rose"
 
     public static String sort(List<Student> students) {
-        String s = students.stream().sorted((x1, x2) -> Integer.compare(x2.getGpa(), x1.getGpa()))
-                .sorted((x1, x2) -> Character.compare(x1.getFullName().charAt(x1.getFullName().indexOf(' ') + 1), x2.getFullName().charAt(x2.getFullName().indexOf(' ') + 1)))
-                .sorted((x1, x2) -> Integer.compare(x1.getAge(), x2.getAge()))
+        String s = students.stream().sorted((x1, x2) -> {
+                    int compareGpa = Integer.compare(x2.getGpa(), x1.getGpa());
+                    if (compareGpa != 0) {
+                        return compareGpa;
+                    }
+                    int compareLastName = Character.compare(x1.getFullName().charAt(x1.getFullName().indexOf(' ') + 1), x2.getFullName().charAt(x2.getFullName().indexOf(' ') + 1));
+                    if (compareLastName != 0) {
+                        return compareLastName;
+                    }
+                    return Integer.compare(x1.getAge(), x2.getAge());
+                })
                 .map(x -> x.toString()).collect(Collectors.joining(", "));
         return s;
     }
