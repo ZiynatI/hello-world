@@ -41,7 +41,7 @@ public class TripleSorter {
                     if (compareGpa != 0) {
                         return compareGpa;
                     }
-                    int compareLastName = Character.compare(x1.getFullName().charAt(x1.getFullName().indexOf(' ') + 1), x2.getFullName().charAt(x2.getFullName().indexOf(' ') + 1));
+                    int compareLastName = Character.compare(x1.getFullName().split(" ")[1].charAt(0), x2.getFullName().split(" ")[1].charAt(0));
                     if (compareLastName != 0) {
                         return compareLastName;
                     }
