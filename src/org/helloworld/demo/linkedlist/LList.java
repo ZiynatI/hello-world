@@ -214,6 +214,8 @@ public abstract class LList<T> {
         }
     }
 
+    //теперь flatMap, он сложнее
+    //имея функцию T -> LList<R>, сделать из LList<T> LList<R> (сплюснул список списков по сути)
     public <R> LList<R> flatMap(Function<T, LList<R>> fn) {
         if (this.isEmpty()) {
             return Nil.nil();
