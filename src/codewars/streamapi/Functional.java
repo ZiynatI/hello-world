@@ -36,6 +36,8 @@ public class Functional {
         ToIntFunction<Integer> fn  = x->x+addTo;
         return fn;
     }
+
+    /*Part4*/
 }
 
 class Student {
