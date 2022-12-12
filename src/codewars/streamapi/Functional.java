@@ -1,8 +1,6 @@
 package codewars.streamapi;
 
-import java.util.function.Function;
-import java.util.function.ToDoubleFunction;
-import java.util.function.ToIntFunction;
+import java.util.function.*;
 
 public class Functional {
     /*Part1*/
@@ -32,12 +30,48 @@ public class Functional {
     //f.applyAsInt(10) == 11;
     //f.applyAsInt(-5) == -4;
 
-    public static ToIntFunction<Integer> create(int addTo) {
-        ToIntFunction<Integer> fn  = x->x+addTo;
+    public static IntUnaryOperator create(int addTo) {
+        IntUnaryOperator fn = x -> x + addTo;
         return fn;
     }
 
     /*Part4*/
+
+    class DragonsCurve {
+        public IntFunction<String> mapFunction = x -> {
+            if (x == 'a') {
+                return "aRbFR";
+            } else if (x == 'b') {
+                return "LFaLb";
+            } else {
+                return x + "";
+            }
+        }; //Make the function; map the chars to Strings
+        //a -> aRbFR, b -> LFaLb, otherwise -> itself
+
+        /**
+         * Make the curve; stream the chars repeatedly (starting with Fa) through the mapFunction n times Then remove
+         * the a and b (createFilter function is useful for that)
+         */
+        public String createCurve(int n) {
+            "Fa".chars(); //That's an IntStream with 'F' and 'a' ready to be acted upon
+            return "Fa";
+        }
+
+        /**
+         * How many of the specified char are in the given curve? Hint: createFilter could be useful for this
+         */
+        public long howMany(char c, String curve) {
+            return 4L; //Determined by die roll; guaranteed to be random
+        }
+
+        /**
+         * Create a predicate to filter the specified char; keep or remove based on keep variable
+         */
+        public IntPredicate createFilter(char filterWhat, boolean keep) {
+            return null; //Dat predicate
+        }
+    }
 }
 
 class Student {
