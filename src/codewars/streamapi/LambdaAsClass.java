@@ -16,6 +16,6 @@ public class LambdaAsClass implements Predicate<Integer> {
 
     @Override
     public boolean test(Integer i) {
-        return i % 3 == 0;>
+        return i % 3 == 0;
     }
 }
