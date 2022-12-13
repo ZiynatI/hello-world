@@ -6,6 +6,25 @@ public class Functional {
     /*Part1*/
     //Write a Function (with the appropriate types) that returns true if a given student
     //is "John Smith" with a student number of "js123" (otherwise return false).
+    class Student {
+        private final String firstName;
+        private final String lastName;
+        public final String studentNumber;
+
+        public Student(String firstName, String lastName, String studentNumber) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.studentNumber = studentNumber;
+        }
+
+        public String getFullName() {
+            return firstName + " " + lastName;
+        }
+
+        public String getCommaName() {
+            return lastName + ", " + firstName;
+        }
+    }
 
     public static Function<Student, Boolean> f = x -> (x.getFullName().equals("John Smith")) && (x.studentNumber.equals("js123"));
 
@@ -15,6 +34,25 @@ public class Functional {
     //The formula for triangle area is: 1/2 * base * height
     //Assume valid input (base and height are both greater than 0).
     //A full listing of the default function types can be found at
+    class Triangle {
+        public final int height;
+        public final int base;
+        private double area;
+
+        Triangle(int height, int base) {
+            this.height = height;
+            this.base = base;
+        }
+
+        public void setArea(double a) {
+            area = a;
+        }
+
+        public double getArea() {
+            return area;
+        }
+    }
+
     public static ToDoubleFunction<Triangle> fn = x -> {
         double area = x.base * x.height * 0.5;
         x.setArea(area);
@@ -74,41 +112,5 @@ public class Functional {
     }
 }
 
-class Student {
-    private final String firstName;
-    private final String lastName;
-    public final String studentNumber;
 
-    public Student(String firstName, String lastName, String studentNumber) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.studentNumber = studentNumber;
-    }
 
-    public String getFullName() {
-        return firstName + " " + lastName;
-    }
-
-    public String getCommaName() {
-        return lastName + ", " + firstName;
-    }
-}
-
-class Triangle {
-    public final int height;
-    public final int base;
-    private double area;
-
-    Triangle(int height, int base) {
-        this.height = height;
-        this.base = base;
-    }
-
-    public void setArea(double a) {
-        area = a;
-    }
-
-    public double getArea() {
-        return area;
-    }
-}
