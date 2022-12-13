@@ -1,15 +1,21 @@
 package codewars.streamapi;
 
-import java.util.List;
+import static org.helloworld.demo.linkedlist.LListDemo.asList;
 
-public class LambdaAsClass {
-    // .filter(x -> x % 3 == 0)
-    public static List<Integer> filter(List<Integer> list) {
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i) % 3 != 0) {
-                list.remove(i);
+import java.util.function.Predicate;
+
+public class LambdaAsClass implements Predicate<Integer> {
+    public static void main(String[] args) {
+        System.out.println(asList(1, 2, 3, 4, 5, 6, 7, 8, 9).filter(new Predicate<Integer>() {
+            @Override
+            public boolean test(Integer integer) {
+                return integer % 3 == 0;
             }
-        }
-        return list;
+        }));
+    }
+
+    @Override
+    public boolean test(Integer i) {
+        return i % 3 == 0;>
     }
 }
