@@ -7,6 +7,9 @@ public class Test {
         System.out.println(engine() ? "Бьёт" : "Не бьёт");
     }
 
+    /**
+     * Перечисление ChessboardSquare указывает на содержимое клетки - на ферзь, ладью, слона или на пустую клетку.
+     */
     enum ChessboardSquare {
         Queen, Bishop, Rook, Empty;
     }
@@ -51,6 +54,11 @@ public class Test {
         return false;
     }
 
+    /**
+     * Ферзь ходит по диагонали, вертикали и горизонтали. Если у клетка другой фигуры находится с ферзём на одной строке
+     * или на одном столбце, то ферзь бьёт. Если у клеток столб и строка имеют одинаковую сумму или разность, они на
+     * одном диагонале
+     */
     public static boolean canQueenCapture(Cell queensPosition, Cell anotherPiecesPosition) {
         return queensPosition.column == anotherPiecesPosition.column || queensPosition.row == anotherPiecesPosition.row
                 || queensPosition.row + queensPosition.column == anotherPiecesPosition.row + anotherPiecesPosition.column || queensPosition.row - queensPosition.column == anotherPiecesPosition.row - anotherPiecesPosition.column;
@@ -66,6 +74,9 @@ public class Test {
 
 }
 
+/**
+ * Класс Cell указывает на ту или иную клетку по номеру столбика и строки.
+ */
 class Cell {
     int row;
     int column;
