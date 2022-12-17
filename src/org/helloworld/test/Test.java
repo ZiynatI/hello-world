@@ -1,4 +1,4 @@
-package org.helloworld.task;
+package org.helloworld.test;
 
 import java.util.Scanner;
 
