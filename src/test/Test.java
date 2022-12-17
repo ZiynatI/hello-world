@@ -1,4 +1,4 @@
-package org.helloworld.test;
+package test;
 
 import java.util.Scanner;
 
