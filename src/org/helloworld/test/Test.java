@@ -8,7 +8,8 @@ public class Test {
     }
 
     /**
-     * Перечисление ChessboardSquare указывает на содержимое клетки - на ферзь, ладью, слона или на пустую клетку.
+     * Перечисление ChessboardSquare указывает на содержимое клетки - на ферзя, ладью, слона в клетке или на пустую
+     * клетку.
      */
     enum ChessboardSquare {
         Queen, Bishop, Rook, Empty;
@@ -34,6 +35,7 @@ public class Test {
                 System.out.println("Неправильно введенный номер\nПопробуйте ещё раз");
             }
         }
+
         System.out.println("Введите на какой столбец вставить первую фигуру(от 1 до 8)");
         int columnOfFirstFigure = input.nextInt();
         System.out.println("Введите на какую строку вставить первую фигуру(от 1 до 8)");
