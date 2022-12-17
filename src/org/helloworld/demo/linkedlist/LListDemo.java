@@ -48,9 +48,10 @@ public class LListDemo {
 //                .stream()
 //                .map(x -> x.toString())
 //                .collect(Collectors.joining(" + ")));
-        System.out.println(asList(1, 2, 3, 4, 5, 6, 7, 8, 9).allMatch(x->x instanceof Number));
-        System.out.println(LList.flatten(asList(asList(1,2,3),asList(4,5,6),asList(7,8,9))));
-        System.out.println(asList(1,2,3,4,5,6).flatMap(x->LList.rangeInclusive(1,x)));
+//        System.out.println(asList(1, 2, 3, 4, 5, 6, 7, 8, 9).allMatch(x->x instanceof Number));
+//        System.out.println(LList.flatten(asList(asList(1,2,3),asList(4,5,6),asList(7,8,9))));
+//        System.out.println(asList(1,2,3,4,5,6).flatMap(x->LList.rangeInclusive(1,x)));
+        System.out.println(asList(1,2,3,4));
     }
 
     public static <T> LList<T> asList(T... elements) {
