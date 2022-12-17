@@ -62,16 +62,20 @@ public class Test {
      * одном диагонале
      */
     public static boolean canQueenCapture(Cell queensPosition, Cell anotherPiecesPosition) {
-        return queensPosition.column == anotherPiecesPosition.column || queensPosition.row == anotherPiecesPosition.row
-                || queensPosition.row + queensPosition.column == anotherPiecesPosition.row + anotherPiecesPosition.column || queensPosition.row - queensPosition.column == anotherPiecesPosition.row - anotherPiecesPosition.column;
+        return queensPosition.column == anotherPiecesPosition.column
+                || queensPosition.row == anotherPiecesPosition.row
+                || queensPosition.row + queensPosition.column == anotherPiecesPosition.row + anotherPiecesPosition.column
+                || queensPosition.row - queensPosition.column == anotherPiecesPosition.row - anotherPiecesPosition.column;
     }
 
     public static boolean canRookCapture(Cell rooksPosition, Cell anotherPiecesPosition) {
-        return rooksPosition.row == anotherPiecesPosition.row || rooksPosition.column == anotherPiecesPosition.column;
+        return rooksPosition.row == anotherPiecesPosition.row
+                || rooksPosition.column == anotherPiecesPosition.column;
     }
 
     public static boolean canBishopCapture(Cell bishopsPosition, Cell anotherPiecesPosition) {
-        return bishopsPosition.row + bishopsPosition.column == anotherPiecesPosition.row + anotherPiecesPosition.column || bishopsPosition.row - bishopsPosition.column == anotherPiecesPosition.row - anotherPiecesPosition.column;
+        return bishopsPosition.row + bishopsPosition.column == anotherPiecesPosition.row + anotherPiecesPosition.column
+                || bishopsPosition.row - bishopsPosition.column == anotherPiecesPosition.row - anotherPiecesPosition.column;
     }
 
 }
