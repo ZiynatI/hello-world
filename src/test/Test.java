@@ -62,10 +62,7 @@ public class Test {
      * одном диагонале
      */
     public static boolean canQueenCapture(Cell queensPosition, Cell anotherPiecesPosition) {
-        return queensPosition.column == anotherPiecesPosition.column
-                || queensPosition.row == anotherPiecesPosition.row
-                || queensPosition.row + queensPosition.column == anotherPiecesPosition.row + anotherPiecesPosition.column
-                || queensPosition.row - queensPosition.column == anotherPiecesPosition.row - anotherPiecesPosition.column;
+        return canRookCapture(queensPosition, anotherPiecesPosition) || canBishopCapture(queensPosition, anotherPiecesPosition);
     }
 
     public static boolean canRookCapture(Cell rooksPosition, Cell anotherPiecesPosition) {
