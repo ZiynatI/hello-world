@@ -22,7 +22,7 @@ public class Test {
         while (firstFigure == ChessboardSquare.Empty) {
             System.out.println("Выберите первую (нападающую) фигуру\n" +
                     "Чтобы выбрать королеву, введите 1\n" +
-                    "Чтобы выбрать слона,введите 2\n" +
+                    "Чтобы выбрать слона, введите 2\n" +
                     "Чтобы выбрать ладью, введите 3");
             firstFiguresNum = input.nextInt();
             if (firstFiguresNum == 1) {
