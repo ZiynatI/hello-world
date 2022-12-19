@@ -12,25 +12,25 @@ public class Test {
      * клетку.
      */
     enum ChessboardSquare {
-        Queen, Bishop, Rook, Empty;
+        QUEEN, BISHOP, ROOK, EMPTY;
     }
 
     public static boolean engine() {
         Scanner input = new Scanner(System.in);
         int firstFiguresNum;
-        ChessboardSquare firstFigure = ChessboardSquare.Empty;
-        while (firstFigure == ChessboardSquare.Empty) {
+        ChessboardSquare firstFigure = ChessboardSquare.EMPTY;
+        while (firstFigure == ChessboardSquare.EMPTY) {
             System.out.println("Выберите первую (нападающую) фигуру\n" +
                     "Чтобы выбрать королеву, введите 1\n" +
                     "Чтобы выбрать слона, введите 2\n" +
                     "Чтобы выбрать ладью, введите 3");
             firstFiguresNum = input.nextInt();
             if (firstFiguresNum == 1) {
-                firstFigure = ChessboardSquare.Queen;
+                firstFigure = ChessboardSquare.QUEEN;
             } else if (firstFiguresNum == 2) {
-                firstFigure = ChessboardSquare.Bishop;
+                firstFigure = ChessboardSquare.BISHOP;
             } else if (firstFiguresNum == 3) {
-                firstFigure = ChessboardSquare.Rook;
+                firstFigure = ChessboardSquare.ROOK;
             } else {
                 System.out.println("Неправильно введенный номер\nПопробуйте ещё раз");
             }
@@ -46,11 +46,11 @@ public class Test {
         System.out.println("Введите на какую строку вставить вторую фигуру(от 1 до 8)");
         int rowOfSecondFigure = input.nextInt();
         Cell secondFigurePosition = new Cell(rowOfSecondFigure, columnOfSecondFigure);
-        if (firstFigure == ChessboardSquare.Queen) {
+        if (firstFigure == ChessboardSquare.QUEEN) {
             return canQueenCapture(firstFigurePosition, secondFigurePosition);
-        } else if (firstFigure == ChessboardSquare.Rook) {
+        } else if (firstFigure == ChessboardSquare.ROOK) {
             return canRookCapture(firstFigurePosition, secondFigurePosition);
-        } else if (firstFigure == ChessboardSquare.Bishop) {
+        } else if (firstFigure == ChessboardSquare.BISHOP) {
             return canBishopCapture(firstFigurePosition, secondFigurePosition);
         }
         return false;
