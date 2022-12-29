@@ -15,15 +15,22 @@ public class Millipede {
     //Set: trade, pole, view, grave, ladder, mushroom, president.
     //Millipede: presidenT Trade.
     public static boolean check(String[] millipede) {
-        char lastChar = millipede[0].charAt(millipede[0].length() - 1);
+        char lastsLast = millipede[0].charAt(millipede[0].length() - 1);
+        char lastsFirst = millipede[0].charAt(0);
         millipede[0] = "";
         for (int i = 1; i < millipede.length; i++) {
             for (int j = 1; j < millipede.length; j++) {
                 if (!millipede[j].equals("")) {
-                    if (lastChar == millipede[j].charAt(0)) {
-                        lastChar = millipede[j].charAt(millipede[j].length() - 1);
+                    if (lastsLast == millipede[j].charAt(0)) {
+                        lastsLast = millipede[j].charAt(millipede[j].length() - 1);
                         millipede[j] = "";
                         break;
+                    } else {
+                        if (lastsFirst == millipede[j].charAt(millipede[j].length() - 1)) {
+                            lastsFirst = millipede[j].charAt(0);
+                            millipede[j] = "";
+                            break;
+                        }
                     }
                 }
             }
