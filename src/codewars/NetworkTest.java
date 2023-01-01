@@ -1,6 +1,5 @@
-package org.helloworld.demo;
+package codewars;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;

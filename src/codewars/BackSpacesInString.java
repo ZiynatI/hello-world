@@ -1,4 +1,4 @@
-package org.helloworld.demo;
+package codewars;
 
 public class BackSpacesInString {
     public static void main(String[] args) {

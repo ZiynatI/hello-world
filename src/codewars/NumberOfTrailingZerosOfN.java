@@ -1,4 +1,4 @@
-package org.helloworld.demo;
+package codewars;
 
 public class NumberOfTrailingZerosOfN {
     //https://www.codewars.com/kata/52f787eb172a8b4ae1000a34
