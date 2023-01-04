@@ -43,6 +43,6 @@ public class HowManyAreSmallerThanMeII {
         }
 
 
-        return countOfSmallers;
+        return null;
     }
 }

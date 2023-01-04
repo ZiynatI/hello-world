@@ -1,4 +1,4 @@
-package org.helloworld.task;
+package codewars;
 
 public class Minions {
     ///I Love Lance & Janice
