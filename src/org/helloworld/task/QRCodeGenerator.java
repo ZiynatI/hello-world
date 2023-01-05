@@ -2,6 +2,7 @@ package org.helloworld.task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class QRCodeGenerator {
     public static String generateQR(String input) {
@@ -27,5 +28,9 @@ public class QRCodeGenerator {
             }
         }
         return list;
+    }
+
+    public static Map<Character, Integer> alphanumeric() {
+        return null;
     }
 }
