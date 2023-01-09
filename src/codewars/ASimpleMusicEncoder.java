@@ -23,7 +23,12 @@ public class ASimpleMusicEncoder {
     //Output
     //A string of comma-separated integers and sequence descriptors
     public String compress(int[] raw) {
-
-        return "";
+        StringBuilder sb = new StringBuilder();
+        for(int i =0;;){
+            if(raw[i]-raw[i+1]==raw[i+1]-raw[i+2]){
+                while ()
+            }
+        }
+        return sb.toString();
     }
 }
