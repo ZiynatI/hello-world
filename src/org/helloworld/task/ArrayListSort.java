@@ -1,4 +1,4 @@
-package codewars;
+package org.helloworld.task;
 
 import java.util.List;
 
@@ -25,11 +25,7 @@ public class ArrayListSort {
     //у любого массива есть один единственный предок - Object
     //так что частью одной иерархии массивы и листы можно сказать не являются)
     public static <T> void sort(T list) {
-        if (list instanceof List) {
-            sortList(list);
-        } else {
-            sortArray(list);
-        }
+
     }
 
 
