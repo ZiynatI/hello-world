@@ -1,8 +1,13 @@
 package codewars;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ArrayListSort {
+    public static void main(String[] args) {
+        sort(new int[]{1, 2, 3});
+        System.out.println();
+    }
+
     //вот у тебя функция, что-то типа void sort(X list)
     //пусть она первый элемент с последним местами меняет
     //и пусть она работает для массивов и для листов
@@ -19,7 +24,24 @@ public class ArrayListSort {
     //но всё необходимое ты уже знаешь
     //у любого массива есть один единственный предок - Object
     //так что частью одной иерархии массивы и листы можно сказать не являются)
-    void sort(ArrayList list){
+    public static <T> void sort(T list) {
+        if (list instanceof List) {
+            sortList(list);
+        } else {
+            sortArray(list);
+        }
+    }
 
+
+    public static <T> void sortList(List<T> list) {
+        T temp = list.get(0);
+        list.set(0, list.get(list.size() - 1));
+        list.set(list.size() - 1, temp);
+    }
+
+    public static <T> void sortArray(T[] list) {
+        T temp = list[0];
+        list[0] = list[list.length - 1];
+        list[list.length - 1] = temp;
     }
 }
