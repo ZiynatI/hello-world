@@ -1,4 +1,4 @@
-package org.helloworld.demo.linkedlist;
+package org.helloworld.mplementation.linkedlist;
 
 import java.util.HashMap;
 import java.util.Map;

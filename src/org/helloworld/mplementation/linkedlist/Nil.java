@@ -1,4 +1,4 @@
-package org.helloworld.demo.linkedlist;
+package org.helloworld.mplementation.linkedlist;
 
 public class Nil extends LList<Object>{
 

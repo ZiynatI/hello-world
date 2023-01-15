@@ -1,6 +1,6 @@
 package codewars.streamapi;
 
-import static org.helloworld.demo.linkedlist.LListDemo.asList;
+import static org.helloworld.mplementation.linkedlist.LListDemo.asList;
 
 import java.util.function.Predicate;
 
