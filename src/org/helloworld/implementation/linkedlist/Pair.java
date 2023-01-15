@@ -1,4 +1,4 @@
-package org.helloworld.mplementation.linkedlist;
+package org.helloworld.implementation.linkedlist;
 
 
 import java.util.Objects;

@@ -1,4 +1,4 @@
-package org.helloworld.mplementation;
+package org.helloworld.implementation;
 
 public class Sorting {
     public static void bubbleSort(int[] array) {

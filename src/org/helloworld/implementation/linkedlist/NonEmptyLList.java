@@ -1,4 +1,4 @@
-package org.helloworld.mplementation.linkedlist;
+package org.helloworld.implementation.linkedlist;
 
 public class NonEmptyLList<T> extends LList<T> {
 
