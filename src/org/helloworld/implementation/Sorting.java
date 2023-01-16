@@ -1,6 +1,8 @@
 package org.helloworld.implementation;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Sorting {
     public static void main(String[] args) {
@@ -8,7 +10,7 @@ public class Sorting {
         combSort(array);
         System.out.println(Arrays.toString(array));
         int[] array2 = new int[]{5, 2, 1, 3, 9, 0, 4, 6, 8, 7};
-        insertionSort(array2);
+        array2 = mergeSort(array2);
         System.out.println(Arrays.toString(array2));
     }
 
@@ -83,8 +85,54 @@ public class Sorting {
         }
     }
 
-    public static void quicksort(int[] array){
-
+    public static void quickSort(int[] array) {
     }
-    
+
+
+
+
+    public static int[] mergeSort(int[] array) {
+        int[][] newArray = new int[array.length][1];
+        for (int i = 0; i < array.length; i++) {
+            newArray[i][0] = array[i];
+        }
+        List<int[]> firstList = Arrays.asList(newArray);
+        List<int[]> result = new ArrayList<>();
+        while (firstList.size() != 1) {
+            for (int i = 0; i < firstList.size(); i = i + 2) {
+                if (i != firstList.size() - 1) {
+                    result.add(mergeArrays(firstList.get(i), firstList.get(i + 1)));
+                } else {
+                    result.add(firstList.get(i));
+                }
+            }
+            firstList = result;
+            result = new ArrayList<>();
+        }
+        return firstList.get(0);
+    }
+
+    public static int[] mergeArrays(int[] firstArray, int[] secondArray) {
+        int allNumbers = firstArray.length + secondArray.length;
+        int firstArraysFirst = 0;
+        int secondArraysFirst = 0;
+        int[] array = new int[allNumbers];
+        for (int i = 0; i < allNumbers; i++) {
+            if (secondArraysFirst >= secondArray.length) {
+                array[i] = firstArray[firstArraysFirst];
+                firstArraysFirst++;
+            } else if (firstArraysFirst >= firstArray.length) {
+                array[i] = secondArray[secondArraysFirst];
+                secondArraysFirst++;
+            } else if (firstArray[firstArraysFirst] < secondArray[secondArraysFirst]) {
+                array[i] = firstArray[firstArraysFirst];
+                firstArraysFirst++;
+            } else {
+                array[i] = secondArray[secondArraysFirst];
+                secondArraysFirst++;
+            }
+        }
+        return array;
+    }
+
 }
