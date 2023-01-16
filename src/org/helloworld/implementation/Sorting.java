@@ -5,6 +5,12 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Sorting {
+    public static void swap(int[] array, int firstIndex, int secondIndex) {
+        int temp = array[firstIndex];
+        array[firstIndex] = array[secondIndex];
+        array[secondIndex] = temp;
+    }
+
     public static void main(String[] args) {
         int[] array = new int[]{5, 2, 1, 3, 9, 0, 4, 6, 8, 7};
         combSort(array);
@@ -87,8 +93,6 @@ public class Sorting {
 
     public static void quickSort(int[] array) {
     }
-
-
 
 
     public static int[] mergeSort(int[] array) {
