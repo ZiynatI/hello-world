@@ -24,9 +24,7 @@ public class Sorting {
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array.length - 1; j++) {
                 if (array[j] > array[j + 1]) {
-                    int temp = array[j];
-                    array[j] = array[j + 1];
-                    array[j + 1] = temp;
+                    swap(array,j,j+1);
                 }
             }
         }
@@ -38,17 +36,13 @@ public class Sorting {
         do {
             for (int i = begin; i < end; i++) {
                 if (array[i] > array[i + 1]) {
-                    int temp = array[i];
-                    array[i] = array[i + 1];
-                    array[i + 1] = temp;
+                    swap(array,i,i+1);
                 }
             }
             end--;
             for (int i = end; i > begin; i--) {
                 if (array[i] < array[i - 1]) {
-                    int temp = array[i];
-                    array[i] = array[i - 1];
-                    array[i - 1] = temp;
+                    swap(array,i-1,i);
                 }
 
             }
@@ -62,9 +56,7 @@ public class Sorting {
         while (end > 0) {
             for (int i = end; i < array.length; i++) {
                 if (array[begin] > array[i]) {
-                    int temp = array[i];
-                    array[i] = array[begin];
-                    array[begin] = temp;
+                    swap(array,i,begin);
                 }
                 begin++;
             }
@@ -79,9 +71,7 @@ public class Sorting {
             if (array[counter] < array[counter - 1]) {
                 for (int i = counter; i > 0; i--) {
                     if (array[i] < array[i - 1]) {
-                        int temp = array[i];
-                        array[i] = array[i - 1];
-                        array[i - 1] = temp;
+                        swap(array,i-1,i);
                     } else {
                         break;
                     }
