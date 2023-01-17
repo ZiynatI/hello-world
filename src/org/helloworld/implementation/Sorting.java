@@ -5,6 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 
 //внешний цикл - [min; max), внутренний - (min; max]
+//quick - основная
+//merge - важно для понимания рекурсивных алгоритмов, используется редко
+//квадратичные достаточно знать парочку любых, на практике почти не используются
 public class Sorting {
     public static void swap(int[] array, int firstIndex, int secondIndex) {
         int temp = array[firstIndex];
@@ -12,12 +15,11 @@ public class Sorting {
         array[secondIndex] = temp;
     }
 
-
     /**
-     * @ Best sort ascending
-     * @ Average sort ascending
-     * @ Worst sort ascending
-     * @ Memory
+     * <p>Best sort ascending<p>
+     * <p>Average sort ascending
+     * <p>Worst sort ascending
+     * <p>Memory
      */
     public static void main(String[] args) {
         int[] array = new int[]{5, 2, 1, 3, 9, 0, 4, 6, 8, 7};
