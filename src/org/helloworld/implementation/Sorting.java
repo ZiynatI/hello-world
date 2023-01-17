@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+//внешний цикл - [min; max), внутренний - (min; max]
 public class Sorting {
     public static void swap(int[] array, int firstIndex, int secondIndex) {
         int temp = array[firstIndex];
@@ -11,38 +12,61 @@ public class Sorting {
         array[secondIndex] = temp;
     }
 
+
+    /**
+     * @ Best sort ascending
+     * @ Average sort ascending
+     * @ Worst sort ascending
+     * @ Memory
+     */
     public static void main(String[] args) {
         int[] array = new int[]{5, 2, 1, 3, 9, 0, 4, 6, 8, 7};
-        combSort(array);
+        selectionSort(array);
         System.out.println(Arrays.toString(array));
         int[] array2 = new int[]{5, 2, 1, 3, 9, 0, 4, 6, 8, 7};
         array2 = mergeSort(array2);
         System.out.println(Arrays.toString(array2));
     }
 
+
+    /**
+     * @ Best sort ascending n
+     * @ Average sort ascending n^2
+     * @ Worst sort ascending n^2
+     * @ Memory 1
+     */
     public static void bubbleSort(int[] array) {
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array.length - 1; j++) {
                 if (array[j] > array[j + 1]) {
-                    swap(array,j,j+1);
+                    swap(array, j, j + 1);
                 }
             }
         }
     }
 
+
+    /**
+     * Cocktail sort
+     *
+     * @ Best sort ascending n
+     * @ Average sort ascending n^2
+     * @ Worst sort ascending n^2
+     * @ Memory 1
+     */
     public static void bidirectionalBubbleSort(int[] array) {
         int begin = 0;
         int end = array.length - 1;
         do {
             for (int i = begin; i < end; i++) {
                 if (array[i] > array[i + 1]) {
-                    swap(array,i,i+1);
+                    swap(array, i, i + 1);
                 }
             }
             end--;
             for (int i = end; i > begin; i--) {
                 if (array[i] < array[i - 1]) {
-                    swap(array,i-1,i);
+                    swap(array, i - 1, i);
                 }
 
             }
@@ -50,13 +74,20 @@ public class Sorting {
         } while (begin < end);
     }
 
+
+    /**
+     * @ Best sort ascending nlogn
+     * @ Average sort ascending n^2
+     * @ Worst sort ascending n^2
+     * @ Memory 1
+     */
     public static void combSort(int[] array) {
         int begin = 0;
         int end = array.length - 1;
         while (end > 0) {
             for (int i = end; i < array.length; i++) {
                 if (array[begin] > array[i]) {
-                    swap(array,i,begin);
+                    swap(array, i, begin);
                 }
                 begin++;
             }
@@ -65,13 +96,22 @@ public class Sorting {
         }
     }
 
-    public static void insertionSort(int[] array) {
+
+    /**
+     * GnomeSort (Bubble+Insertion)
+     *
+     * @ Best sort ascending n
+     * @ Average sort ascending n^2
+     * @ Worst sort ascending n^2
+     * @ Memory 1
+     */
+    public static void gnomeSort(int[] array) {
         int counter = 1;
         while (counter < array.length) {
             if (array[counter] < array[counter - 1]) {
                 for (int i = counter; i > 0; i--) {
                     if (array[i] < array[i - 1]) {
-                        swap(array,i-1,i);
+                        swap(array, i - 1, i);
                     } else {
                         break;
                     }
@@ -81,10 +121,53 @@ public class Sorting {
         }
     }
 
+
+    /**
+     * @ Best sort ascending n
+     * @ Average sort ascending n^2
+     * @ Worst sort ascending n^2
+     * @ Memory 1
+     */
+    public static void oddEvenSort(int[] array) {
+
+    }
+
+
+    /**
+     * @ Best sort ascending n^2
+     * @ Average sort ascending n^2
+     * @ Worst sort ascending n^2
+     * @ Memory 1
+     */
+    public static void selectionSort(int[] array) {
+        for (int i = 0; i < array.length - 1; i++) {
+            for (int j = i + 1; j < array.length; j++) {
+                int minIndex = i;
+                if (array[j] < array[minIndex]) {
+                    minIndex = j;
+                }
+                swap(array, i, minIndex);
+            }
+        }
+    }
+
+
+    /**
+     * @ Best sort ascending nlogn
+     * @ Average sort ascending nlogn
+     * @ Worst sort ascending n^2
+     * @ Memory logn
+     */
     public static void quickSort(int[] array) {
     }
 
 
+    /**
+     * @ Best sort ascending nlogn
+     * @ Average sort ascending nlogn
+     * @ Worst sort ascending nlogn
+     * @ Memory n
+     */
     public static int[] mergeSort(int[] array) {
         int[][] newArray = new int[array.length][1];
         for (int i = 0; i < array.length; i++) {
