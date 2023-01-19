@@ -31,7 +31,6 @@ public class Sorting {
     }
 
 
-
     /**
      * @ Best sort ascending n
      * @ Average sort ascending n^2
@@ -162,17 +161,7 @@ public class Sorting {
      * @ Memory logn
      */
     public static void quickSort(int[] array) {
-        quicksort(array,0, array.length-1);
-//        int wall = 0;
-//        int pivot = array.length - 1;
-//        for (int i = array.length - 1; i > wall; ) {
-//            for (int j = wall; j < i; j++) {
-//                if (array[j] < array[i]) {
-//                    swap(array, wall, j);
-//                    wall++;
-//                }
-//            }
-//        }
+        quicksort(array, 0, array.length - 1);
     }
 
     private static void quicksort(int[] array, int startInx, int endInx) {
@@ -181,13 +170,16 @@ public class Sorting {
         } else {
             int wall = startInx;
             for (int i = startInx; i < endInx; i++) {
-                if (array[i] < array[startInx]) {
+                if (array[i] < array[endInx]) {
                     swap(array, i, wall);
                     wall++;
                 }
             }
+            if (array[endInx] < array[wall]) {
+                swap(array, wall, endInx);
+            }
             if (wall - startInx > 1) {
-                quicksort(array, startInx, wall);
+                quicksort(array, startInx, wall - 1);
 
             }
             if (endInx - wall > 0) {
@@ -202,6 +194,79 @@ public class Sorting {
      * @ Worst sort ascending nlogn
      * @ Memory n
      */
+    public static void mergeSortNew(int[] array) {
+
+    }
+
+    private static void mergeSortNew2(int[] array, int startInx, int subArrLength, boolean merging) {
+        if(merging&&subArrLength==array.length){
+            return;
+        }
+       else if (merging) {
+            int firstSubArrInx = 0;
+            int mid = subArrLength / 2;
+            int secondSubArrInx = mid;
+            int[] buffer = new int[subArrLength - startInx];
+            for (int i = 0; i < buffer.length; i++) {
+                if (firstSubArrInx == mid) {
+                    buffer[i] = array[secondSubArrInx];
+                    secondSubArrInx++;
+                } else if (secondSubArrInx == subArrLength) {
+                    buffer[i] = array[firstSubArrInx];
+                    firstSubArrInx++;
+                } else {
+                    if (array[firstSubArrInx] < array[secondSubArrInx]) {
+                        buffer[i] = array[firstSubArrInx];
+                        firstSubArrInx++;
+                    } else {
+                        buffer[i] = array[secondSubArrInx];
+                        secondSubArrInx++;
+                    }
+                }
+            }
+            for(int i=startInx;i<subArrLength;i++){
+                array[i]=buffer[i-startInx];
+            }
+        }
+
+    }
+
+    private static void merge(int array, int startInx, int subArrLength) {
+
+    }
+
+    public static void mergeSort2(int[] array) {
+    }
+
+    private static void mergeSort2(int[] array, int startInx, int endInx, boolean merging) {
+        if (array.length <= 1) {
+            merging = true;
+            return;
+        } else {
+            int mid;
+            int[] firstArr;
+            int[] secondArr;
+            if (array.length % 2 == 0) {
+                mid = array.length / 2;
+                firstArr = new int[mid];
+            } else {
+                mid = (array.length - 1) / 2;
+                firstArr = new int[mid + 1];
+            }
+            secondArr = new int[mid];
+            for (int i = 0; i < mid; i++) {
+                firstArr[i] = array[i];
+            }
+            for (int i = mid; i < array.length; i++) {
+                secondArr[i - mid] = array[i];
+            }
+        }
+    }
+
+    private static void mergeArrays(int[] array, int startInd, int midInd, int endInd) {
+
+    }
+
     public static int[] mergeSort(int[] array) {
         int[][] newArray = new int[array.length][1];
         for (int i = 0; i < array.length; i++) {
