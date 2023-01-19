@@ -23,7 +23,7 @@ public class Sorting {
      */
     public static void main(String[] args) {
         int[] array = new int[]{5, 2, 1, 3, 9, 0, 4, 6, 8, 7};
-        selectionSort(array);
+        quickSort(array);
         System.out.println(Arrays.toString(array));
         int[] array2 = new int[]{5, 2, 1, 3, 9, 0, 4, 6, 8, 7};
         array2 = mergeSort(array2);
@@ -161,8 +161,39 @@ public class Sorting {
      * @ Memory logn
      */
     public static void quickSort(int[] array) {
+        quicksort(array,0, array.length-1);
+//        int wall = 0;
+//        int pivot = array.length - 1;
+//        for (int i = array.length - 1; i > wall; ) {
+//            for (int j = wall; j < i; j++) {
+//                if (array[j] < array[i]) {
+//                    swap(array, wall, j);
+//                    wall++;
+//                }
+//            }
+//        }
     }
 
+    private static void quicksort(int[] array, int startInx, int endInx) {
+        if (endInx - startInx <= 1) {
+            return;
+        } else {
+            int wall = startInx;
+            for (int i = startInx; i < endInx; i++) {
+                if (array[i] < array[startInx]) {
+                    swap(array, i, wall);
+                    wall++;
+                }
+            }
+            if (wall - startInx > 1) {
+                quicksort(array, startInx, wall);
+
+            }
+            if (endInx - wall > 0) {
+                quicksort(array, wall + 1, endInx);
+            }
+        }
+    }
 
     /**
      * @ Best sort ascending nlogn
