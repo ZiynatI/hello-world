@@ -1,8 +1,6 @@
 package org.helloworld.implementation;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 //внешний цикл - [min; max), внутренний - (min; max]
 //quick - основная
@@ -26,7 +24,7 @@ public class Sorting {
         mergeSort(array, 0, array.length - 1);
         System.out.println(Arrays.toString(array));
         int[] array2 = new int[]{5, 2, 1, 3, 9, 0, 4, 6, 8, 7};
-        array2 = mergeSort(array2);
+        mergeSort(array2);
         System.out.println(Arrays.toString(array2));
     }
 
@@ -194,8 +192,8 @@ public class Sorting {
      * @ Worst sort ascending nlogn
      * @ Memory n
      */
-    public static void mergeSortNew(int[] array) {
-
+    public static void mergeSort(int[] array) {
+        mergeSort(array, 0, array.length - 1);
     }
 
     private static void mergeSort(int[] array, int startIdx, int endIdx) {
@@ -235,81 +233,4 @@ public class Sorting {
             array[i] = buffer[i - startIdx];
         }
     }
-
-    public static void mergeSort2(int[] array) {
-    }
-
-    private static void mergeSort2(int[] array, int startInx, int endInx, boolean merging) {
-        if (array.length <= 1) {
-            merging = true;
-            return;
-        } else {
-            int mid;
-            int[] firstArr;
-            int[] secondArr;
-            if (array.length % 2 == 0) {
-                mid = array.length / 2;
-                firstArr = new int[mid];
-            } else {
-                mid = (array.length - 1) / 2;
-                firstArr = new int[mid + 1];
-            }
-            secondArr = new int[mid];
-            for (int i = 0; i < mid; i++) {
-                firstArr[i] = array[i];
-            }
-            for (int i = mid; i < array.length; i++) {
-                secondArr[i - mid] = array[i];
-            }
-        }
-    }
-
-    private static void mergeArrays(int[] array, int startInd, int midInd, int endInd) {
-
-    }
-
-    public static int[] mergeSort(int[] array) {
-        int[][] newArray = new int[array.length][1];
-        for (int i = 0; i < array.length; i++) {
-            newArray[i][0] = array[i];
-        }
-        List<int[]> firstList = Arrays.asList(newArray);
-        List<int[]> result = new ArrayList<>();
-        while (firstList.size() != 1) {
-            for (int i = 0; i < firstList.size(); i = i + 2) {
-                if (i != firstList.size() - 1) {
-                    result.add(mergeArrays(firstList.get(i), firstList.get(i + 1)));
-                } else {
-                    result.add(firstList.get(i));
-                }
-            }
-            firstList = result;
-            result = new ArrayList<>();
-        }
-        return firstList.get(0);
-    }
-
-    public static int[] mergeArrays(int[] firstArray, int[] secondArray) {
-        int allNumbers = firstArray.length + secondArray.length;
-        int firstArraysFirst = 0;
-        int secondArraysFirst = 0;
-        int[] array = new int[allNumbers];
-        for (int i = 0; i < allNumbers; i++) {
-            if (secondArraysFirst >= secondArray.length) {
-                array[i] = firstArray[firstArraysFirst];
-                firstArraysFirst++;
-            } else if (firstArraysFirst >= firstArray.length) {
-                array[i] = secondArray[secondArraysFirst];
-                secondArraysFirst++;
-            } else if (firstArray[firstArraysFirst] < secondArray[secondArraysFirst]) {
-                array[i] = firstArray[firstArraysFirst];
-                firstArraysFirst++;
-            } else {
-                array[i] = secondArray[secondArraysFirst];
-                secondArraysFirst++;
-            }
-        }
-        return array;
-    }
-
 }
