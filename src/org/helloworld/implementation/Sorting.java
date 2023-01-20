@@ -23,7 +23,7 @@ public class Sorting {
      */
     public static void main(String[] args) {
         int[] array = new int[]{5, 2, 1, 3, 9, 0, 4, 6, 8, 7};
-        quickSort(array);
+        mergeSort(array, 0, array.length - 1);
         System.out.println(Arrays.toString(array));
         int[] array2 = new int[]{5, 2, 1, 3, 9, 0, 4, 6, 8, 7};
         array2 = mergeSort(array2);
@@ -198,41 +198,42 @@ public class Sorting {
 
     }
 
-    private static void mergeSortNew2(int[] array, int startInx, int subArrLength, boolean merging) {
-        if(merging&&subArrLength==array.length){
+    private static void mergeSort(int[] array, int startIdx, int endIdx) {
+        if (endIdx - startIdx == 0) {
             return;
+        } else {
+            int mid = startIdx + (endIdx - startIdx) / 2;
+            mergeSort(array, startIdx, mid);
+            mergeSort(array, mid + 1, endIdx);
+            merge(array, startIdx, endIdx);
         }
-       else if (merging) {
-            int firstSubArrInx = 0;
-            int mid = subArrLength / 2;
-            int secondSubArrInx = mid;
-            int[] buffer = new int[subArrLength - startInx];
-            for (int i = 0; i < buffer.length; i++) {
-                if (firstSubArrInx == mid) {
-                    buffer[i] = array[secondSubArrInx];
-                    secondSubArrInx++;
-                } else if (secondSubArrInx == subArrLength) {
+    }
+
+    private static void merge(int[] array, int startIdx, int endIdx) {
+        int firstSubArrInx = startIdx;
+        int mid = ((endIdx - startIdx) / 2) + startIdx;
+        int secondSubArrInx = mid + 1;
+        int[] buffer = new int[endIdx - startIdx + 1];
+        for (int i = 0; i < buffer.length; i++) {
+            if (firstSubArrInx == mid + 1) {
+                buffer[i] = array[secondSubArrInx];
+                secondSubArrInx++;
+            } else if (secondSubArrInx == endIdx + 1) {
+                buffer[i] = array[firstSubArrInx];
+                firstSubArrInx++;
+            } else {
+                if (array[firstSubArrInx] < array[secondSubArrInx]) {
                     buffer[i] = array[firstSubArrInx];
                     firstSubArrInx++;
                 } else {
-                    if (array[firstSubArrInx] < array[secondSubArrInx]) {
-                        buffer[i] = array[firstSubArrInx];
-                        firstSubArrInx++;
-                    } else {
-                        buffer[i] = array[secondSubArrInx];
-                        secondSubArrInx++;
-                    }
+                    buffer[i] = array[secondSubArrInx];
+                    secondSubArrInx++;
                 }
             }
-            for(int i=startInx;i<subArrLength;i++){
-                array[i]=buffer[i-startInx];
-            }
         }
-
-    }
-
-    private static void merge(int array, int startInx, int subArrLength) {
-
+        for (int i = startIdx; i <= endIdx; i++) {
+            array[i] = buffer[i - startIdx];
+        }
     }
 
     public static void mergeSort2(int[] array) {
