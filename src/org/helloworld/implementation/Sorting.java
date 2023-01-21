@@ -200,20 +200,20 @@ public class Sorting {
         if (endIdx - startIdx == 0) {
             return;
         } else {
-            int mid = startIdx + (endIdx - startIdx) / 2;
-            mergeSort(array, startIdx, mid);
-            mergeSort(array, mid + 1, endIdx);
+            int midIdx = startIdx + (endIdx - startIdx) / 2;
+            mergeSort(array, startIdx, midIdx);
+            mergeSort(array, midIdx + 1, endIdx);
             merge(array, startIdx, endIdx);
         }
     }
 
     private static void merge(int[] array, int startIdx, int endIdx) {
         int firstSubArrInx = startIdx;
-        int mid = ((endIdx - startIdx) / 2) + startIdx;
-        int secondSubArrInx = mid + 1;
+        int midIdx = ((endIdx - startIdx) / 2) + startIdx;
+        int secondSubArrInx = midIdx + 1;
         int[] buffer = new int[endIdx - startIdx + 1];
         for (int i = 0; i < buffer.length; i++) {
-            if (firstSubArrInx == mid + 1) {
+            if (firstSubArrInx == midIdx + 1) {
                 buffer[i] = array[secondSubArrInx];
                 secondSubArrInx++;
             } else if (secondSubArrInx == endIdx + 1) {
