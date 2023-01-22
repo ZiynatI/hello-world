@@ -9,4 +9,17 @@ public class Searching {
         }
         return -1;
     }
+
+    public static int binarySearch(int[] array, int arg) {
+        boolean found = false;
+        int idx;
+        while (!found) {
+            int i = array.length / 2;
+            if (array[i] == arg) {
+                idx = i;
+                found = true;
+            } else if (array[i] > arg) {
+            }
+        }
+    }
 }
