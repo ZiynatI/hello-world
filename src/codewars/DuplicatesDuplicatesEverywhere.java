@@ -57,7 +57,8 @@ public class DuplicatesDuplicatesEverywhere {
     public static Map<Integer, List<String>> removeDuplicateIds(Map<Integer, List<String>> obj) {
         Map<Integer, List<String>> obj2 = new LinkedHashMap<>();
         LinkedHashSet<Integer> keys = (LinkedHashSet<Integer>) obj.keySet();
-        System.out.println(keys);
+        List<Character> chars = new ArrayList<Character>();
+
         return obj;
     }
 
