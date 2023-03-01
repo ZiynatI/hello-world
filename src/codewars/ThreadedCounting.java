@@ -1,7 +1,5 @@
 package codewars;
 
-import java.util.function.Function;
-
 public class ThreadedCounting {
     //https://www.codewars.com/kata/549e70e994e517ed8b00043e
     //Your task is simple. You have to call counter.count(int) with the numbers 1 to 100 inclusive.
@@ -18,20 +16,20 @@ public class ThreadedCounting {
     //Also, make sure your method doesn't return until all three threads have completed.
     //Otherwise, the tests may not work even if your solution is correct.
 
-    public static void countInThreads2(int i, Function f) {
-        Thread one = new Thread(()-> f(i));
-        Thread two = new Thread(() -> {
-            for (int i = 2; i <= 100; i = i + 3) {
-                counter.count(i);
-            }
-        });
-        Thread three = new Thread(() -> {
-            for (int i = 3; i <= 100; i = i + 3) {
-                counter.count(i);
-            }
-        });
-
-    }
+//    public static void countInThreads2(int i, Function f) {
+//        Thread one = new Thread(()-> f(i));
+//        Thread two = new Thread(() -> {
+//            for (int i = 2; i <= 100; i = i + 3) {
+//                counter.count(i);
+//            }
+//        });
+//        Thread three = new Thread(() -> {
+//            for (int i = 3; i <= 100; i = i + 3) {
+//                counter.count(i);
+//            }
+//        });
+//
+//    }
 
     static class Counter {
         public int count(int i) {
