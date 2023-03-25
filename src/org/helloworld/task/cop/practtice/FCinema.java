@@ -1,4 +1,7 @@
 package org.helloworld.task.cop.practtice;
+
+import java.util.Scanner;
+
 //F. Cinema
 //time limit per test
 //2 seconds
@@ -77,5 +80,11 @@ package org.helloworld.task.cop.practtice;
 //In the fifth example, you can move one person from 1
 //-st seat to 6-th seat, so the string becomes 001011101, and then move one person from 3-rd seat to 8-th seat, so the string becomes 000011111.
 public class FCinema {
+    public static void main(String[] args) {
+        Scanner stdin = new Scanner(System.in);
 
+    }
+public static void moveFriends(){
+
+}
 }

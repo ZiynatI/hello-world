@@ -41,6 +41,7 @@ import java.util.Scanner;
 //triangles are marked blue.
 //Note that you can't add just 1
 //triangle to make a rectangle like that, because it has to be axis-aligned.
+
 public class CAppendTriangles {
     public static void main(String[] args) {
         Scanner stdin = new Scanner(System.in);
