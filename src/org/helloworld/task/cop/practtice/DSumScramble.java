@@ -40,9 +40,7 @@ package org.helloworld.task.cop.practtice;
 //6642 5714 1516 5203 9649 7831
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class DSumScramble {
     public static void main(String[] args) {
@@ -57,26 +55,30 @@ public class DSumScramble {
     public static void findInitialSequence(Scanner stdin) {
         int seqSize = Integer.parseInt(stdin.nextLine());
         int[] seq = Arrays.stream(stdin.nextLine().split(" ")).map(Integer::parseInt).mapToInt(x -> x).toArray();
-        List<Integer> list = Arrays.stream(seq).boxed().collect(Collectors.toList());
+        int[] sums = new int[seqSize * 2];
+        for (int i = 0; i < seq.length; i++) {
+            sums[i] = sumDigits(seq[i]);
+        }
         int idx = 0;
         int[] seq2 = new int[seqSize];
         while (idx != seqSize) {
             outterLoop:
-            for (int i = 0; i < list.size(); i++) {
-                for (int j = list.size() - 1; j > i; j--) {
-                    int sumJ = sumDigits(list.get(j));
-                    int idxJ = list.get(j);
-                    int sumI = sumDigits(list.get(i));
-                    int idxI = list.get(i);
-                    if ((idxJ == sumI) || (idxI == sumJ)) {
-                        seq2[idx] = idxI > idxJ ? idxI : idxJ;
-                        list.remove(j);
-                        list.remove(i);
+            for (int i = 0; i < seq.length; i++) {
+                if (seq[i] == 0) {
+                } else {
+                    for (int j = seq.length - 1; j > i; j--) {
+                        if (seq[j] == 0) {
+                        } else {
+                            if ((seq[j] == sums[i]) || (seq[i] == sums[j])) {
+                                seq2[idx] = seq[i] > seq[j] ? seq[i] : seq[j];
+                                seq[j] = 0;
+                                seq[i] = 0;
+                                idx++;
+                                break outterLoop;
+                            }
 
-                        idx++;
-                        break outterLoop;
+                        }
                     }
-
                 }
             }
         }
