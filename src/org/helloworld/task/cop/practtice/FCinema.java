@@ -1,7 +1,5 @@
 package org.helloworld.task.cop.practtice;
 
-import java.util.Scanner;
-
 //F. Cinema
 //time limit per test
 //2 seconds
@@ -79,12 +77,51 @@ import java.util.Scanner;
 //
 //In the fifth example, you can move one person from 1
 //-st seat to 6-th seat, so the string becomes 001011101, and then move one person from 3-rd seat to 8-th seat, so the string becomes 000011111.
+
+import java.util.Scanner;
+
 public class FCinema {
     public static void main(String[] args) {
         Scanner stdin = new Scanner(System.in);
+        int testCases = Integer.parseInt(stdin.nextLine());
+        while (testCases > 0) {
+            moveFriends(stdin);
+            testCases--;
+        }
 
     }
-public static void moveFriends(){
 
-}
+    public static void moveFriends(Scanner stdin) {
+        char[] chars = stdin.nextLine().toCharArray();
+        int ones = 0;
+        for (char c : chars) {
+            if (c == '1') {
+                ones++;
+            }
+        }
+        if (ones == 0 || ones == chars.length) {
+            System.out.println(0);
+            return;
+        }
+
+        int onesInSubArr = 0;
+        boolean lastWasOne = chars[0] == '1';
+        for (int i = 0; i < ones; i++) {
+            onesInSubArr += chars[i] == '1' ? 1 : 0;
+        }
+        int max = onesInSubArr;
+        for (int i = 1; i <= chars.length - ones; i++) {
+            if (lastWasOne) {
+                onesInSubArr--;
+            }
+            if (chars[i + ones - 1] == '1') {
+                onesInSubArr++;
+            }
+            lastWasOne = chars[i] == '1';
+            if (onesInSubArr > max) {
+                max = onesInSubArr;
+            }
+        }
+        System.out.println(ones - max);
+    }
 }
