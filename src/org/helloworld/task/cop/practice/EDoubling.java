@@ -55,34 +55,30 @@ public class EDoubling {
         Scanner stdin = new Scanner(System.in);
         int testCases = Integer.parseInt(stdin.nextLine());
         while (testCases > 0) {
-            isNiceSeq(stdin);
+            int seqSize = Integer.parseInt(stdin.nextLine());
+            List<Integer> input = Arrays.stream(stdin.nextLine().split(" ")).map(Integer::parseInt).collect(Collectors.toList());
+            System.out.println(isNiceSeq(input));
             testCases--;
         }
     }
 
-    public static void isNiceSeq(Scanner stdin) {
-        int seqSize = Integer.parseInt(stdin.nextLine());
-        int[] seq = Arrays.stream(stdin.nextLine().split(" ")).map(Integer::parseInt).mapToInt(x -> x).toArray();
-        List<Integer> list = Arrays.stream(seq).boxed().collect(Collectors.toList());
-        int n = 1;
-        int r = seqSize;
-        int twice = 0;
-        for (int i = 0; i < seqSize; i++) {
-            n = 1;
-            twice = seq[i];
-            while (twice < seq[seq.length - 1]) {
+    public static int isNiceSeq(List<Integer> input) {
+        int maxOfTwice = 0;
+        int countNums = 1;
+        for (int i = 0; i < input.size(); i++) {
+            int twice = input.get(i);
+            while (input.contains(twice * 2)) {
                 twice *= 2;
-                if (list.contains(twice) && list.indexOf(twice) > i) {
-                    n++;
-                } else {
+                if (input.indexOf(twice) < i) {
                     break;
                 }
+                countNums++;
             }
-            n = seqSize - n;
-            if (n < r) {
-                r = n;
+            if (maxOfTwice < countNums) {
+                maxOfTwice = countNums;
             }
+            countNums = 1;
         }
-        System.out.println(r);
+        return input.size() - maxOfTwice;
     }
 }
