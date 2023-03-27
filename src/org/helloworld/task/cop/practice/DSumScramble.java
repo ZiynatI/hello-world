@@ -15,8 +15,7 @@ You are given the sequence 𝑐. Find any possible initial sequence 𝑎.
 If there are multiple answers, print any of them.
 Input
 The first line contains a single integer 𝑡(1≤𝑡≤100) — the number of test cases.
-The first line of each test case contains a single integer 𝑛
-(1≤𝑛≤100) — the number of elements in 𝑎.
+The first line of each test case contains a single integer 𝑛 (1≤𝑛≤100) — the number of elements in 𝑎.
 The second line contains 2𝑛 integers 𝑐1,𝑐2,…,𝑐2𝑛 (1≤𝑐𝑖≤109).
 The tests are constructed in such a way that there exists a sequence 𝑎 that can produce the given sequence 𝑐.
 
@@ -42,6 +41,7 @@ Output
 */
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class DSumScramble {
     public static void main(String[] args) {
@@ -49,18 +49,16 @@ public class DSumScramble {
         int testCases = Integer.parseInt(stdin.nextLine());
         while (testCases > 0) {
             int seqSize = Integer.parseInt(stdin.nextLine());
-            String[] line = stdin.nextLine().split(" ");
-            printArr(findInitialSequence(line));
+            List<Integer> input = Arrays.stream(stdin.nextLine().split(" ")).map(Integer::parseInt).collect(Collectors.toList());
+            printArr(findInitialSequence(input));
             testCases--;
         }
     }
 
-    public static List<Integer> findInitialSequence(String[] line) {
+    public static List<Integer> findInitialSequence(List<Integer> input) {
         PriorityQueue<Integer> pq = new PriorityQueue<Integer>(Comparator.reverseOrder());
         List<Integer> list = new ArrayList<>();
-        for (String s : line) {
-            pq.add(Integer.parseInt(s));
-        }
+        pq.addAll(input);
         while (!pq.isEmpty()) {
             int currentEl = pq.peek();
             list.add(currentEl);
