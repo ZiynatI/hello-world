@@ -41,50 +41,42 @@ Output
 6642 5714 1516 5203 9649 7831
 */
 
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 
 public class DSumScramble {
     public static void main(String[] args) {
         Scanner stdin = new Scanner(System.in);
         int testCases = Integer.parseInt(stdin.nextLine());
         while (testCases > 0) {
-            findInitialSequence(stdin);
+            int seqSize = Integer.parseInt(stdin.nextLine());
+            String[] line = stdin.nextLine().split(" ");
+            findInitialSequence(seqSize, line);
             testCases--;
         }
     }
 
-    public static void findInitialSequence(Scanner stdin) {
-        int seqSize = Integer.parseInt(stdin.nextLine());
-        int[] seq = Arrays.stream(stdin.nextLine().split(" ")).map(Integer::parseInt).mapToInt(x -> x).toArray();
-        int[] sums = new int[seqSize * 2];
-        for (int i = 0; i < seq.length; i++) {
-            sums[i] = sumDigits(seq[i]);
+    public static void findInitialSequence(int seqSize, String[] line) {
+        PriorityQueue<Integer> pq = new PriorityQueue<Integer>(new Comparator<Integer>() {
+            public int compare(Integer a, Integer b) {
+                return b.compareTo(a);
+            }
+        });
+        int[] seq = new int[seqSize];
+        for (String s : line) {
+            pq.add(Integer.parseInt(s));
         }
-        int idx = 0;
-        int[] seq2 = new int[seqSize];
-        while (idx != seqSize) {
-            outterLoop:
-            for (int i = 0; i < seq.length; i++) {
-                if (seq[i] == 0) {
-                } else {
-                    for (int j = seq.length - 1; j > i; j--) {
-                        if (seq[j] == 0) {
-                        } else {
-                            if ((seq[j] == sums[i]) || (seq[i] == sums[j])) {
-                                seq2[idx] = seq[i] > seq[j] ? seq[i] : seq[j];
-                                seq[j] = 0;
-                                seq[i] = 0;
-                                idx++;
-                                break outterLoop;
-                            }
-
-                        }
-                    }
-                }
+        int seqIdx = 0;
+        while (seqIdx < seqSize) {
+            int currentEl = pq.peek();
+            int sum = sumDigits(currentEl);
+            if (pq.contains(sum)) {
+                seq[seqIdx] = currentEl;
+                seqIdx++;
+                pq.remove(sumDigits(pq.peek()));
+                pq.remove(pq.peek());
             }
         }
-        printArr(seq2);
+        printArr(seq);
     }
 
     public static void printArr(int[] arr) {
