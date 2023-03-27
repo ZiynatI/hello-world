@@ -50,41 +50,32 @@ public class DSumScramble {
         while (testCases > 0) {
             int seqSize = Integer.parseInt(stdin.nextLine());
             String[] line = stdin.nextLine().split(" ");
-            findInitialSequence(seqSize, line);
+            printArr(findInitialSequence(line));
             testCases--;
         }
     }
 
-    public static void findInitialSequence(int seqSize, String[] line) {
-        PriorityQueue<Integer> pq = new PriorityQueue<Integer>(new Comparator<Integer>() {
-            public int compare(Integer a, Integer b) {
-                return b.compareTo(a);
-            }
-        });
-        int[] seq = new int[seqSize];
+    public static List<Integer> findInitialSequence(String[] line) {
+        PriorityQueue<Integer> pq = new PriorityQueue<Integer>(Comparator.reverseOrder());
+        List<Integer> list = new ArrayList<>();
         for (String s : line) {
             pq.add(Integer.parseInt(s));
         }
-        int seqIdx = 0;
-        while (seqIdx < seqSize) {
+        while (!pq.isEmpty()) {
             int currentEl = pq.peek();
-            int sum = sumDigits(currentEl);
-            if (pq.contains(sum)) {
-                seq[seqIdx] = currentEl;
-                seqIdx++;
-                pq.remove(sumDigits(pq.peek()));
-                pq.remove(pq.peek());
-            }
+            list.add(currentEl);
+            pq.remove(currentEl);
+            pq.remove(sumDigits(currentEl));
         }
-        printArr(seq);
+        return list;
     }
 
-    public static void printArr(int[] arr) {
-        for (int i = 0; i < arr.length; i++) {
+    public static void printArr(List<Integer> list) {
+        for (int i = 0; i < list.size(); i++) {
             if (i != 0) {
                 System.out.print(" ");
             }
-            System.out.print(arr[i]);
+            System.out.print(list.get(i));
         }
         System.out.println();
     }
