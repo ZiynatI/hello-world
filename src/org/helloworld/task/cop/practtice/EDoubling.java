@@ -1,4 +1,6 @@
 package org.helloworld.task.cop.practtice;
+
+
 //time limit per test
 //2 seconds
 //memory limit per test
@@ -62,5 +64,45 @@ package org.helloworld.task.cop.practtice;
 //6
 //4
 //5
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+
 public class EDoubling {
+    public static void main(String[] args) {
+        Scanner stdin = new Scanner(System.in);
+        int testCases = Integer.parseInt(stdin.nextLine());
+        while (testCases > 0) {
+            isNiceSeq(stdin);
+            testCases--;
+        }
+    }
+
+    public static void isNiceSeq(Scanner stdin) {
+        int seqSize = Integer.parseInt(stdin.nextLine());
+        int[] seq = Arrays.stream(stdin.nextLine().split(" ")).map(Integer::parseInt).mapToInt(x -> x).toArray();
+        List<Integer> list = Arrays.stream(seq).boxed().collect(Collectors.toList());
+        int n = 1;
+        int r = seqSize;
+        int twice = 0;
+        for (int i = 0; i < seqSize; i++) {
+            n = 1;
+            twice = seq[i];
+            while (twice < seq[seq.length - 1]) {
+                twice *= 2;
+                if (list.contains(twice) && list.indexOf(twice) > i) {
+                    n++;
+                } else {
+                    break;
+                }
+            }
+            n = seqSize - n;
+            if (n < r) {
+                r = n;
+            }
+        }
+        System.out.println(r);
+    }
 }
