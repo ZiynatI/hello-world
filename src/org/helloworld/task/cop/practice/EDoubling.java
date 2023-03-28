@@ -46,6 +46,7 @@ Output
 */
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -69,7 +70,7 @@ public class EDoubling {
             int n = input.get(i);
             if (input.indexOf(n) == i) {
                 int twice = n * 2;
-                int idxI = input.indexOf(twice);
+                int idxI = input.lastIndexOf(twice);
                 while (idxI != -1) {
                     if (idxI < i) {
                         break;
