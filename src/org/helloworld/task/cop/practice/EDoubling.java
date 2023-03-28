@@ -66,13 +66,15 @@ public class EDoubling {
         int maxOfTwice = 0;
         int countNums = 1;
         for (int i = 0; i < input.size(); i++) {
-            int twice = input.get(i);
-            while (input.contains(twice * 2)) {
-                twice *= 2;
-                if (input.indexOf(twice) < i) {
+            int twice = input.get(i) * 2;
+            int idxI = input.indexOf(twice);
+            while (idxI != -1) {
+                if (idxI < i) {
                     break;
                 }
                 countNums++;
+                twice *= 2;
+                idxI = input.indexOf(twice);
             }
             if (maxOfTwice < countNums) {
                 maxOfTwice = countNums;
