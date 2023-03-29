@@ -66,5 +66,47 @@ Output
 3 3 3 5
 2 4 5
 */
+
+
+import java.util.*;
+
 public class KSplit {
+    public static void main(String[] args) {
+        Scanner stdin = new Scanner(System.in);
+        int seqLength = Integer.parseInt(stdin.nextLine());
+        String[] seq = stdin.nextLine().split(" ");
+        PriorityQueue<Integer> nums = new PriorityQueue<>(Comparator.reverseOrder());
+        for (int i = 0; i < seqLength; i++) {
+            nums.add(Integer.parseInt(seq[i]));
+        }
+        splitSeq(nums);
+    }
+
+    public static void splitSeq(PriorityQueue<Integer> nums) {
+        int onee = 0;
+        int twoo = 0;
+        List<Integer> list1 = new ArrayList<>();
+        List<Integer> list2 = new ArrayList<>();
+        while (!nums.isEmpty()) {
+            int num = nums.poll();
+            if (onee <= twoo) {
+                onee += num;
+                list1.add(num);
+            } else {
+                twoo += num;
+                list2.add(num);
+            }
+        }
+        System.out.println(onee > twoo ? onee - twoo : twoo - onee);
+        printArr(list1);
+        printArr(list2);
+    }
+
+    public static void printArr(List<Integer> list) {
+        System.out.print(list.size());
+        for (int i = 0; i < list.size(); i++) {
+            System.out.print(" " + list.get(i));
+        }
+        System.out.println();
+    }
 }
