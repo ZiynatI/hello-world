@@ -89,9 +89,11 @@ public class KSplit {
         List<Integer> list2 = new ArrayList<>();
         int num = nums.poll();
         list1.add(num);
+        list1sum +=num;
         if (!nums.isEmpty()) {
             num = nums.poll();
             list2.add(num);
+            list2sum+=num;
         }
         while (!nums.isEmpty()) {
             num = nums.poll();
