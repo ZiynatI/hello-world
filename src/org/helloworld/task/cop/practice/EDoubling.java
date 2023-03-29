@@ -45,10 +45,7 @@ Output
 
 */
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class EDoubling {
@@ -56,36 +53,30 @@ public class EDoubling {
         Scanner stdin = new Scanner(System.in);
         int testCases = Integer.parseInt(stdin.nextLine());
         for (int i = 0; i < testCases; i++) {
-            int seqSize = Integer.parseInt(stdin.nextLine());
+            int listLength = Integer.parseInt(stdin.nextLine());
             List<Integer> input = Arrays.stream(stdin.nextLine().split(" ")).map(Integer::parseInt).collect(Collectors.toList());
-            System.out.println(isNiceSeq(input));
+            System.out.println(countRemoves(input, listLength));
         }
     }
 
-    public static int isNiceSeq(List<Integer> input) {
-        int maxOfTwice = 0;
-        int countTwice = 1;
-        int inputLength = input.size();
-        List<Integer> list = new ArrayList<>();
+    public static int countRemoves(List<Integer> input, int listLength) {
+        int removingEls = 0;
+        Set<Integer> checked = new HashSet<>();
         for (int i = input.size() - 1; i >= 0; i--) {
+            int numOfRemoving = 1;
             int num = input.get(i);
-            if (!list.contains(num)) {
-                list.add(num);
-                if (num % 2 == 0) {
-                    while (num % 2 == 0 && input.contains(num / 2)) {
-                        num /= 2;
-                        countTwice++;
-                        list.add(num);
-                    }
+            if (checked.add(num)) {
+                while (num % 2 == 0 && input.contains(num / 2)) {
+                    num /= 2;
+                    numOfRemoving++;
+                    checked.add(num);
                 }
             }
             input.remove(i);
-            if (maxOfTwice < countTwice) {
-                maxOfTwice = countTwice;
+            if (removingEls < numOfRemoving) {
+                removingEls = numOfRemoving;
             }
-            countTwice = 1;
-
         }
-        return inputLength - maxOfTwice;
+        return listLength - removingEls;
     }
 }
