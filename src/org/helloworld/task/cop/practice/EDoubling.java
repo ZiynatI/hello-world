@@ -60,23 +60,24 @@ public class EDoubling {
     }
 
     public static int countRemoves(List<Integer> input, int listLength) {
-        int removingEls = 0;
+        int removesMaxNum = 0;
         Set<Integer> checked = new HashSet<>();
         for (int i = input.size() - 1; i >= 0; i--) {
-            int numOfRemoving = 1;
+            int removesNum = 1;
             int num = input.get(i);
             if (checked.add(num)) {
                 while (num % 2 == 0 && input.contains(num / 2)) {
                     num /= 2;
-                    numOfRemoving++;
+                    removesNum++;
                     checked.add(num);
                 }
+
             }
             input.remove(i);
-            if (removingEls < numOfRemoving) {
-                removingEls = numOfRemoving;
+            if (removesMaxNum < removesNum) {
+                removesMaxNum = removesNum;
             }
         }
-        return listLength - removingEls;
+        return listLength - removesMaxNum;
     }
 }
