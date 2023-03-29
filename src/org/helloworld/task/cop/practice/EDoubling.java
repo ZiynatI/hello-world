@@ -45,8 +45,8 @@ Output
 
 */
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -55,36 +55,37 @@ public class EDoubling {
     public static void main(String[] args) {
         Scanner stdin = new Scanner(System.in);
         int testCases = Integer.parseInt(stdin.nextLine());
-        while (testCases > 0) {
+        for (int i = 0; i < testCases; i++) {
             int seqSize = Integer.parseInt(stdin.nextLine());
             List<Integer> input = Arrays.stream(stdin.nextLine().split(" ")).map(Integer::parseInt).collect(Collectors.toList());
             System.out.println(isNiceSeq(input));
-            testCases--;
         }
     }
 
     public static int isNiceSeq(List<Integer> input) {
         int maxOfTwice = 0;
-        int countNums = 1;
-        for (int i = 0; i < input.size(); i++) {
-            int n = input.get(i);
-            if (input.indexOf(n) == i) {
-                int twice = n * 2;
-                int idxI = input.lastIndexOf(twice);
-                while (idxI != -1) {
-                    if (idxI < i) {
-                        break;
+        int countTwice = 1;
+        int inputLength = input.size();
+        List<Integer> list = new ArrayList<>();
+        for (int i = input.size() - 1; i >= 0; i--) {
+            int num = input.get(i);
+            if (!list.contains(num)) {
+                list.add(num);
+                if (num % 2 == 0) {
+                    while (num % 2 == 0 && input.contains(num / 2)) {
+                        num /= 2;
+                        countTwice++;
+                        list.add(num);
                     }
-                    countNums++;
-                    twice *= 2;
-                    idxI = input.indexOf(twice);
                 }
-                if (maxOfTwice < countNums) {
-                    maxOfTwice = countNums;
-                }
-                countNums = 1;
             }
+            input.remove(i);
+            if (maxOfTwice < countTwice) {
+                maxOfTwice = countTwice;
+            }
+            countTwice = 1;
+
         }
-        return input.size() - maxOfTwice;
+        return inputLength - maxOfTwice;
     }
 }
