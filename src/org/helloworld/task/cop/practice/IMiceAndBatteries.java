@@ -1,4 +1,5 @@
 package org.helloworld.task.cop.practice;
+
 /*I. Mice and Batteries
 time limit per test
 2 seconds
@@ -54,5 +55,73 @@ In the second test case, you can install both batteries in the only mouse to get
 In the third test case, you can install the 1-st battery in the first mouse (working time is equal to 10),
 the 2-nd and the 3-rd batteries in the second mouse (working time is 4+6=10), and the 4-th battery in the third mouse (working time is 12).
 The maximum length of the contest will be equal to 10, since the second mouse will work only 10 minutes.*/
-public class IMiceandBatteries {
+
+import java.util.Comparator;
+import java.util.PriorityQueue;
+import java.util.Scanner;
+
+public class IMiceAndBatteries {
+    public static void main(String[] args) {
+        Scanner stdin = new Scanner(System.in);
+        int testCases = Integer.parseInt(stdin.nextLine());
+        for (int i = 0; i < testCases; i++) {
+            String[] miceBatteriesNum = stdin.nextLine().split(" ");
+            int miceNum = Integer.parseInt(miceBatteriesNum[1]);
+            int batteriesNum = Integer.parseInt(miceBatteriesNum[0]);
+            String[] batteriesEnergyst = stdin.nextLine().split(" ");
+            PriorityQueue<Integer> be = new PriorityQueue<Integer>(Comparator.reverseOrder());
+            int[] batteriesEnergy = new int[batteriesNum];
+            for (int j = 0; j < batteriesNum; j++) {
+                be.add(Integer.parseInt(batteriesEnergyst[j]));
+                batteriesEnergy[j] = Integer.parseInt(batteriesEnergyst[j]);
+            }
+            System.out.println(findMouseWithMinEnergy(miceNum, be));
+        }
+    }
+
+    public static int findMouseWithMinEnergy(int miceNum, PriorityQueue<Integer> batteries) {
+        PriorityQueue<Mouse> mouseInnstallingbatteries = new PriorityQueue<>(energyComparator);
+        PriorityQueue<Mouse> withTTwoBatteries = new PriorityQueue<>(energyComparator);
+        for (int i = 0; i < miceNum; i++) {
+            mouseInnstallingbatteries.add(new Mouse());
+        }
+        while (batteries.size() != 0 || mouseInnstallingbatteries.size() != 0) {
+            Mouse mouse = mouseInnstallingbatteries.poll();
+            if (mouse.setEnergy(batteries.poll())) {
+                mouseInnstallingbatteries.add(mouse);
+            } else {
+                withTTwoBatteries.add(mouse);
+            }
+        }
+        while (!mouseInnstallingbatteries.isEmpty()) {
+            withTTwoBatteries.add(mouseInnstallingbatteries.poll());
+        }
+        return withTTwoBatteries.peek().getEnergy();
+    }
+
+    static class Mouse {
+        private int batteries;
+        private int energy = 0;
+
+        public boolean setEnergy(int e) {
+            if (batteries == 2) {
+                return false;
+            } else {
+                batteries++;
+                energy += e;
+                return true;
+            }
+        }
+
+        public int getEnergy() {
+            return energy;
+        }
+    }
+
+    public static Comparator<Mouse> energyComparator = new Comparator<Mouse>() {
+        @Override
+        public int compare(Mouse o1, Mouse o2) {
+            return o1.getEnergy() - o2.getEnergy();
+        }
+    };
 }
