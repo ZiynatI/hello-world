@@ -45,7 +45,6 @@ Output
 4 2 1 3 2
 */
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class HReverse {
@@ -55,33 +54,44 @@ public class HReverse {
         int sizeOfArray = Integer.parseInt(firstLine[0]);
         int numOperations = Integer.parseInt(firstLine[1]);
         int numInd = Integer.parseInt(firstLine[2]);
-        int[] arr = new int[sizeOfArray];
-        for (int i = 1; i <= sizeOfArray; i++) {
-            arr[i - 1] = i;
-        }
-        while (numOperations > 0) {
+        int[][] operations = new int[numOperations][2];
+        for (int i = 0; i < numOperations; i++) {
             String[] op = stdin.nextLine().split(" ");
-            int start = Integer.parseInt(op[0]) - 1;
-            int end = Integer.parseInt(op[1]) - 1;
-            if (end - start== 0) {
+            operations[i][0] = Integer.parseInt(op[0]);
+            operations[i][1] = Integer.parseInt(op[1]);
+        }
+        String[] indexesForPrinting = stdin.nextLine().split(" ");
+        printArray(performOperations(sizeOfArray, operations), indexesForPrinting);
+    }
+
+    public static int[] performOperations(int sizeOfArray, int[][] operations) {
+        int[] arr = new int[sizeOfArray + 1];
+        for (int i = 0; i <= sizeOfArray; i++) {
+            arr[i] = i;
+        }
+        for (int[] operation : operations) {
+            int end = operation[1];
+            int start = operation[0];
+            if (end - start == 0) {
                 break;
             }
-            int[] copyArr = Arrays.copyOf(arr, arr.length);
             while (end > start) {
-                copyArr[end] = arr[start];
-                copyArr[start] = arr[end];
+                int temp = arr[end];
+                arr[end] = arr[start];
+                arr[start] = temp;
                 end--;
                 start++;
             }
-            arr = copyArr;
-            numOperations--;
         }
-        String[] printIdxs = stdin.nextLine().split(" ");
-        for (int i = 0; i < printIdxs.length; i++) {
+        return arr;
+    }
+
+    public static void printArray(int[] arr, String[] indexesForPrinting) {
+        for (int i = 0; i < indexesForPrinting.length; i++) {
             if (i != 0) {
                 System.out.print(" ");
             }
-            System.out.print(arr[Integer.parseInt(printIdxs[i]) - 1]);
+            System.out.print(arr[Integer.parseInt(indexesForPrinting[i])]);
         }
     }
 }
