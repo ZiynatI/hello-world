@@ -63,17 +63,17 @@ public class HReverse {
             String[] op = stdin.nextLine().split(" ");
             int start = Integer.parseInt(op[0]) - 1;
             int end = Integer.parseInt(op[1]) - 1;
-            if (start - end == 0) {
+            if (end - start== 0) {
                 break;
             }
-            int[] subarr = Arrays.copyOf(arr, arr.length);
+            int[] copyArr = Arrays.copyOf(arr, arr.length);
             while (end > start) {
-                subarr[end] = arr[start];
-                subarr[start] = arr[end];
+                copyArr[end] = arr[start];
+                copyArr[start] = arr[end];
                 end--;
                 start++;
             }
-            arr = subarr;
+            arr = copyArr;
             numOperations--;
         }
         String[] printIdxs = stdin.nextLine().split(" ");
