@@ -23,8 +23,8 @@ Find any split of the given sequence 𝑎 into two sequences so that the absolut
 the result of the algorithm. If there are multiple answers, you can print any of them.
 
 Input
-The first line contains a single integer 𝑛 (1≤𝑛≤2⋅105) — the length of the sequence.
-The second line contains 𝑛 integers 𝑎1,𝑎2,…,𝑎𝑛 (1≤𝑎𝑖≤109).
+The first line contains a single integer 𝑛 (1≤𝑛≤2⋅10^5) — the length of the sequence.
+The second line contains 𝑛 integers 𝑎1,𝑎2,…,𝑎𝑛 (1≤𝑎𝑖≤10^9).
 
 Output
 The first line should contain a single integer 𝑑 — the answer given by the algorithm — the remaining element in the sequence.
@@ -83,21 +83,27 @@ public class KSplit {
     }
 
     public static void splitSeq(PriorityQueue<Integer> nums) {
-        int onee = 0;
-        int twoo = 0;
+        int list1sum = 0;
+        int list2sum = 0;
         List<Integer> list1 = new ArrayList<>();
         List<Integer> list2 = new ArrayList<>();
+        int num = nums.poll();
+        list1.add(num);
+        if (!nums.isEmpty()) {
+            num = nums.poll();
+            list2.add(num);
+        }
         while (!nums.isEmpty()) {
-            int num = nums.poll();
-            if (onee <= twoo) {
-                onee += num;
+            num = nums.poll();
+            if (list1sum <= list2sum) {
+                list1sum += num;
                 list1.add(num);
             } else {
-                twoo += num;
+                list2sum += num;
                 list2.add(num);
             }
         }
-        System.out.println(onee > twoo ? onee - twoo : twoo - onee);
+        System.out.println(list1sum > list2sum ? list1sum - list2sum : list2sum - list1sum);
         printArr(list1);
         printArr(list2);
     }
