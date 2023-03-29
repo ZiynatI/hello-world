@@ -60,7 +60,11 @@ public class HReverse {
             operations[i][0] = Integer.parseInt(op[0]);
             operations[i][1] = Integer.parseInt(op[1]);
         }
-        String[] indexesForPrinting = stdin.nextLine().split(" ");
+        String[] indexesForPrintingst = stdin.nextLine().split(" ");
+        int[] indexesForPrinting = new int[numInd];
+        for (int i = 0; i < numInd; i++) {
+            indexesForPrinting[i] = Integer.parseInt(indexesForPrintingst[i]);
+        }
         printArray(performOperations(sizeOfArray, operations), indexesForPrinting);
     }
 
@@ -72,9 +76,6 @@ public class HReverse {
         for (int[] operation : operations) {
             int end = operation[1];
             int start = operation[0];
-            if (end - start == 0) {
-                break;
-            }
             while (end > start) {
                 int temp = arr[end];
                 arr[end] = arr[start];
@@ -86,12 +87,12 @@ public class HReverse {
         return arr;
     }
 
-    public static void printArray(int[] arr, String[] indexesForPrinting) {
+    public static void printArray(int[] arr, int[] indexesForPrinting) {
         for (int i = 0; i < indexesForPrinting.length; i++) {
             if (i != 0) {
                 System.out.print(" ");
             }
-            System.out.print(arr[Integer.parseInt(indexesForPrinting[i])]);
+            System.out.print(arr[indexesForPrinting[i]]);
         }
     }
 }
