@@ -85,10 +85,15 @@ public class IMiceAndBatteries {
         for (int i = 0; i < miceNum; i++) {
             mouseInnstallingbatteries.add(new Mouse());
         }
-        while (batteries.size() != 0 || mouseInnstallingbatteries.size() != 0) {
+        int energy = 0;
+        while (batteries.size() != 0 && mouseInnstallingbatteries.size() != 0) {
             Mouse mouse = mouseInnstallingbatteries.poll();
-            if (mouse.setEnergy(batteries.poll())) {
+            if (energy == 0) {
+                energy = batteries.poll();
+            }
+            if (mouse.setEnergy(energy)) {
                 mouseInnstallingbatteries.add(mouse);
+                energy = 0;
             } else {
                 withTTwoBatteries.add(mouse);
             }
@@ -100,7 +105,7 @@ public class IMiceAndBatteries {
     }
 
     static class Mouse {
-        private int batteries;
+        private int batteries = 0;
         private int energy = 0;
 
         public boolean setEnergy(int e) {
