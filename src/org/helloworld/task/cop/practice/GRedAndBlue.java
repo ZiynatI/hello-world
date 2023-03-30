@@ -1,5 +1,7 @@
 package org.helloworld.task.cop.practice;
 
+import java.util.Scanner;
+
 /*G. Red and Blue
 time limit per test
 2 seconds
@@ -54,5 +56,16 @@ split 8 into 3 and 5, then the array becomes [2,4,2,3,3,3,5,6];
 split 4 into 2 and 2, then the array becomes [2,2,2,2,3,3,3,5,6].
 */
 public class GRedAndBlue {
+    public static void main(String[] args) {
+        Scanner stdin = new Scanner(System.in);
+        int testCasesNum = Integer.parseInt(stdin.nextLine());
+        for (int i = 0; i < testCasesNum; i++) {
+            int arrLength = Integer.parseInt(stdin.nextLine());
+            String[] arrst = stdin.nextLine().split(" ");
+            for(int j=0;j<arrLength;j++){
+
+            }
+        }
+    }
 
 }
