@@ -63,19 +63,18 @@ public class EDoubling {
         int removesMaxNum = 0;
         Set<Integer> checked = new HashSet<>();
         for (int i = input.size() - 1; i >= 0; i--) {
-            int removesNum = 1;
+            int numOfRemoving = 1;
             int num = input.get(i);
             if (checked.add(num)) {
                 while (num % 2 == 0 && input.contains(num / 2)) {
                     num /= 2;
-                    removesNum++;
+                    numOfRemoving++;
                     checked.add(num);
                 }
-
             }
             input.remove(i);
-            if (removesMaxNum < removesNum) {
-                removesMaxNum = removesNum;
+            if (removesMaxNum < numOfRemoving) {
+                removesMaxNum = numOfRemoving;
             }
         }
         return listLength - removesMaxNum;

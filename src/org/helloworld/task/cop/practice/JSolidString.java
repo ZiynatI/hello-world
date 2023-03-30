@@ -43,5 +43,12 @@ Output
 XXXYYXYY
 XY*/
 
+import java.util.Scanner;
+
 public class JSolidString {
+    public static void main(String[] args) {
+        Scanner stdin = new Scanner(System.in);
+        int testCasesNum = Integer.parseInt(stdin.nextLine());
+
+    }
 }
