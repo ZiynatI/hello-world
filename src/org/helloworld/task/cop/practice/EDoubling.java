@@ -21,7 +21,7 @@ Input
 The first line contains a single integer 𝑡(1≤𝑡≤3000) — the number of test cases.
 
 The first line of each test case contains a single integer 𝑛(1≤𝑛≤3000) — the number of elements in the sequence.
-The second line contains 𝑛 integers 𝑎1,𝑎2,…,𝑎𝑛 (1≤𝑎𝑖≤106).
+The second line contains 𝑛 integers 𝑎1,𝑎2,…,𝑎𝑛 (1≤𝑎𝑖≤10^6).
 The sum of 𝑛 over all test cases doesn't exceed 3000.
 Output
 
@@ -59,24 +59,25 @@ public class EDoubling {
         }
     }
 
-    public static int countRemoves(List<Integer> input, int listLength) {
-        int removesMaxNum = 0;
+    public static int countRemoves(final List<Integer> input) {
+        int numOfRemovingMax = 0;
+        List<Integer> temp = new ArrayList<>(input);
         Set<Integer> checked = new HashSet<>();
-        for (int i = input.size() - 1; i >= 0; i--) {
+        for (int i = temp.size() - 1; i >= 0; i--) {
             int numOfRemoving = 1;
-            int num = input.get(i);
+            int num = temp.get(i);
             if (checked.add(num)) {
-                while (num % 2 == 0 && input.contains(num / 2)) {
+                while (num % 2 == 0 && temp.contains(num / 2)) {
                     num /= 2;
                     numOfRemoving++;
                     checked.add(num);
                 }
             }
-            input.remove(i);
-            if (removesMaxNum < numOfRemoving) {
-                removesMaxNum = numOfRemoving;
+            temp.remove(i);
+            if (numOfRemovingMax < numOfRemoving) {
+                numOfRemovingMax = numOfRemoving;
             }
         }
-        return listLength - removesMaxNum;
+        return input.size() - numOfRemovingMax;
     }
 }

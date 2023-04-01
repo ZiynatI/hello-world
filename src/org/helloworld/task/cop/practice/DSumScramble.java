@@ -47,11 +47,10 @@ public class DSumScramble {
     public static void main(String[] args) {
         Scanner stdin = new Scanner(System.in);
         int testCases = Integer.parseInt(stdin.nextLine());
-        while (testCases > 0) {
-            int seqSize = Integer.parseInt(stdin.nextLine());
+        for (int i = 0; i < testCases; i++) {
+            stdin.nextLine(); // We don't need seq size.
             List<Integer> input = Arrays.stream(stdin.nextLine().split(" ")).map(Integer::parseInt).collect(Collectors.toList());
             printArr(findInitialSequence(input));
-            testCases--;
         }
     }
 
@@ -68,7 +67,7 @@ public class DSumScramble {
         return list;
     }
 
-    public static void printArr(List<Integer> list) {
+    private static void printArr(List<Integer> list) {
         for (int i = 0; i < list.size(); i++) {
             if (i != 0) {
                 System.out.print(" ");
@@ -78,7 +77,7 @@ public class DSumScramble {
         System.out.println();
     }
 
-    public static int sumDigits(int n) {
+    private static int sumDigits(int n) {
         int num = n;
         int sum = 0;
         while (num > 0) {

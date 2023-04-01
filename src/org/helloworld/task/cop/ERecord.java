@@ -14,7 +14,7 @@ An element of an array is called a record, if at least one of the following cond
     it is the first element;
     it is greater than every element before it;
     it is smaller than every element before it.
-For example, the array [3,5,5,4,6,2,7,2,1] contains 6 records (they are bolded).
+For example, the array [_3_,5,5,4,6,2,7,2,1] contains 6 records (they are bolded).
 An array is spectacular if every element in it is a record.
 You are given an integer 𝑛. You have to calculate the number of spectacular permutations of length 𝑛.
 Input

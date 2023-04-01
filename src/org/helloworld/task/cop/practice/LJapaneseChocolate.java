@@ -31,7 +31,7 @@ The last line contains a string 𝑡 (1≤|𝑡|≤200), consisting of lowercase
 Output
 If there is no answer, the only line should contain -1.
 Otherwise, the first line should contain the number of rows 𝑛. The second line should contain the sequence 𝑐1,𝑐2,…,𝑐𝑛 (1≤𝑐𝑖≤𝑘).
-The chocolate bar assembled with these row options should be nice. 𝑛should be the smallest possible.
+The chocolate bar assembled with these row options should be nice. 𝑛 should be the smallest possible.
 
 If there are multiple answers with the smallest number of rows, you can output any of them.
 Examples

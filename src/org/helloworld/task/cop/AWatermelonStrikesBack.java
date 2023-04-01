@@ -11,8 +11,8 @@ output
 standard output
 
 What's better on a hot summer day than a juicy watermelon slice? Huh, what do you mean it's not even summer?..
-Alice, Bob and Charlie got themselves a huge watermelon. They cut it into some slices. Alice got 𝑎slices,
-Bob got 𝑏 slices and Charlie got 𝑐slices.
+Alice, Bob and Charlie got themselves a huge watermelon. They cut it into some slices. Alice got 𝑎 slices,
+Bob got 𝑏 slices and Charlie got 𝑐 slices.
 However, they decided that it isn't too fair that someone has more slices than another.
 Thus, they are going to give slices to one another until everyone has the same amount.
 In one move, one person can give a single watermelon slice to another person.

@@ -70,35 +70,31 @@ public class FCinema {
 
     public static void moveFriends(Scanner stdin) {
         char[] chars = stdin.nextLine().toCharArray();
-        int ones = 0;
+        int totalFriends = 0;
         for (char c : chars) {
             if (c == '1') {
-                ones++;
+                totalFriends++;
             }
         }
-        if (ones == 0 || ones == chars.length) {
+        if (totalFriends == 0 || totalFriends == chars.length) {
             System.out.println(0);
             return;
         }
 
-        int onesInSubArr = 0;
-        boolean lastWasOne = chars[0] == '1';
-        for (int i = 0; i < ones; i++) {
-            onesInSubArr += chars[i] == '1' ? 1 : 0;
+        int friends = 0;
+        for (int i = 0; i < totalFriends; i++) {
+            friends += chars[i] == '1' ? 1 : 0;
         }
-        int max = onesInSubArr;
-        for (int i = 1; i <= chars.length - ones; i++) {
-            if (lastWasOne) {
-                onesInSubArr--;
+        int maxFriends = friends;
+        for (int i = 1; i <= chars.length - totalFriends; i++) {
+            if (chars[i - 1] == '1') {
+                friends--;
             }
-            if (chars[i + ones - 1] == '1') {
-                onesInSubArr++;
+            if (chars[i + totalFriends - 1] == '1') {
+                friends++;
             }
-            lastWasOne = chars[i] == '1';
-            if (onesInSubArr > max) {
-                max = onesInSubArr;
-            }
+            maxFriends = Math.max(maxFriends, friends);
         }
-        System.out.println(ones - max);
+        System.out.println(totalFriends - maxFriends);
     }
 }

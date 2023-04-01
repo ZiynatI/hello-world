@@ -45,7 +45,10 @@ Here's the picture for the fourth test case. The original triangle is marked ora
 Note that you can't add just 1 triangle to make a rectangle like that, because it has to be axis-aligned.
 */
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class CAppendTriangles {
     public static void main(String[] args) {
@@ -58,29 +61,21 @@ public class CAppendTriangles {
     }
 
     public static void findNumOfTTriangles(Scanner stdin) {
-        String[] nums = stdin.nextLine().split(" ");
-        int overallCoors = 0;
-        if (nums[0].equals(nums[2])) {
-            overallCoors++;
-        }
-        if (nums[2].equals(nums[4])) {
-            overallCoors++;
-        }
-        if (nums[0].equals(nums[4])) {
-            overallCoors++;
-        }
-        if (nums[1].equals(nums[3])) {
-            overallCoors++;
-        }
-        if (nums[3].equals(nums[5])) {
-            overallCoors++;
-        }
-        if (nums[1].equals(nums[5])) {
-            overallCoors++;
-        }
-        if (overallCoors == 2) {
+        int[] nums = Arrays.stream(stdin.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+
+        Set<Integer> xs = new HashSet<>();
+        xs.add(nums[0]);
+        xs.add(nums[2]);
+        xs.add(nums[4]);
+
+        Set<Integer> ys = new HashSet<>();
+        ys.add(nums[1]);
+        ys.add(nums[3]);
+        ys.add(nums[5]);
+
+        if (xs.size() == 2 && ys.size() == 2) {
             System.out.println(1);
-        } else if (overallCoors == 1) {
+        } else if (xs.size() == 2 || ys.size() == 2) {
             System.out.println(2);
         } else {
             System.out.println(3);

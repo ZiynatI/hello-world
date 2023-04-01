@@ -62,7 +62,8 @@ public class GRedAndBlue {
         for (int i = 0; i < testCasesNum; i++) {
             int arrLength = Integer.parseInt(stdin.nextLine());
             String[] arrst = stdin.nextLine().split(" ");
-            for(int j=0;j<arrLength;j++){
+            for (int j = 0; j < arrLength; j++) {
+                //
 
             }
         }
