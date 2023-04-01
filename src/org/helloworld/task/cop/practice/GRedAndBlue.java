@@ -1,7 +1,5 @@
 package org.helloworld.task.cop.practice;
 
-import java.util.Scanner;
-
 /*G. Red and Blue
 time limit per test
 2 seconds
@@ -55,18 +53,42 @@ In the first example, you can proceed as follows: split 5 into 2 and 3, then the
 split 8 into 3 and 5, then the array becomes [2,4,2,3,3,3,5,6];
 split 4 into 2 and 2, then the array becomes [2,2,2,2,3,3,3,5,6].
 */
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+
 public class GRedAndBlue {
     public static void main(String[] args) {
         Scanner stdin = new Scanner(System.in);
         int testCasesNum = Integer.parseInt(stdin.nextLine());
         for (int i = 0; i < testCasesNum; i++) {
-            int arrLength = Integer.parseInt(stdin.nextLine());
-            String[] arrst = stdin.nextLine().split(" ");
-            for (int j = 0; j < arrLength; j++) {
-                //
-
-            }
+            stdin.nextLine();
+            int[] nums = Arrays.stream(stdin.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+            System.out.println(splitArray(nums) ? "YES" : "NO");
         }
     }
 
+    private static boolean splitArray(int[] nums) {
+        List<Integer> list = new ArrayList<>();
+        list.add(nums[nums.length - 1]);
+        for (int i = nums.length - 2; i >= 0; i--) {
+            if (list.get(nums.length - 1) < nums[i]) {
+                if (nums[i] % 2 == 0) {
+                    list.add(nums[i] / 2);
+                    list.add(nums[i] / 2);
+                } else {
+                    list.add(nums[i] / 2 + 1);
+                    list.add(nums[i] / 2 - 1);
+                }
+            }
+        }
+        for (int i = list.size() - 2; i >= 0; i--) {
+            if (list.get(i) > list.get(i + 1)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

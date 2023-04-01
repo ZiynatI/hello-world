@@ -55,7 +55,7 @@ public class EDoubling {
         for (int i = 0; i < testCases; i++) {
             int listLength = Integer.parseInt(stdin.nextLine());
             List<Integer> input = Arrays.stream(stdin.nextLine().split(" ")).map(Integer::parseInt).collect(Collectors.toList());
-            System.out.println(countRemoves(input, listLength));
+//            System.out.println(countRemoves(input, listLength));
         }
     }
 

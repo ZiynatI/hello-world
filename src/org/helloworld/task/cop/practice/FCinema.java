@@ -61,15 +61,14 @@ public class FCinema {
     public static void main(String[] args) {
         Scanner stdin = new Scanner(System.in);
         int testCases = Integer.parseInt(stdin.nextLine());
-        while (testCases > 0) {
-            moveFriends(stdin);
-            testCases--;
+        for (int i = 0; i < testCases; i++) {
+            char[] friends = stdin.nextLine().toCharArray();
+            moveFriends(friends);
         }
 
     }
 
-    public static void moveFriends(Scanner stdin) {
-        char[] chars = stdin.nextLine().toCharArray();
+    public static void moveFriends(char[] chars) {
         int totalFriends = 0;
         for (char c : chars) {
             if (c == '1') {
