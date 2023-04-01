@@ -82,14 +82,13 @@ public class GRedAndBlue {
                     list.add(nums[i] / 2 + 1);
                     list.add(nums[i] / 2);
                 }
+                if (list.get(list.size() - 2) > list.get(list.size() - 3)) {
+                    return false;
+                }
             } else {
                 list.add(nums[i]);
             }
-        }
-        for (int i = list.size() - 2; i >= 0; i--) {
-            if (list.get(i) < list.get(i + 1)) {
-                return false;
-            }
+
         }
         return true;
     }
