@@ -82,6 +82,8 @@ public class GRedAndBlue {
                     list.add(nums[i] / 2 + 1);
                     list.add(nums[i] / 2 - 1);
                 }
+            } else {
+                list.add(nums[i]);
             }
         }
         for (int i = list.size() - 2; i >= 0; i--) {
