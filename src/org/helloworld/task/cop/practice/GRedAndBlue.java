@@ -70,13 +70,13 @@ public class GRedAndBlue {
 
     private static boolean splitArray(int[] nums) {
         int last = nums[nums.length - 1];
-        boolean prePreLastIsNull = true;
+        boolean prePreLastIsZero = true;
         int preLast = 0;
         int prePreLast = 0;
         for (int i = nums.length - 2; i >= 0; i--) {
             if (nums[i] > last) {
                 prePreLast = last;
-                prePreLastIsNull = false;
+                prePreLastIsZero = false;
                 if (nums[i] % 2 == 0) {
                     preLast = nums[i] / 2;
                 } else {
@@ -85,13 +85,13 @@ public class GRedAndBlue {
                 last = nums[i] / 2;
 
             } else {
-                if (!prePreLastIsNull) {
+                if (!prePreLastIsZero) {
                     prePreLast = preLast;
                 }
                 preLast = last;
                 last = nums[i];
             }
-            if (!prePreLastIsNull) {
+            if (!prePreLastIsZero) {
                 if (preLast > prePreLast) {
                     return false;
                 }
