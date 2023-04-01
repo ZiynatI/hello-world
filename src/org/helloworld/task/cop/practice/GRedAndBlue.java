@@ -54,9 +54,7 @@ split 8 into 3 and 5, then the array becomes [2,4,2,3,3,3,5,6];
 split 4 into 2 and 2, then the array becomes [2,2,2,2,3,3,3,5,6].
 */
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class GRedAndBlue {
@@ -71,24 +69,22 @@ public class GRedAndBlue {
     }
 
     private static boolean splitArray(int[] nums) {
-        List<Integer> list = new ArrayList<>();
-        list.add(nums[nums.length - 1]);
+        int last = nums[nums.length - 1];
+        int preLast;
+        int prePrelast;
         for (int i = nums.length - 2; i >= 0; i--) {
-            if (nums[i] > list.get(list.size() - 1)) {
+            if (nums[i] > last) {
+                prePrelast = last;
                 if (nums[i] % 2 == 0) {
-                    list.add(nums[i] / 2);
-                    list.add(nums[i] / 2);
+                    preLast = nums[i] / 2;
                 } else {
-                    list.add(nums[i] / 2 + 1);
-                    list.add(nums[i] / 2);
+                    preLast = nums[i] / 2 + 1;
                 }
-                if (list.get(list.size() - 2) > list.get(list.size() - 3)) {
+                last = nums[i] / 2;
+                if (preLast > prePrelast) {
                     return false;
                 }
-            } else {
-                list.add(nums[i]);
             }
-
         }
         return true;
     }
