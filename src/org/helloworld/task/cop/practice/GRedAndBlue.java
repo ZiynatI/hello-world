@@ -69,28 +69,20 @@ public class GRedAndBlue {
     }
 
     private static boolean splitArray(int[] nums) {
-        int last = nums[nums.length - 1];
-        int preLast = 0;
-        int prePreLast = 0;
+        int previous = nums[nums.length - 1];
         for (int i = nums.length - 2; i >= 0; i--) {
-            if (nums[i] > last) {
-                prePreLast = last;
-                if (nums[i] % 2 == 0) {
-                    preLast = nums[i] / 2;
-                } else {
-                    preLast = nums[i] / 2 + 1;
-                }
-                last = nums[i] / 2;
-
-            } else {
-                prePreLast = preLast;
-                preLast = last;
-                last = nums[i];
-            }
-            if (prePreLast != 0) {
-                if (preLast > prePreLast) {
+            int current = nums[i];
+            if (current > previous) {
+                // Split it in halves
+                int smallerHalf = current / 2;
+                int biggerHalf = current % 2 == 0 ? smallerHalf : smallerHalf + 1;
+                if (biggerHalf > previous) {
                     return false;
                 }
+                previous = smallerHalf;
+            } else {
+                // Do not split
+                previous = current;
             }
         }
         return true;
