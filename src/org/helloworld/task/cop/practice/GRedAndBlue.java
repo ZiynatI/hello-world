@@ -74,20 +74,20 @@ public class GRedAndBlue {
         List<Integer> list = new ArrayList<>();
         list.add(nums[nums.length - 1]);
         for (int i = nums.length - 2; i >= 0; i--) {
-            if (list.get(nums.length - 1) < nums[i]) {
+            if (nums[i] > list.get(list.size() - 1)) {
                 if (nums[i] % 2 == 0) {
                     list.add(nums[i] / 2);
                     list.add(nums[i] / 2);
                 } else {
                     list.add(nums[i] / 2 + 1);
-                    list.add(nums[i] / 2 - 1);
+                    list.add(nums[i] / 2);
                 }
             } else {
                 list.add(nums[i]);
             }
         }
         for (int i = list.size() - 2; i >= 0; i--) {
-            if (list.get(i) > list.get(i + 1)) {
+            if (list.get(i) < list.get(i + 1)) {
                 return false;
             }
         }

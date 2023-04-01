@@ -102,9 +102,9 @@ public class CTeamBuilding {
         if(n/min<cap){
             return false;
         }
-        if(cap+notCap+smth){
-
-        }
+//        if(cap+notCap+smth){
+//
+//        }
         return false;
     }
 }
