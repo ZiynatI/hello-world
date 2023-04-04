@@ -32,9 +32,9 @@ For each test case, print a single string 𝑠, consisting of characters 1 and/o
 that allows to get exactly 𝑛 mana, starting with 1mana. Character 1 represents drinking a potion of the first type,
 2 represents drinking a potion of the second type.
 If there are multiple answers, print any of them.
+
 Example
 Input
-
 5
 5
 25
@@ -43,7 +43,6 @@ Input
 576460752303423487
 
 Output
-
 21
 2211
 211121
