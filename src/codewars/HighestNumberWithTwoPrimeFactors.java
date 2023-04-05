@@ -1,4 +1,5 @@
 package codewars;
+
 /*
 https://www.codewars.com/kata/55f347cfb44b879e1e00000d
 The numbers 6, 12, 18, 24, 36, 48 have a common property. They have the same two prime factors that are 2 and 3.
@@ -28,5 +29,22 @@ highest_biPrime(5, 11, 1000) ------> [605, 1, 2]
 Enjoy it and happy coding!
 */
 public class HighestNumberWithTwoPrimeFactors {
-
+    public static long[] highestBiPrimeFac(long p1, long p2, long n) {
+        int iMax = 0;
+        int jMax = 0;
+        int maxProduct = 0;
+        for (int i = 1; i < n / p1; i++) {
+            for (int j = 1; j < n / p2; j++) {
+                int num = (int) (Math.pow(p1, i) * Math.pow(p2, j));
+                if (num > maxProduct && num < n) {
+                    maxProduct = num;
+                    iMax = i;
+                    jMax = j;
+                } else if (num > n) {
+                    break;
+                }
+            }
+        }
+        return new long[]{(long) maxProduct, (long) iMax, (long) jMax};
+    }
 }
